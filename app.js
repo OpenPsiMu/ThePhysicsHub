@@ -7,6 +7,7 @@ const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const aboutRouter = require('./routes/about');
 const contributeRouter = require('./routes/contribute');
+const simulationsRouter = require('./routes/simulations');
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/about', aboutRouter);
 app.use('/contribute', contributeRouter);
+app.use('/simulations', simulationsRouter);
 
 // Stylesheets
 app.use(express.static(__dirname + '/public'));
