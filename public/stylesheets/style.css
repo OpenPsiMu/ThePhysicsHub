@@ -1,8 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,600;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@500;700;900&display=swap');
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #f2f2fc;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  color: #00B7FF;
+body h1{
+    font-family: 'Rubik', sans-serif;
+    position: absolute;
+    color: #302e4d;
+    left: 300px;
+    top: 250px;
+    font-size: 64px;
+    line-height: 1;
+    font-weight: 600;
+    margin-top: 60px;
 }
+
+body p{
+    position: absolute;
+    left: 310px;
+    top: 400px;
+    font-size: 24px;
+    line-height: 1.5;
+}
+
+body button{
+    position: absolute;
+    background-color: #302e4d;
+    color: #fff;
+    right: 300px;
+    top: 400px;
+    height: 50px;
+    font-size: 16px;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 500;
+    padding: 12px 35px;
+    color: #ffffff;
+    border-radius: 40px;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    display: inline-block;
+    white-space: nowrap;
+    border: none;
+    cursor: pointer;
+}
+
+body button:hover{
+    -webkit-transform: scale(1.05);
+    transform: scale(1.05);
+}
+
+
+
