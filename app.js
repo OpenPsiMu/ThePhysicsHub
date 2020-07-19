@@ -24,6 +24,10 @@ app.use('/', indexRouter);
 app.use('/about', aboutRouter);
 app.use('/contribute', contributeRouter);
 
+// Stylesheets
+app.use(express.static(__dirname + '/public'));
+//app.use("/styles",express.static(__dirname + "/styles"));
+
 // catch 404 and forward to error handler
 //app.use(function(req, res, next) {
   //next(createError(404));
