@@ -26,7 +26,7 @@ app.use('/', indexRouter);
 app.use('/about', aboutRouter);
 app.use('/contribute', contributeRouter);
 app.use('/simulations', simulationsRouter);
-app.use('/single_pendulum', singlePendulumRouter);
+app.use('/simulations/single_pendulum', singlePendulumRouter);
 
 // Stylesheets
 app.use(express.static(__dirname + '/public'));
