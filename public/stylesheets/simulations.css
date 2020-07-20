@@ -1,0 +1,82 @@
+.simulations h1{
+    font-family: 'Rubik', sans-serif;
+    color: #302e4d;
+    font-size: 32px;
+    line-height: 1;
+    font-weight: 600;
+}
+
+.simulations .page-title{
+    margin-top: 60px;
+    margin-left: 60px;
+}
+
+.simulations .sim-items{
+    margin-top: 60px;
+    margin-left: 60px;
+    margin-right: 60px;
+    display: flex;
+}
+
+.simulations .sim-items .sim-item{
+    -webkit-box-shadow: 0 0 20px rgba(48, 46, 77, 0.15);
+    box-shadow: 0 0 20px rgba(48, 46, 77, 0.15);
+    -ms-flex: 0 0 25%;
+    flex: 0 0 25%;
+    max-width: 25%;
+    margin-bottom: 30px;
+    margin-right: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #d4d4e3;
+}
+
+.simulations .sim-item .sim-img{
+    position: relative;
+    overflow: hidden;
+}
+
+.simulations .sim-item .sim-img img{
+    -webkit-box-shadow: 0 0 20px rgba(48, 46, 77, 0.15);
+    box-shadow: 0 0 20px rgba(48, 46, 77, 0.15);
+    width: 100%;
+    display: block;
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    
+}
+
+.simulations .sim-item:hover .sim-img img{
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+    
+}
+
+.simulations .sim-item .sim-title{
+    padding: 15px 15px;
+    text-align: center;
+    
+}
+
+.simulations .sim-item .sim-title h4{
+    font-size: 18px;
+    font-weight: 700;
+    color: #302e4d;
+    text-transform: capitalize;
+    
+}
+
+.simulations .sim-item .sim-description{
+    padding: 0px 15px;
+    margin-bottom: 10px;
+    text-align: center;
+
+}
+
+.simulations .sim-item .sim-description p{
+    font-size: 16px;
+    line-height: 25px;
+    color: #504e70;
+    font-weight: 400;
+
+}
