@@ -8,6 +8,7 @@ const indexRouter = require('./routes/index');
 const aboutRouter = require('./routes/about');
 const contributeRouter = require('./routes/contribute');
 const simulationsRouter = require('./routes/simulations');
+const singlePendulumRouter = require('./routes/single_pendulum');
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use('/', indexRouter);
 app.use('/about', aboutRouter);
 app.use('/contribute', contributeRouter);
 app.use('/simulations', simulationsRouter);
+app.use('/single_pendulum', singlePendulumRouter);
 
 // Stylesheets
 app.use(express.static(__dirname + '/public'));
