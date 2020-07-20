@@ -32,71 +32,19 @@
             <h1>Simulations</h1>
         </div>
         <div class="sim-items">
-            <!-- Sim Item 1 -->
+            <% for (var i = 0; i < simulations.length; i++){ %>
             <div class="sim-item">
                 <div class="sim-img">
                     <img src="images/test.png" alt="img">
                 </div>
                 <div class="sim-title">
-                    <h4><i><a href="/single_pendulum">Single Pendulum</a></i></h4>
+                    <h4><i><a href="<%= simulations[i].reference %>"><%= simulations[i].name %></a></i></h4>
                 </div>
                 <div class="sim-description">
-                    <p></i>This is a single pendulum</i></p>
+                    <p></i><%= simulations[i].description %></i></p>
                 </div>
             </div>
-            <!-- Sim Item 1 -->
-            <!-- Sim Item 1 -->
-            <div class="sim-item">
-                <div class="sim-img">
-                    <img src="images/test.png" alt="img">
-                </div>
-                <div class="sim-title">
-                    <h4><i>simulation-title</i></h4>
-                </div>
-                <div class="sim-description">
-                    <p></i>simulation description blah blah blah lorem ipsum dolor fatis</i></p>
-                </div>
-            </div>
-            <!-- Sim Item 1 -->
-            <!-- Sim Item 1 -->
-            <div class="sim-item">
-                <div class="sim-img">
-                    <img src="images/test.png" alt="img">
-                </div>
-                <div class="sim-title">
-                    <h4><i>simulation-title</i></h4>
-                </div>
-                <div class="sim-description">
-                    <p></i>simulation description blah blah blah lorem ipsum dolor fatis</i></p>
-                </div>
-            </div>
-            <!-- Sim Item 1 -->
-            <!-- Sim Item 1 -->
-            <div class="sim-item">
-                <div class="sim-img">
-                    <img src="images/test.png" alt="img">
-                </div>
-                <div class="sim-title">
-                    <h4><i>simulation-title</i></h4>
-                </div>
-                <div class="sim-description">
-                    <p></i>simulation description blah blah blah lorem ipsum dolor fatis</i></p>
-                </div>
-            </div>
-            <!-- Sim Item 1 -->
-            <!-- Sim Item 1 -->
-            <div class="sim-item">
-                <div class="sim-img">
-                    <img src="images/test.png" alt="img">
-                </div>
-                <div class="sim-title">
-                    <h4><i>simulation-title</i></h4>
-                </div>
-                <div class="sim-description">
-                    <p></i>simulation description blah blah blah lorem ipsum dolor fatis</i></p>
-                </div>
-            </div>
-            <!-- Sim Item 1 -->
+            <% } %>
         </div>
 
     </div>
