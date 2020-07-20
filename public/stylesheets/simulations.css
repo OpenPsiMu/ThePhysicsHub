@@ -9,23 +9,28 @@
 .simulations .page-title{
     margin-top: 60px;
     margin-left: 60px;
+    padding-left: 40px;
 }
 
 .simulations .sim-items{
     margin-top: 60px;
     margin-left: 60px;
     margin-right: 60px;
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
 }
 
 .simulations .sim-items .sim-item{
     -webkit-box-shadow: 0 0 20px rgba(48, 46, 77, 0.15);
     box-shadow: 0 0 20px rgba(48, 46, 77, 0.15);
-    -ms-flex: 0 0 25%;
-    flex: 0 0 25%;
-    max-width: 25%;
-    margin-bottom: 30px;
-    margin-right: 10px;
+    -ms-flex: 0 0 20%;
+    flex: 0 0 20%;
+    max-width: 20%;
+    margin-bottom: 80px;
+    margin-right: 40px;
+    margin-left: 40px;
     border-radius: 10px;
     overflow: hidden;
     border: 1px solid #d4d4e3;
