@@ -69,3 +69,7 @@ body button:hover{
     color: #f2f2fc;
 }
 
+#simwrapper{
+    position: relative;
+}
+
