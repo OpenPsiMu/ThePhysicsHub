@@ -54,6 +54,7 @@ body button:hover{
     transform: scale(1.05);
 }
 
+
 .navbar{
     background-color: #302e4d;
 }
@@ -67,5 +68,4 @@ body button:hover{
     transform: scale(1.05);
     color: #f2f2fc;
 }
-
 
