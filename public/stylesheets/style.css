@@ -8,32 +8,46 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-body h1{
+.content{
+    position: fixed;
+    display: block;
+    min-height: 100vh;
+    margin: 50px;
+    padding: 100px;
+    top: 0;
+    left: 0;
+    right: 0px;
+    overflow-x: hidden;
+
+}
+
+.content h1{
     font-family: 'Rubik', sans-serif;
-    position: absolute;
+    position: relative;
     color: #302e4d;
-    left: 300px;
-    top: 250px;
     font-size: 64px;
     line-height: 1;
     font-weight: 600;
-    margin-top: 60px;
+    margin-top: 10%;
+    margin-bottom: 3%;
+    text-align: center;
 }
 
-body p{
-    position: absolute;
-    left: 310px;
-    top: 400px;
+.content p{
+    position: relative;
+    margin-bottom: 5%;
+    text-align: center;
     font-size: 24px;
     line-height: 1.5;
 }
 
-body button{
-    position: absolute;
+.content button{
+    position: relative;
+    margin: auto;
+    display: block;
+    text-align: center;
     background-color: #302e4d;
     color: #fff;
-    right: 300px;
-    top: 400px;
     height: 50px;
     font-size: 16px;
     font-family: 'Rubik', sans-serif;
@@ -43,13 +57,12 @@ body button{
     border-radius: 40px;
     -webkit-transition: all 0.3s ease;
     transition: all 0.3s ease;
-    display: inline-block;
     white-space: nowrap;
     border: none;
     cursor: pointer;
 }
 
-body button:hover{
+.content button:hover{
     -webkit-transform: scale(1.05);
     transform: scale(1.05);
 }
