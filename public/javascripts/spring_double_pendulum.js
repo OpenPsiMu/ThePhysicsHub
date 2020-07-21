@@ -171,6 +171,7 @@ function updateValues(){
 function setup() {
   setDefaults();
   canvas = createCanvas(W, H);
+  canvas.parent('simwrapper');
 
   //Button containers
   background(20);
@@ -205,6 +206,7 @@ function setup() {
     slider.position(xstop, ystop-H/40);
     slider.style('width', '100px');
     slider.mouseReleased(function(){updated=false;});
+    slider.parent('simwrapper');
     text(names[i]+"/"+units[i], xstop-W/20, ystop+H/100);
     text(slider.value(), xstop-W/20+140, ystop+H/100);
     ystop+=diff;
@@ -215,12 +217,14 @@ function setup() {
   sliders.li.style('width', '100px');
   sliders.li.position(W/25, 0.85*H);
   sliders.li.mouseReleased(function(){updated=false;});
+  sliders.li.parent('simwrapper');
 
   //Kslider
   text("Spring k/Nm-1",W/25, 0.85*H);
   sliders.k.style('width', '100px');
   sliders.k.position(W/25, 0.94*H);
   sliders.k.mouseReleased(function(){updated=false;});
+  sliders.k.parent('simwrapper');
 
   //Time for the entries
   text("nskip",0.232*W, 0.85*H);
@@ -228,12 +232,14 @@ function setup() {
   entries.nskip.size(80,15);
   entries.nskip.position(0.232*W, 13/15*H);
   entries.nskip.input(function(){nskip = Number(entries.nskip.value()).toFixed(0);updated = false})
+  entries.nskip.parent('simwrapper');
 
   text("dt/s",0.41*W, 0.85*H);
   entries.dt = createInput("dt", "number");
   entries.dt.size(80,15);
   entries.dt.position(0.41*W, 13/15*H);
   entries.dt.input(function(){dt = Number(entries.dt.value()); updated = false});
+  entries.dt.parent('simwrapper');
 
   ax1= new makeAxis(0.72*W, 0.45*H, 0.25*W, 0.35*H,                      n=4, xlim = [0, 10],ylim = [0, 10],
                     xlabel = 't / s', ylabel = 'eka / J');
