@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const simArray = require('./parameters/simulationdata');
+const index = simArray.findIndex(function (i) { return i.urlName == "spring_double_pendulum" });
+
 
 router.get('/', function(req,res,next){
-    res.render('simulationsite', {jsfile: '/javascripts/spring_double_pendulum.js'});
+    res.render('simulationsite', {sim: simArray[index]});
 });
 
 module.exports = router;
