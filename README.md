@@ -16,9 +16,13 @@
 3. Add your simulation in `.public/javascripts`
 
 
-- The idea is that `app.js` takes from `.route.simulations.js`, which takes from `.public/javascripts`
+The idea is that `app.js` takes from `.route.simulations.js`, which takes from `.public/javascripts`
+
 
 4. Test to check if the simulation is in place
+    
+    ```
     if there are misaligned elements:
 		do this for the canvas and any misaligned elements
 		`<element>.parent('simwrapper');`
+    ```
