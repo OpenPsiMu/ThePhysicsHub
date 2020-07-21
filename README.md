@@ -1,4 +1,6 @@
-#Instructions to add simulations to the website
+# The Physics Hub
+
+## Instructions to add simulations to the website
 
 1. Go to `.app.js`
 	write:
