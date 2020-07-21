@@ -9,6 +9,7 @@ const aboutRouter = require('./routes/about');
 const contributeRouter = require('./routes/contribute');
 const simulationsRouter = require('./routes/simulations');
 const singlePendulumRouter = require('./routes/single_pendulum');
+const collisionRouter = require('./routes/collision');
 
 const app = express();
 
