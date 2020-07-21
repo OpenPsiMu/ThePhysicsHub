@@ -33,7 +33,7 @@
         </div>
         <div class="sim-items">
             <% for (var i = 0; i < simulations.length; i++){ %>
-            <div class="sim-item" onclick="window.open('<%= simulations[i].reference %>', '_blank')" style="cursor: pointer;">
+            <div class="sim-item" onclick="window.open('/simulations/<%= simulations[i].urlName %>', '_blank')" style="cursor: pointer;">
                 <div class="sim-img">
                     <img src="images/test.png" alt="img">
                 </div>

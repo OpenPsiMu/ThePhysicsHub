@@ -84,5 +84,27 @@ body {
 
 #simwrapper{
     position: relative;
+    display: inline-block;
+    margin-top: 5em;
 }
+
+#simcontainer{
+    text-align: center;
+    
+}
+
+#simulation-headline{
+    margin-top: 3em;
+    font-family: 'Rubik', sans-serif;
+    color: #302e4d;
+    font-size: 32px;
+    line-height: 1;
+    font-weight: 600;
+}
+
+#explanation{
+    font-size: 1.3em;
+    margin-top: 3em;
+}
+
 
