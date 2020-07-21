@@ -33,12 +33,12 @@
         </div>
         <div class="sim-items">
             <% for (var i = 0; i < simulations.length; i++){ %>
-            <div class="sim-item">
+            <div class="sim-item" onclick="location.href='<%= simulations[i].reference %>';" style="cursor: pointer;">
                 <div class="sim-img">
                     <img src="images/test.png" alt="img">
                 </div>
                 <div class="sim-title">
-                    <h4><i><a href="<%= simulations[i].reference %>"><%= simulations[i].name %></a></i></h4>
+                    <h4><%= simulations[i].name %></h4>
                 </div>
                 <div class="sim-description">
                     <p></i><%= simulations[i].description %></i></p>
