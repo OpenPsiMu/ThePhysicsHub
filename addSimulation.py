@@ -40,5 +40,3 @@ if check == "run":
     createRouter(urlInput)
 else:
     exit()
-
-
