@@ -94,7 +94,7 @@ function drawSpring(p1, p2,n=13){
   // for (let i=1; i<x.length; i++){
   //   line(x[i-1], y[i-1], x[i], y[i]);
   // };
-  fill(0);
+  noFill(0);
   for (let i=0; i<x.length-2; i+=2){
     bezier(x[i], y[i], x[i+1], y[i+1], x[i+2], y[i+2],x[i+2], y[i+2]);
   };
@@ -428,7 +428,7 @@ function makeAxis(x, y, w, h, n=5,
     textFont(self.font);
     strokeWeight(0);
     textSize(self.xLabelSize);
-    text(xlabel, x+w, y+5*arrowlen);
+    text(xlabel, x+w*0.8, y+7*arrowlen);
     textSize(self.yLabelSize);
     text(ylabel, x-4*arrowlen, y-h*1.1);
   };
