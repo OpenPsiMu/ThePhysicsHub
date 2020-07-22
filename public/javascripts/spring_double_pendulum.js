@@ -94,7 +94,7 @@ function drawSpring(p1, p2,n=13){
   // for (let i=1; i<x.length; i++){
   //   line(x[i-1], y[i-1], x[i], y[i]);
   // };
-  fill(0);
+  noFill(0);
   for (let i=0; i<x.length-2; i+=2){
     bezier(x[i], y[i], x[i+1], y[i+1], x[i+2], y[i+2],x[i+2], y[i+2]);
   };
