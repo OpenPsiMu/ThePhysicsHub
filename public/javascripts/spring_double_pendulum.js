@@ -428,7 +428,7 @@ function makeAxis(x, y, w, h, n=5,
     textFont(self.font);
     strokeWeight(0);
     textSize(self.xLabelSize);
-    text(xlabel, x+w, y+5*arrowlen);
+    text(xlabel, x+w*0.8, y+7*arrowlen);
     textSize(self.yLabelSize);
     text(ylabel, x-4*arrowlen, y-h*1.1);
   };
