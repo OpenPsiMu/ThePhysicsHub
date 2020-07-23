@@ -30,7 +30,7 @@ let sliders = {
 
 function setDefaults(){
   //First canvas elements
-  W = 650, H = 400;
+  W = 1100, H = 660;
 
   //Parameters of pendulums
   θa = θb = 3.141;

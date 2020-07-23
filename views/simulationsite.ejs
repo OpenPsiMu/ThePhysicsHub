@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="/stylesheets/style.css" type="text/css">
+    <link rel="stylesheet" href="/stylesheets/sim.css" type="text/css">
+    <link rel="stylesheet" href="/stylesheets/nav.css" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="/javascripts/<%= sim.jsfile %>.js"></script>
     <script src="/javascripts/p5.min.js"></script>
@@ -28,7 +29,7 @@
       </div>
     </nav>
     <div id="simcontainer">
-      <h2 id = "simulation-headline"><%= sim.name %></h2>
+        <h2 id = "simulation-headline"><span><%= sim.name %></span></h2>
       <div id = "simwrapper"></div>
       <p id = "explanation"><%= sim.explanation %></p>
     </div>

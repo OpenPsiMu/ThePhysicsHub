@@ -1,3 +1,6 @@
+.simulations{
+    margin: 60px;
+}
 .simulations h1{
     font-family: 'Rubik', sans-serif;
     color: #302e4d;
@@ -7,14 +10,11 @@
 }
 
 .simulations .page-title{
-    margin-top: 60px;
-    margin-left: 60px;
     padding-left: 40px;
 }
 
 .simulations .sim-items{
     margin-top: 60px;
-    margin-left: 60px;
     margin-right: 60px;
     display: -ms-flexbox;
     display: flex;
