@@ -2,27 +2,12 @@
 
 ## Instructions to add simulations to the website
 
-1. In `.app.js`
-	- write:
-	    `const name_of_Router = require('./routes/<name that will show in the URL>');`
+1. Add your simulation js-file code to /public/javascripts/
 
-	- write:
-	    `app.use('/simulations/<name that will show in the URL>', name_of_the_router);`
+2. Add your simulationdata to /routes/parameters/simulationdata.js
 
-2. In `.route/simulations.js`
-	- Add an element to the array on top of the file following the same structure as the ones you find there
-	- Create a js file with the name of the simulation you are adding. Inside this file write down the same stuff you will find in single_pendulum.js but adapted to the simulation you are adding
+3. Run `python addSimulation.py` in terminal
 
-3. Add your simulation in `.public/javascripts`
+4. add `<element>.parent('simwrapper);` for UI elements of your simulation file
 
-
-The idea is that `app.js` takes from `.route.simulations.js`, which takes from `.public/javascripts`
-
-
-4. Test to check if the simulation is in place
-    
-    ```
-    if there are misaligned elements:
-		do this for the canvas and any misaligned elements
-		`<element>.parent('simwrapper');`
-    ```
+   - 
