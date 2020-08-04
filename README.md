@@ -8,6 +8,6 @@
 
 3. Run `python addSimulation.py` in terminal
 
-4. add `<element>.parent('simwrapper);` for UI elements of your simulation file
+4. add `<element>.parent('simwrapper');` for UI elements of your simulation file
 
-   - 
+   -
