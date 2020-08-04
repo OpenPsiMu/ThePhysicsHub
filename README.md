@@ -10,4 +10,3 @@
 
 4. add `<element>.parent('simwrapper');` for UI elements of your simulation file
 
-   -

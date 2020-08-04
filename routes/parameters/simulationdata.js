@@ -17,7 +17,7 @@ const simulations = [
         "name": "Single pendulum with spring",
         "description": "This is a single pendulum where string is a spring.",
         "urlName": "spring_pendulum",
-        "jsfile": "spring_pendulum.js",
+        "jsfile": "spring_pendulum",
         "explanation": "We have a cool pendulum."
     },
 ];

@@ -1,4 +1,5 @@
 def createRouter(urlName):
+    print("Create router")
     router = open("./routes/{}.js".format(urlName), "w+")
     router.write("const express = require(\'express\');\n") 
     router.write("const router = express.Router();\n")
@@ -31,9 +32,9 @@ def editAppjs(routerName, urlName):
         newAppjs.write(l)
 
 
-urlInput = input("Enter your urlName (with quotation marks!): ")
-routerInput = input("Enter your routerName (with quotation marks!): ")
-check = input("\nstart adding simulations? type\'run\' (with quotation marks) to continue, press other key to stop:\nurlName:{}\nrouterName:{}\n".format(urlInput, routerInput))
+urlInput = input("Enter your urlName")
+routerInput = input("Enter your routerName")
+check = input("\nstart adding simulations? type: run \n press other key to stop:\nurlName:{}\nrouterName:{}\n".format(urlInput, routerInput))
 
 if check == "run":
     editAppjs(routerInput, urlInput)
