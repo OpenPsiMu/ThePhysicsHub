@@ -1,5 +1,5 @@
 let W = window.innerWidth*0.8, H = W/2;
-let bgW = W, bgH = H, count = 0;
+let bgW = W*0.5, bgH =H*0.8, count = 0;
 let flag = false, canvas, nskip = 90000, dt=0.000002, g=9.81;
 let ctx;
 let running = true;
@@ -19,9 +19,9 @@ function makeSliders(parents){
     let title, slider, value;//Used to shorten writting
   //Values are held using closures!
     sliders["li"] = makeSlider(arguments[0]);
-    slider = sliders["li"].children[1];
-    title = sliders["li"].children[0];
-    value = sliders['li'].children[2];
+    slider = sliders["li"]["slider"];
+    title = sliders["li"]['label'];
+    value = sliders['li']['valueLabel'];
     title.innerHTML = "Spr l/m";
     value.innerHTML = "110";
     slider.min = 10;
@@ -40,9 +40,9 @@ function makeSliders(parents){
     //Values are held using closures!
     //k
     sliders['k'] = makeSlider(arguments[1]);
-    slider = sliders["k"].children[1];
-    title = sliders["k"].children[0];
-    value = sliders['k'].children[2];
+    slider = sliders["k"]["slider"];
+    title = sliders["k"]['label'];
+    value = sliders['k']['valueLabel'];
     title.innerHTML = "k /Nm-1";
     value.innerHTML = "2";
     slider.min = .5;
@@ -61,9 +61,9 @@ function makeSliders(parents){
     //Values are held using closures!
     //m
     sliders['m'] = makeSlider(arguments[2]);
-    slider = sliders["m"].children[1];
-    title = sliders["m"].children[0];
-    value = sliders['m'].children[2];
+    slider = sliders["m"]["slider"];
+    title = sliders["m"]['label'];
+    value = sliders['m']['valueLabel'];
     title.innerHTML = "Mass/kg";
     value.innerHTML = "10";
     slider.min = 5;
@@ -77,9 +77,9 @@ function makeSliders(parents){
 
   //speed
   sliders['speed'] = makeSlider(arguments[3]);
-  slider = sliders["speed"].children[1];
-  title = sliders["speed"].children[0];
-  value = sliders['speed'].children[2];
+  slider = sliders["speed"]["slider"];
+  title = sliders["speed"]['label'];
+  value = sliders['speed']['valueLabel'];
   title.innerHTML = "speed";
   value.innerHTML = "9";
   slider.min = 100;
@@ -93,10 +93,10 @@ function makeSliders(parents){
 };
 
 let spring = {
-  li: bgH/2, lf:200, k:2, dl: 0,
+  li: bgH/3, lf:200, k:2, dl: 0,
 };
 let pend = {
-  pos : [bgW/3, bgH*0.8], hinge: [0, 0], acc: [0, 0],
+  pos : [bgW/3, bgH*0.4], hinge: [0, 0], acc: [0, 0],
   v : [0, 0], spring: spring, bg: /*own canvas*/null,
   ceilingLen: /*Length of support*/bgW/6, c:[20, 40, 200],
   m:/*mass*/10, posData: [],
@@ -220,6 +220,132 @@ function draw() {
 };
 
 
+/*This file contains many functions that can be used to
+add a wonderful dropdown to a p5 canvas!!!
+
+follows instructions for use:
+
+INSTRUCTION MANUAL FOR DROPDOWN
+-------------------------------
+
+1. Creating the dropdown:
+	To make the dropdown you must make use of the function makeDropdown();
+	This function takes a p5 canvas element as argument.
+
+	makeDropdown(canvas); --> returns html element for placement of items.
+	In case the canvas is placed directly on the body of the document, a
+	new canvas container will be created!!! This is necessary for technical
+	reasons. So MAKE SURE THE CANVAS IS ALREADY IN IT's FINAL CONTAINER before
+	using this function!!!!
+
+	Changing the text inside the main dropdown button:
+		let dd = makeDropdown(canvas);
+		dd.parentElement.children[1].innerHTML = "My title";
+
+  After making the dropdown, you can use the function setPedroStyle(canvas);
+  this makes it look pretty.
+
+
+2. Adding items to the dropdown
+	To add items to the dropdown, you must make use of the function makeItem();
+	This function takes an html dropdown contents container returned by makeDropdown();
+
+	makeItem(makeDropdown(canvas)) --> returns html container for ITEM
+
+	If you wish to change the title inside this item you must do as follows:
+		let dd = makeDropdown(canvas);
+		let item1 = makeItem(dd);
+		item1.parentElement.children[1].innerHTML = "Mytitle";
+
+3. Adding rows to dropdown Item
+	To add a row to an html item, which lies inside the dropdown,
+	you must make use of the function makeRow(), which takes it's parent
+	html item as an argument.
+	The flow could be seen like this:
+		let dd = makeDropdown(canvas);
+		let item1 = makeItem(dd);
+		let item1Row1 = makeRow(item1);
+
+	This function returns the html element that represents the row inside item.
+
+	To add text to this element simply write:
+		item1Row1.innerHTML = "YOUR text";
+
+	To add a widget to this element, use one of the functions pedro will provide.
+
+	As of right now there is only one widget available which is the SLIDER!!!
+	To make a slider inside a row element simply use the function makeSlider();
+		exmple:
+			sliderContainer = makeSlider(rowElement);
+	sliderContainer.["label"].innerHTML is the title of your slider
+	sliderContainer.['slider'] is your html slider
+	sliderContainer.['valueLabel'].innerHTML is the place allocated for showing the current value of the slider
+
+4. Making the slider look pretty!
+	After making the dropdown, you can use the function setPedroStyle(canvas);
+	to add the css styling to the dropdown and make it look and work like a dropdown.
+
+
+	+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	NOTE: MAKE SURE TO ONLY USE THIS FUNCTION AFTER makeDropdown(canvas) IS USED!
+	+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+5. Adding checkboxes to the dropdown:
+  it is pretty simple actually, follow the same procedures as the dropdown.
+
+  makeDropdown(row); --> return {"label": label, "checkbox": checkBox};
+  let row = makeRow(item);
+  let checkboxContainer = createCheckbox(row);
+  let checkbox1 = checkboxContainer['checkbox'];
+  let checkbox1Label = checkboxContainer['label']''
+  Change the label with checkbox1Label.innerHTML = 'MY label';
+  Google event's that you can attach to your html checkbox!
+
+EXAMPLE OF A SIMPLE DROPDOWN:
+	//Creating canvas and dropdown
+	let canvas = createCanvas(500, 400);
+	let dd = makeDropdown(canvas);
+
+	//Changing the name of dropdown button
+	dd.parentElement.children[1].innerHTML = "MyOptions";
+
+	//Setting style
+	setPedroStyle(canvas);
+
+	//Further adding to the dropdown
+	let item1 = makeItem(dd);
+	let row1 = makeRow(item1);
+	let sliderContainer = makeSlider(row1);
+	let sliderTitle = sliderContainer['label'];
+	let slider = sliderContainer.['slider'];
+	let sliderValue = sliderContainer['valueLabel'];
+
+	//Using slider as we wish:
+	slider.max = 200;
+	slider.min = 100;
+	slider.step = 0.1;
+	slider.value = 150;
+	slider.oninput = () => {sliderValue.innerHTML = Number(slider.value).toFixed(0)};
+	sliderValue.innerHTML = slider.value;//Updates the text to the new slider value
+	sliderTitle.innerHTML = "Title";
+
+
+Additional information:
+	if you want to add another dropdown inside a row of an item you can simply
+	use makeItem(), and the supply your row as an argument.
+
+	If you wish to add a random html element into a row of the dropdown
+	you can follow the same steps I will follow below. In this case
+	I will use an html BUTTON as for the example. But this works for any
+	html element OTHER THAN A CANVAS!
+
+		let button = document.createElement("button");
+		button.innerHTML = "HELLO";
+		row = makeRow(item);
+		row.appendChild(button);
+*/
+
+
 function makeCheckbox(parent){
   if (arguments.length == 0){
     parent = document.body;
@@ -239,7 +365,7 @@ function makeCheckbox(parent){
   let checkBox = document.createElement("input");
   checkBox.setAttribute("type", "checkbox");
   cbContainer.appendChild(checkBox);
-  return cbContainer;
+  return {"label": label, "checkbox": checkBox};
 };
 
 function makeRow(parent) {
@@ -418,6 +544,10 @@ function setPedroStyle(canvas) {
   justify-contents: center;
   border-radius: 0.2em;
 }
+.item{
+  margin: 0;
+  padding: 0;
+}
 
 .item>label{
   font-weight: 600;
@@ -429,6 +559,8 @@ function setPedroStyle(canvas) {
   border-bottom: 0.05em solid #333;
   border-top: 0.05em solid #333;
   border-radius: 0.2em;
+  margin-top: 0.025em;
+  margin-bottom: 0.05em;
   padding: 0.5em;
   min-height: 1.5em;
 }
@@ -439,6 +571,8 @@ div.item>ul>li{
   min-height: 2em;
   padding-left: .4em;
   padding-right: .8em;
+  margin-top: 0;
+  margin-bottom: 0;
   background: #222;
   display: flex;
   align-items: center;
@@ -484,22 +618,19 @@ div.item>ul>li{
 #SomeCreativeID::-webkit-scrollbar-thumb:hover {
   background: #444;
 }
-.rangeValue, .sliderTitle{
-  display: inline-block;
-  text-align: center;
-  margin: .1em;
-  width: auto;
-}
-
-
 
 
 /*NOW WE HAVE THE SLIDERS*/
 .rangeValue, .sliderTitle{
-  display: inline-block;
+  display: flex;
   text-align: center;
-  margin: .1em;
-  width: auto;
+  margin: 0;
+  width: 30%;
+  padding: 0;
+}
+.rangeValue{
+  width: 10%;
+  padding-left: 6%;
 }
 
 .sliderContainer{
@@ -520,7 +651,7 @@ div.item>ul>li{
 .sliderContainer>input[type=range]{
   -webkit-appearance: none;
   background: transparent;
-  width: 60%;
+  width: 50%;
 }
 .sliderContainer>input[type=range]:focus {
   outline: none;
@@ -546,14 +677,14 @@ div.item>ul>li{
 }
 
 .sliderContainer>input[type=range]::-webkit-slider-thumb:hover{
-  transform: scale(1.5);
+  transform: scale(1.1);
 }
 .sliderContainer>input[type=range]::-moz-range-thumb:hover{
-  transform: scale(1.5);
+  transform: scale(1.1);
 }
 
 .sliderContainer>input[type=range]::-ms-thumb:hover{
-  transform: scale(1.5);
+  transform: scale(1.1);
 }
 
 .sliderContainer>input[type=range]::-moz-range-track{
@@ -652,6 +783,7 @@ function makeSlider(parent) {
   sliderContainer.id = `slider${numberSliders}`;
 
   let sliderTitle = document.createElement("span");
+  sliderTitle.className = "sliderTitle";
   sliderTitle.innerHTML = "slider" + numberSliders++;
 
   let slider = document.createElement("input");
@@ -660,7 +792,7 @@ function makeSlider(parent) {
 
   let sliderValue = document.createElement("span");
   sliderValue.innerHTML = slider.value;
-  sliderValue.class = "sliderValue";
+  sliderValue.className = "rangeValue";
 
   slider.oninput = () => {
     sliderValue.innerHTML = slider.value
@@ -672,5 +804,5 @@ function makeSlider(parent) {
 
   parent.appendChild(sliderContainer);
   console.log(sliderContainer);
-  return sliderContainer;
+  return {"label": sliderTitle, "slider": slider, "valueLabel": sliderValue};
 };
