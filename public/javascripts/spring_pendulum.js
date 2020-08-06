@@ -198,7 +198,9 @@ function setup() {
   i1r4 = makeRow(i1);
   makeSliders(i1r1, i1r2, i1r3, i1r4);
   setPedroStyle(canvas);
-
+  pixelDensity(3);
+  pg.pixelDensity(3);
+  bg.pixelDensity(3);
 }
 function draw() {
   bg.clear();
