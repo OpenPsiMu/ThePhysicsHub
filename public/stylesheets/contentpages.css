@@ -1,0 +1,16 @@
+.header{
+    font-family: 'Rubik', sans-serif;
+    font-size: 32px;
+    font-weight: 600;
+    color: #302e4d;
+    margin-top: 60px;
+}
+
+
+.container{
+    padding-left: 40px;
+}
+
+.textpassage{
+    margin-top: 20px;
+}
