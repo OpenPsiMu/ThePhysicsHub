@@ -2,6 +2,8 @@
 
 ## Instructions to add simulations to the website
 
+0. Run `npm install` in terminal
+
 1. Add your simulation js-file code to /public/javascripts/
 
 2. Add your simulationdata to /routes/parameters/simulationdata.js
