@@ -21,6 +21,13 @@ const simulations = [
         "jsfile": "spring_pendulum",
         "explanation": "We have a cool pendulum.",
     },
+    {
+        "name": "Elastic pendulum" ,
+        "description": "This is a single pendulum where string is a spring.",
+        "urlName": "elastic_pendulum",
+        "jsfile": "elastic-pendulum",
+        "explanation": "Chaotic system.",
+    },    
 ];
 
 module.exports = simulations;
