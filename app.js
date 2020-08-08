@@ -10,7 +10,6 @@ const contributeRouter = require('./routes/contribute');
 const simulationsRouter = require('./routes/simulations');
 const singlePendulumRouter = require('./routes/single_pendulum');
 const spring_pendulum = require('./routes/spring_pendulum');
-const elasticPendulum = require('./routes/elastic_pendulum');
 const pendulumSpringRouter = require('./routes/spring_double_pendulum');
 
 const app = express();
@@ -31,12 +30,9 @@ app.use('/contribute', contributeRouter);
 app.use('/simulations', simulationsRouter);
 app.use('/simulations/single_pendulum', singlePendulumRouter);
 app.use('/simulations/spring_pendulum', spring_pendulum);
-app.use('/simulations/elastic_pendulum', elasticPendulum);
 app.use('/simulations/spring_double_pendulum', pendulumSpringRouter);
 
 // Stylesheets
 app.use(express.static(__dirname + '/public'));
 
-app.listen("3000")
-console.log("localhost:3000/")
 module.exports = app;
