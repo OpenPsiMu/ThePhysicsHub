@@ -1,3 +1,4 @@
+
 /*This file contains many functions that can be used to
 add a wonderful dropdown to a p5 canvas!!!
 
@@ -78,6 +79,21 @@ INSTRUCTION MANUAL FOR DROPDOWN
   let checkbox1Label = checkboxContainer['label']''
   Change the label with checkbox1Label.innerHTML = 'MY label';
   Google event's that you can attach to your html checkbox!
+  
+6. Adding buttons!!!!
+
+  To add a button it is necessary to create a container designed for buttons!!!!
+  To make such a container use new buttonContainer(row);
+  where row is a row of an item in a dropdown element!
+  
+  To make a button inside the container use:
+    let buttonContainer1 = new buttonContainer(row);
+    let button1 = buttonContainer1.makeButton(label, func);
+    where label is the name inside the button and func is the function performed by the button when it is pressed.
+    button1 is an html element so you can do whatever you want with it. Examples below:
+      button1.innerHTML= "my title";
+      button1.onclick = function (){"do something"};
+      button1.style = 'write your own css here';
 
 EXAMPLE OF A SIMPLE DROPDOWN:
 	//Creating canvas and dropdown
@@ -106,6 +122,7 @@ EXAMPLE OF A SIMPLE DROPDOWN:
 	slider.oninput = () => {sliderValue.innerHTML = Number(slider.value).toFixed(0)};
 	sliderValue.innerHTML = slider.value;//Updates the text to the new slider value
 	sliderTitle.innerHTML = "Title";
+    
 
 
 Additional information:
@@ -121,6 +138,9 @@ Additional information:
 		button.innerHTML = "HELLO";
 		row = makeRow(item);
 		row.appendChild(button);
+        
+        
+    
 */
 
 
@@ -194,7 +214,7 @@ function makeDropdown(canvas) {
 
   //Creating a canvas container for easier placement!!!
   let canvasContainer; //Only ysed if canvas is in body
-  if (document.body == canvas.elt.parentElement) {
+  if (document.body == canvas.elt.parentElement || canvas.elt.parentElement == document.body.getElementsByTagName("main")[0]) {
     canvasContainer = document.createElement("div");
     canvasContainer.id = "VeryUniqueOriginalCanvasContainer";
     document.body.appendChild(canvasContainer);
@@ -315,6 +335,7 @@ function setPedroStyle(canvas) {
 
 .ddContainer>label{
   min-height: 1.5em;
+  font-weight: 600;
   display: flex;
   margin: 0;
   padding: 0;
@@ -368,7 +389,7 @@ div.item>ul>li{
   list-style: none;
   padding-left: 9%;
   margin: 0;
-  min-height: 2em;
+  min-height: 1em;
   background-color: #222;
   border-radius: .2em;
 }
@@ -518,7 +539,6 @@ div.item>ul>li{
   transition-duration: .2s;
 }
 
-
 /*NOW TIME FOR CHECKBOXES*/
 .cbContainer{
   display: flex;
@@ -544,17 +564,36 @@ div.item>ul>li{
   margin-right: auto;
 }
 
+.item ul li button {
+  border-radius: .4em;
+  background-color: #333;
+  border: .1em solid grey;
+  outline: none;
+  color: #ccc;
+  transition-duration: .2s;
+  font: inherit;
+  font-weight: 600;
+  padding: .2em .4em .2em .4em;
+  width: 30%;
+  margin: .2em;
+}
+
+.item ul li button:hover {
+  color: white;
+  background: #444;
+}
 `;
   document.head.appendChild(style);
 };
 
 
-function makeSlider(parent) {
+function makeSlider(parent, max=100, min=0, step=.1, value=2, title) {
+  
   /*Returns the container that has 3 elements accesible by
   element.children[index]. Where index=0: title,
   index=1: slider, index=2: number;*/
   if (typeof numberSliders == "undefined") {
-    window.numberSliders = 0
+    window.numberSliders = 0;
   };
   let sliderContainer = document.createElement("div");
   sliderContainer.classList.add("sliderContainer");
@@ -563,18 +602,26 @@ function makeSlider(parent) {
   let sliderTitle = document.createElement("span");
   sliderTitle.className = "sliderTitle";
   sliderTitle.innerHTML = "slider" + numberSliders++;
+  if (title != undefined){
+    sliderTitle.innerHTML = title;
+  };
 
   let slider = document.createElement("input");
   slider.type = "range";
   slider.class = "slider";
+  
+  slider.max = max;
+  slider.min = min;
+  slider.value = value;
+  slider.step = step;
 
+  slider.oninput = () => {
+    sliderValue.innerHTML = slider.value;
+  };
+  
   let sliderValue = document.createElement("span");
   sliderValue.innerHTML = slider.value;
   sliderValue.className = "rangeValue";
-
-  slider.oninput = () => {
-    sliderValue.innerHTML = slider.value
-  };
 
   sliderContainer.appendChild(sliderTitle);
   sliderContainer.appendChild(slider);
@@ -583,4 +630,29 @@ function makeSlider(parent) {
   parent.appendChild(sliderContainer);
   console.log(sliderContainer);
   return {"label": sliderTitle, "slider": slider, "valueLabel": sliderValue};
+};
+
+function buttonContainer(parent){
+  if (parent == undefined) {
+    alert("YOU need to place this inside a row!");
+    return null;
+  };
+  
+  let container = document.createElement("div");
+  parent.appendChild(container);
+  container.style = parent.style;
+  container.style["padding"] = "0";
+  container.style['display'] = "flex";
+  container.style['min-width'] = "100%";  
+  
+  this.container =container;
+  
+  this.makeButton = (label, func) => {
+    let button = document.createElement("button");
+    container.appendChild(button);
+    button.innerHTML =label;
+    button.onclick = func;
+    return button;
+  };
+  
 };
