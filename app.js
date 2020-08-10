@@ -36,7 +36,4 @@ app.use('/simulations/spring_double_pendulum', pendulumSpringRouter);
 
 // Stylesheets
 app.use(express.static(__dirname + '/public'));
-app.listen("3000")
-console.log("localhost:3000/")
-
 module.exports = app;
