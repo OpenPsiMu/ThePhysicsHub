@@ -271,7 +271,7 @@ function setPedroStyle(canvas) {
   position: absolute;
   display: flex;
   min-width: 17em;
-  max-height: 60%;
+  max-height: 100%;
   z-index: 99;
   overflow-y: auto;
   overflow-x: hidden;
