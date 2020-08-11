@@ -38,9 +38,12 @@ The UI is meant to be clean with minimal interactive elements visible on startup
 
 The UI should look something as given below, with the parameter options available to the right, and the simulation window to the left, following a minimal grey-scale theme.
 
-![](https://github.com/ThePhysHub/ThePhysicsHub/tree/master/images/ui1.png?raw=true)
+![](images/ui1.png?raw=true)
 
-![](https://github.com/ThePhysHub/ThePhysicsHub/tree/master/images/ui2.png?raw=true)
+![](images/ui2.png?raw=true)
+
+
+
 **The general layering of canvas is as follows:**
 * **bgCanvas**: The overall container canvas, holding all other layers, and the dropdown menu on the right.
 * **simCanvas**: The simulation window on the left, occupying all of *bgCanvas* except what is occupied by the dropdown menu.
