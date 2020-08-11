@@ -145,6 +145,8 @@ Additional information:
 
 
 function makeCheckbox(parent){
+   /*Takes a row object as an argument and returns this object: 
+   {"label": label, "checkbox": checkBox} where both label and checkbox are html objects*/
   if (arguments.length == 0){
     parent = document.body;
   };
@@ -166,7 +168,7 @@ function makeCheckbox(parent){
   return {"label": label, "checkbox": checkBox};
 };
 
-function makeRow(parent) {
+function makeRow(parent) {	
   //Makes a row in the returned element from makeItem
   let row = document.createElement("li");
   parent.appendChild(row);
@@ -175,6 +177,12 @@ function makeRow(parent) {
 
 
 function makeItem(parent) {
+    /*Takes the dropdown object as an argument and returns 
+    an item object that can hold row objects in the dropdown.
+    
+    To change the label of this object you can use:
+    item.parentElement.children[1].innerHTML = "your title" */
+	
   //First make a variabel responsable for naming rows
   if (typeof ddItemCount == "undefined") {
     window.ddItemCount = 0; //It is a global variable
@@ -210,6 +218,14 @@ function makeItem(parent) {
 };
 
 function makeDropdown(canvas) {
+    /*Takes a canvas object as an argument and returns 
+    a dropdown element, which can hold item elements from makeItem()
+    
+    In order for this funciton to work, it must be used AFTER the canvas 
+    is placed in its final container.
+    
+    To change the name of the dropdown do:
+    dropdown.parentElement.children[1].innerHTML = "Your title"*/
   let div = document.createElement("div");
 
   //Creating a canvas container for easier placement!!!
@@ -255,6 +271,9 @@ function makeDropdown(canvas) {
 };
 
 function setPedroStyle(canvas) {
+	//Sets the CSS required for the dropdown
+	
+	
   //Canvas is the element you get from createCanvas();
   let id; //Necesary for canvas positioning
   if (arguments.length == 0) {
@@ -591,7 +610,10 @@ function makeSlider(parent, max=100, min=0, step=.1, value=2, title) {
   
   /*Returns the container that has 3 elements accesible by
   element.children[index]. Where index=0: title,
-  index=1: slider, index=2: number;*/
+  index=1: slider, index=2: number;
+  This is the returned object: 
+  {"label": sliderTitle, "slider": slider, "valueLabel": sliderValue}
+  */
   if (typeof numberSliders == "undefined") {
     window.numberSliders = 0;
   };
@@ -633,6 +655,14 @@ function makeSlider(parent, max=100, min=0, step=.1, value=2, title) {
 };
 
 function buttonContainer(parent){
+	/*This function works a little differently from the others
+	This function must be instanciated by new. 
+	
+	buttonCont = new buttonContainer(row);
+	
+	this instanciation can hold up to 3 buttons. Which are added using
+	buttonCont.makeButton(), which returns an html button element*/
+	
   if (parent == undefined) {
     alert("YOU need to place this inside a row!");
     return null;

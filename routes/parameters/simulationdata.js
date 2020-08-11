@@ -28,6 +28,13 @@ const simulations = [
         "jsfile": "simplePendulum",
         "explanation": "-",
     },
+    {
+        "name": "Elastic pendulum",
+        "description": "-",
+        "urlName": "elasticPendulum",
+        "jsfile": "elasticPendulum",
+        "explanation": "-",
+    },
 ];
 
 module.exports = simulations;
