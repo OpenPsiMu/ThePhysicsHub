@@ -20,7 +20,7 @@ The website is based on ExpressJS. The Node Package Manager [(npm)](https://www.
 ### Instructions to add simulations to the website
 
 In order to simplify the process of adding simulations, we wrote a python script that automates the grunt work.
-1. If any p5.dom elements are being used, add <element>.parent("simwrapper") in your js file (including the main canvas).
+1. If any p5.dom elements are being used, add \<element\>.parent("simwrapper") in your js file (including the main canvas).
 
 2. Add your simulation file (p5 code) to /public/javascripts/
 
