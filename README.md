@@ -5,7 +5,7 @@ serving as a place to view  high school/undergraduate university level physics s
 The simulations are currently written using the javascript library [p5.js](https://p5js.org/).
 Everybody is welcome to contribute, no matter whether you're a beginner or an expert.
 
-**Contact**: physhub@protonmail.com.  **Website**: [physicshub.herokuapp.com](physicshub.herokuapp.com)
+**Contact**: physhub@protonmail.com.  **Website**: [physicshub.herokuapp.com](physicshub.herokuapp.com) **Discord**: [Invitation](https://discord.gg/B2M9p4y)
 
 
 ### Project Setup
