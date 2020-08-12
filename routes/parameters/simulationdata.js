@@ -28,6 +28,13 @@ const simulations = [
         "jsfile": "elasticPendulum",
         "explanation": "-",
     },
+    {
+        "name": "Force Table",
+        "description": "A force table for visualizing vector addition",
+        "urlName": "force_table",
+        "jsFile": "force_table",
+        "explanation": "explanation will follow! Note that the simulation is still under development."
+    }
 ];
 
 module.exports = simulations;
