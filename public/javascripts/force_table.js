@@ -28,6 +28,7 @@ var rad6 = 0;
 var started = false;
 var myNumber = 10;
 let weight1;
+let rect;
 
 
 
@@ -35,6 +36,8 @@ function setup(){
 
       cnv = createCanvas(1200,600);
       cnv.parent('simwrapper');
+      simwrapper = document.getElementById('simwrapper');
+      rect = simwrapper.getBoundingClientRect();
       background(20);
       strokeWeight(1);
       stroke(150);
@@ -47,7 +50,7 @@ function setup(){
       
       gui1 = createGui('myGui');
       gui1.addGlobals('numOfWeights');
-      gui1.setPosition(800,10);
+      gui1.setPosition(rect.left+800, rect.top+10);
 
       center = createVector(300,300);    
       startButton = createButton('Start!');
@@ -67,9 +70,9 @@ function setup(){
       sliderRange(0,2,0.1);
       massGuis[i].addGlobals('rad'+i.toString());
       if(i <= 3){
-      massGuis[i].setPosition(800, 96 + 130*(i-1));
+      massGuis[i].setPosition(rect.left + 800, rect.top+ 96 + 130*(i-1));
       }else{
-        massGuis[i].setPosition(1005, 96 + 130*(i-4));
+        massGuis[i].setPosition(rect.left + 1005, rect.top + 96 + 130*(i-4));
       }
       center = createVector(300,300);  
         
