@@ -27,11 +27,15 @@ let par = {
 function setup() {
   let bgCanvas = createCanvas(W, H)
   bgCanvas.parent("simwrapper")
+  
   let dd = makeDropdown(bgCanvas);
   dd.parentElement.children[1].innerHTML = "Options";
   let dd1 = makeItem(dd);
   dd1.parentElement.children[1].innerHTML = "Parameters";
 
+  //Length
+  dd14 = makeRow(dd1)
+  dd14.innerHTML = "Length (m) = " + Number(par.length).toFixed(2);
   //mass
   let dd11 = makeRow(dd1);
   let mSliderContainer = makeSlider(dd11);
@@ -51,7 +55,7 @@ function setup() {
   gSlider = gSliderContainer['slider'];
   gSliderContainer['valueLabel'].innerHTML = gSlider.value;
   gSliderContainer['label'].innerHTML = "g (m/s^2)";
-  [gSlider.min, gSlider.max, gSlider.step, gSlider.value] = [0, 20, 0.1, 9.8]
+  [gSlider.min, gSlider.max, gSlider.step, gSlider.value] = [0, 100, 0.1, 9.8]
   gSlider.oninput = () => {
     gSliderContainer["valueLabel"].innerHTML = Number(gSlider.value).toFixed(2)
     par.g = gSlider.value / 3600
@@ -63,7 +67,7 @@ function setup() {
   bSlider = bSliderContainer['slider'];
   bSliderContainer['valueLabel'].innerHTML = bSlider.value;
   bSliderContainer['label'].innerHTML = "Drag coefficient";
-  [bSlider.min, bSlider.max, bSlider.step, bSlider.value] = [0, 0.05, 0.001, 0]
+  [bSlider.min, bSlider.max, bSlider.step, bSlider.value] = [0, 0.02, 0.0005, 0]
   bSlider.oninput = () => {
     bSliderContainer["valueLabel"].innerHTML = Number(bSlider.value).toFixed(2)
     par.b = bSlider.value
@@ -103,7 +107,7 @@ function setup() {
   // }
 
   let dd2 = makeItem(dd);
-  dd2.parentElement.children[1].innerHTML = "Toggle";
+  dd2.parentElement.children[1].innerHTML = "UI";
   let dd21 = makeRow(dd2);
   let checkboxContainer = makeCheckbox(dd21);
   checkbox1 = checkboxContainer['checkbox'];
@@ -154,7 +158,7 @@ function setup() {
   plot1.setPos(0, 0);
   plot1.setMar(10, 10, 22, 10);
   plot1.setOuterDim(Wplot, Hplot / 2);
-  plot1.setTitleText("Energy vs. time")
+  plot1.setTitleText("KE vs. time")
 
   plot2 = new GPlot(plotCanvas);
   plot2.setLineColor(255);
@@ -168,7 +172,7 @@ function setup() {
   plot2.setPos(0, Hplot / 2);
   plot2.setMar(10, 10, 22, 10);
   plot2.setOuterDim(Wplot, Hplot / 2);
-  plot2.setTitleText("Phase space")
+  plot2.setTitleText("Phase space (w/Q)")
 
   gridCanvas = createGraphics(Wsim, Hsim)
   let nDiv = 8
@@ -211,9 +215,9 @@ function draw() {
   simCanvas.drawingContext.setLineDash([]); // reset into "solid line" mode
 
   //pendulum
-  simCanvas.line(0, 0, scale * par.length * sin(par.theta), scale * par.length * cos(par.theta))
+  simCanvas.line(0, 0, scale * par.length * Math.sin(par.theta), scale * par.length * Math.cos(par.theta))
 
-  simCanvas.ellipse(scale * par.length * sin(par.theta), scale * par.length * cos(par.theta), par.radius, par.radius)
+  simCanvas.ellipse(scale * par.length * Math.sin(par.theta), scale * par.length * Math.cos(par.theta), par.radius, par.radius)
 
   simCanvas.pop()
 
@@ -243,7 +247,6 @@ function draw() {
   numP++;
   if (numP > 200) {
     plot1.removePoint(0)
-    plot2.removePoint(0)
   }
 
   //plotting window toggle
@@ -253,7 +256,7 @@ function draw() {
 
   //euler scheme to solve differential equation
   for (let i = 0; i < fSlider.value; i++) {
-    par.alpha = -par.g * sin(par.theta) / par.length - par.b * par.omega * par.length / par.mass;
+    par.alpha = -par.g * Math.sin(par.theta) / par.length - par.b * par.omega / par.mass;
     par.omega += par.alpha * par.dt;
     par.theta += par.omega * par.dt;
     timestep++
@@ -264,9 +267,12 @@ function draw() {
 function mouseClicked() {
   if (mouseX > 0 && mouseX < Wsim && mouseY > 0 && mouseY < Hsim) {
     par.length = ((mouseX - par.hinge[0]) ** 2 + (mouseY - par.hinge[1]) ** 2) ** 0.5 / scale
-    par.theta = PI / 2 - atan2((mouseY - par.hinge[1]), (mouseX - par.hinge[0]))
+    par.theta = PI / 2 - Math.atan2((mouseY - par.hinge[1]), (mouseX - par.hinge[0]))
     par.omega = 0
     par.alpha = 0
-    dd14.parentElement.children[1].innerHTML = "Length (m) = " + Number(par.length).toFixed(2);
+    plot1.getMainLayer().points = []
+    plot2.getMainLayer().points = []
+    numP = 0;
+    dd14.innerHTML = "Length (m) = " + Number(par.length).toFixed(2);
   }
 }

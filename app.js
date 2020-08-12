@@ -12,6 +12,7 @@ const spring_pendulum = require('./routes/spring_pendulum');
 const simplePendulum = require('./routes/simplePendulum');
 const elasticPendulum = require('./routes/elasticPendulum');
 const forceTableRouter = require('./routes/force_table');
+const coupledPendulum = require('./routes/coupledPendulum');
 const pendulumSpringRouter = require('./routes/spring_double_pendulum');
 
 const app = express();
@@ -34,6 +35,7 @@ app.use('/simulations/spring_pendulum', spring_pendulum);
 app.use('/simulations/simplePendulum', simplePendulum);
 app.use('/simulations/elasticPendulum', elasticPendulum);
 app.use('/simulations/force_table', forceTableRouter);
+app.use('/simulations/coupledPendulum', coupledPendulum);
 app.use('/simulations/spring_double_pendulum', pendulumSpringRouter);
 
 // Stylesheets
