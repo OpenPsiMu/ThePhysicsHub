@@ -209,8 +209,8 @@ function setup() {
     flag = false;
     pauseflag = false;
     fSlider.value = 300;
-    par.theta[0] = a1Slider.value;
-    par.theta[1] = a2Slider.value;
+    par.theta[0] = radians(a1Slider.value);
+    par.theta[1] = radians(a2Slider.value);
     par.length[0] = lSlider.value;
     fSliderContainer["valueLabel"].innerHTML = Number(fSlider.value).toFixed(2)
     dd27.innerHTML = "Running. Stop to change initial angles."
