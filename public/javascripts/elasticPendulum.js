@@ -235,7 +235,7 @@ function draw() {
   if (checkbox1.checked) {
     //plotting the data
     plot1.addPoint(new GPoint(par.r, par.v));
-    plot2.addPoint(new GPoint(par.theta, par.omega));
+    plot2.addPoint(new GPoint(par.theta%(2*PI), par.omega));
     image(plotCanvas, Wsim - Wplot - 30, 30)
   }
 
