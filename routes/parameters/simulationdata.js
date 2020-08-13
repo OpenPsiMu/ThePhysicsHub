@@ -1,28 +1,21 @@
 const simulations = [
     {
-        "name": "Single pendulum with spring",
-        "description": "This is a single pendulum where string is a spring.",
-        "urlName": "spring_pendulum",
-        "jsfile": "spring_pendulum",
-        "explanation": "We have a cool pendulum.",
-    },
-    {
         "name": "Simple pendulum",
-        "description": "-",
+        "description": "A bob connected to a rigid massless rod suspended from a hinge.",
         "urlName": "simplePendulum",
         "jsfile": "simplePendulum",
         "explanation": "-",
     },
     {
         "name": "Elastic pendulum",
-        "description": "-",
+        "description": "A bob connected to a spring suspended from a hinge.",
         "urlName": "elasticPendulum",
         "jsfile": "elasticPendulum",
         "explanation": "-",
     },
     {
         "name": "Coupled pendulum",
-        "description": "-",
+        "description": "Two pendulum coupled by a spring connecting the bobs.",
         "urlName": "coupledPendulum",
         "jsfile": "coupledPendulum",
         "explanation": "-"
