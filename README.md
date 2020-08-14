@@ -34,7 +34,7 @@ In order to simplify the process of adding simulations, we wrote a python script
  
 >This portion provides a general template for the UI to be followed with some flexibility based on the specifics of the simulation.
 
-The UI is meant to be clean with minimal interactive elements visible on startup. The suggested tools to be used for creating input/sliders/buttons are either the [*p5.gui*](https://github.com/bitcraftlab/p5.gui) library or Pedro's custom built [*dropdownFunctions.js*](https://github.com/ThePhysHub/ThePhysicsHub/blob/master/public/javascripts/dropdownFunctions.js)  file. 
+The UI is meant to be clean with minimal interactive elements visible on startup. The suggested tools to be used for creating input/sliders/buttons are either the [*p5.gui*](https://github.com/bitcraftlab/p5.gui) library or Pedro's custom built [*dropdownFunctions.js*](https://github.com/ThePhysHub/ThePhysicsHub/blob/master/public/javascripts/libraries/dropdownFunctions.js)  file. 
 
 The UI should look something as given below, with the parameter options available to the right, and the simulation window to the left, following a minimal grey-scale theme.
 
