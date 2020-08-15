@@ -169,7 +169,7 @@ function createMass(massStr, angleStr, num) {
             rad = atan2(center.y - mouseY, mouseX - center.x);
 
             strokeWeight(0.5);
-            let string = line(center.x, center.y, center.x + 0.5 * (tablePeri - (20 + 0.5 * mass)) * cos(rad), center.y + 0.5 * (tablePeri - (20 + 0.5 * mass)) * -sin(rad));
+            let string = line(x, y, center.x + 0.5 * (tablePeri - (20 + 0.5 * mass)) * cos(rad), center.y + 0.5 * (tablePeri - (20 + 0.5 * mass)) * -sin(rad));
 
             strokeWeight(1);
             stroke('blue');
@@ -209,7 +209,7 @@ function createMass(massStr, angleStr, num) {
             stroke(155);
         } else {
             strokeWeight(0.5);
-            let string = line(center.x, center.y, center.x + 0.5 * (tablePeri - (20 + 0.5 * mass)) * cos(rad), center.y + 0.5 * (tablePeri - (20 + 0.5 * mass)) * -sin(rad));
+            let string = line(x, y, center.x + 0.5 * (tablePeri - (20 + 0.5 * mass)) * cos(rad), center.y + 0.5 * (tablePeri - (20 + 0.5 * mass)) * -sin(rad));
             m = ellipse(center.x + 0.5 * (tablePeri - (20 + 0.5 * mass)) * cos(rad), center.y + 0.5 * (tablePeri - (20 + 0.5 * mass)) * -sin(rad), 20 + 0.5 * mass, 20 + 0.5 * mass);
         }
         force = createVector(mass * g * cos(rad), mass * g * -sin(rad));
