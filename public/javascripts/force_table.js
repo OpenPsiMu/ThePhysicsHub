@@ -67,9 +67,15 @@ function setup() {
 
     center = createVector(300, 300);
     startButton = createButton('Start!');
-    startButton.position(985, 550);
+    startButton.position(965, 550);
     startButton.mousePressed(startSim);
     startButton.parent('simwrapper');
+
+    resetButton = createButton("Reset");
+    resetButton.position(990, 550);
+    resetButton.mousePressed(resetSim);
+    startButton.parent('simwrapper');
+
 
 }
 
@@ -121,6 +127,7 @@ function draw() {
     if (started) {
 
 
+        stroke(155);
         fRes = createVector(0, 0);
         forces.forEach(force => fRes.add(force));
         forces.push(fRes);
@@ -128,11 +135,13 @@ function draw() {
         drawForces();
 
         forces.forEach(function(force, index) {
+          if(index == forces.length-1){
+          }
             xRes += force.x * dt;
             yRes += force.y * dt;
         });
 
-        if (mag(x - center.x, y - center.y) < 0.5 * (tablePeri)) {
+        if (mag(x - center.x, y - center.y) < 0.1 * (tablePeri)) {
             x += xRes * dt;
             y += yRes * dt;
         } else {
@@ -157,13 +166,50 @@ function createMass(massStr, angleStr, num) {
         fill(155);
 
         if (pressed[parseInt(num) - 1]) {
+            rad = atan2(center.y - mouseY, mouseX - center.x);
+
+            strokeWeight(0.5);
+            let string = line(center.x, center.y, center.x + 0.5 * (tablePeri - (20 + 0.5 * mass)) * cos(rad), center.y + 0.5 * (tablePeri - (20 + 0.5 * mass)) * -sin(rad));
+
             strokeWeight(1);
             stroke('blue');
-            rad = atan2(center.y - mouseY, mouseX - center.x);
+            
             m = ellipse(center.x + 0.5 * (tablePeri - (20 + 0.5 * mass)) * cos(rad), center.y + 0.5 * (tablePeri - (20 + 0.5 * mass)) * -sin(rad), 20 + 0.5 * mass, 20 + 0.5 * mass);
+            
+            switch (num) {
+                case "1":
+                    angle1 = degrees(rad).toString();
+                    break;
+                case "2":
+                    angle2 = degrees(rad).toString();
+                    break;
+                case "3":
+                    angle3 = degrees(rad).toString();
+                    break;
+                case "4":
+                    angle4 = degrees(rad).toString();
+                    break;
+                case "5":
+                    angle5 = degrees(rad).toString();
+                    break;
+                case "6":
+                    angle6 = degrees(rad).toString();
+                    break;
+
+            }
+
+            if(rad < 0){
+                rad = 2*PI + rad;
+            }
+
+            let inputs = document.getElementsByClassName('qs_text_input');
+            inputs[2 * (parseInt(num)-1) + 1].value = degrees(rad).toString();
+
             strokeWeight(0);
             stroke(155);
         } else {
+            strokeWeight(0.5);
+            let string = line(center.x, center.y, center.x + 0.5 * (tablePeri - (20 + 0.5 * mass)) * cos(rad), center.y + 0.5 * (tablePeri - (20 + 0.5 * mass)) * -sin(rad));
             m = ellipse(center.x + 0.5 * (tablePeri - (20 + 0.5 * mass)) * cos(rad), center.y + 0.5 * (tablePeri - (20 + 0.5 * mass)) * -sin(rad), 20 + 0.5 * mass, 20 + 0.5 * mass);
         }
         force = createVector(mass * g * cos(rad), mass * g * -sin(rad));
@@ -188,8 +234,12 @@ function biggestForce() {
 
 function drawForces() {
     forces.forEach(function(force, index) {
-        adjustedForce = createVector(force.x * 0.5 * tablePeri / (biggestForce().mag()), force.y * 0.5 * tablePeri / (biggestForce().mag()));
+        adjustedForce = createVector(force.x * 0.5 * (tablePeri-5) / (biggestForce().mag()), force.y * 0.5 * (tablePeri-5) / (biggestForce().mag()));
+        if(index == forces.length-1){
+            drawArrow(center,adjustedForce, 'blue');
+        }else{
         drawArrow(center, adjustedForce, 'white');
+        }
     })
 
 }
@@ -207,6 +257,7 @@ function drawArrow(base, vec, myColor) {
     translate(vec.mag() - arrowSize, 0);
     triangle(0, arrowSize / 2, 0, -arrowSize / 2, arrowSize, 0);
     pop();
+    stroke(155);
 }
 
 function startSim() {
@@ -234,10 +285,14 @@ function appendUnits() {
     }
 }
 
-function mousePressed() {
+async function mousePressed() {
     for (i = 0; i < angles.length; i++) {
         if (pressed[i]) {
             rad = atan2(center.y - mouseY, mouseX - center.x);
+            if(rad < 0){
+                rad = 2*PI + rad;
+            }
+            
             switch (i) {
                 case 0:
                     angle1 = degrees(rad).toString();
@@ -259,16 +314,26 @@ function mousePressed() {
                     break;
 
             }
+            strokeWeight(0);
 
-            pressed[i] = false;
             let inputs = document.getElementsByClassName('qs_text_input');
             inputs[2 * i + 1].value = degrees(rad).toString();
-        }
-        if (!pressed[i]) {
+
+            pressed[i] = false;
+        }else if (!pressed[i]) {
             if (dist(mouseX, mouseY, center.x + 0.5 * (tablePeri - (20 + 0.5 * masses[i])) * cos(angles[i]), center.y + 0.5 * (tablePeri - (20 + 0.5 * masses[i])) * -sin(angles[i])) < mag(20 + 0.5 * mass, 20 + 0.5 * mass)) {
                 pressed[i] = true;
             }
         }
 
     }
+}
+
+function resetSim(){
+    started = false;
+    x = 300;
+    y = 300;
+    numOfWeights = [1, 2, 3, 4, 5, 6];
+    setup();
+    
 }
