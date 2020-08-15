@@ -1,264 +1,270 @@
+/*This file contains many functions that can be used to
+add a wonderful dropdown to a p5 canvas!!!
 
-    /*This file contains many functions that can be used to
-    add a wonderful dropdown to a p5 canvas!!!
+follows instructions for use:
 
-    follows instructions for use:
+INSTRUCTION MANUAL FOR DROPDOWN
+-------------------------------
 
-    INSTRUCTION MANUAL FOR DROPDOWN
-    -------------------------------
+1. Creating the dropdown:
+	To make the dropdown you must make use of the function makeDropdown();
+	This function takes a p5 canvas element as argument.
 
-    1. Creating the dropdown:
-    	To make the dropdown you must make use of the function makeDropdown();
-    	This function takes a p5 canvas element as argument.
+	makeDropdown(canvas); --> returns html element for placement of items.
+	In case the canvas is placed directly on the body of the document, a
+	new canvas container will be created!!! This is necessary for technical
+	reasons. So MAKE SURE THE CANVAS IS ALREADY IN IT's FINAL CONTAINER before
+	using this function!!!!
 
-    	makeDropdown(canvas); --> returns html element for placement of items.
-    	In case the canvas is placed directly on the body of the document, a
-    	new canvas container will be created!!! This is necessary for technical
-    	reasons. So MAKE SURE THE CANVAS IS ALREADY IN IT's FINAL CONTAINER before
-    	using this function!!!!
+	Changing the text inside the main dropdown button:
+		let dd = makeDropdown(canvas);
+		dd.setLabel("Your label");
 
-    	Changing the text inside the main dropdown button:
-    		let dd = makeDropdown(canvas);
-    		dd.setLabel("Your label");
-
-      After making the dropdown, you can use the function setPedroStyle(canvas);
-      this makes it look pretty.
-
-
-    2. Adding items to the dropdown
-    	To add items to the dropdown, you must make use of the function makeItem();
-    	This function takes an html dropdown contents container returned by makeDropdown();
-
-    	makeItem(makeDropdown(canvas)) --> returns html container for ITEM
-
-    	If you wish to change the title inside this item you must do as follows:
-    		let dd = makeDropdown(canvas);
-    		let item1 = makeItem(dd);
-    		item1.setLabel("Your label");
-
-    3. Adding rows to dropdown Item
-    	To add a row to an html item, which lies inside the dropdown,
-    	you must make use of the function makeRow(), which takes it's parent
-    	html item as an argument.
-    	The flow could be seen like this:
-    		let dd = makeDropdown(canvas);
-    		let item1 = makeItem(dd);
-    		let item1Row1 = makeRow(item1);
-
-    	This function returns the html element that represents the row inside item.
-
-    	To add text to this element simply write:
-    		item1Row1.setLabel("YORU label")
-
-    	To add a widget to this element, use one of the functions pedro will provide.
-
-    	As of right now there is only one widget available which is the SLIDER!!!
-    	To make a slider inside a row element simply use the function makeSlider();
-    		exmple:
-    			sliderContainer = makeSlider(rowElement);
-    	sliderContainer.["label"].innerHTML is the title of your slider
-    	sliderContainer.['slider'] is your html slider
-    	sliderContainer.['valueLabel'].innerHTML is the place allocated for showing the current value of the slider
-
-      Also, you can change this tewxt using:
-        sliderContainer.setTitleLabel("The text on the left of slider");
-        sliderContainer.setValueLabel("The text on the right of slider");
-        sliderContainer.slider gives the slider HTML slement;
-        sliderContainer.getSlider() also returns the html element;
-        sliderContainer.getValueLabel() returns valueLabel html element"text on the right";
-        sliderContainer.getTitleLabel() returns the text element in the left of the slider;
-
-    4. Making the slider look pretty!
-    	After making the dropdown, you can use the function setPedroStyle(canvas);
-    	to add the css styling to the dropdown and make it look and work like a dropdown.
+  After making the dropdown, you can use the function setPedroStyle(canvas);
+  this makes it look pretty.
 
 
-    	+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    	NOTE: MAKE SURE TO ONLY USE THIS FUNCTION AFTER makeDropdown(canvas) IS USED!
-    	+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+2. Adding items to the dropdown
+	To add items to the dropdown, you must make use of the function makeItem();
+	This function takes an html dropdown contents container returned by makeDropdown();
 
-    5. Adding checkboxes to the dropdown:
-      it is pretty simple actually, follow the same procedures as the dropdown.
+	makeItem(makeDropdown(canvas)) --> returns html container for ITEM
 
-      makeDropdown(row); --> return {"label": label, "checkbox": checkBox};
-      let row = makeRow(item);
-      let checkboxContainer = createCheckbox(row);
-      let checkbox1 = checkboxContainer['checkbox'];
-      Change the label with
-      checkboxContainer.setLabel("My label");
-      Google event's that you can attach to your html checkbox!
+	If you wish to change the title inside this item you must do as follows:
+		let dd = makeDropdown(canvas);
+		let item1 = makeItem(dd);
+		item1.setLabel("Your label");
 
-    6. Adding buttons!!!!
+3. Adding rows to dropdown Item
+	To add a row to an html item, which lies inside the dropdown,
+	you must make use of the function makeRow(), which takes it's parent
+	html item as an argument.
+	The flow could be seen like this:
+		let dd = makeDropdown(canvas);
+		let item1 = makeItem(dd);
+		let item1Row1 = makeRow(item1);
 
-      To add a button it is necessary to create a container designed for buttons!!!!
-      To make such a container use new buttonContainer(row);
-      where row is a row of an item in a dropdown element!
+	This function returns the html element that represents the row inside item.
 
-      To make a button inside the container use:
-        let buttonContainer1 = new buttonContainer(row);
-        let button1 = buttonContainer1.makeButton(label, func);
-        where label is the name inside the button and func is the function performed by the button when it is pressed.
-        button1 is an html element so you can do whatever you want with it. Examples below:
-          button1.innerHTML= "my title";
-          button1.onclick = function (){"do something"};
-          button1.style = 'write your own css here';
+	To add text to this element simply write:
+		item1Row1.setLabel("YORU label")
 
-    EXAMPLE OF A SIMPLE DROPDOWN:
-    	//Creating canvas and dropdown
-    	let canvas = createCanvas(500, 400);
-    	let dd = makeDropdown(canvas);
+	To add a widget to this element, use one of the functions pedro will provide.
 
-    	//Changing the name of dropdown button
-    	dd.parentElement.children[1].innerHTML = "MyOptions";
+	As of right now there is only one widget available which is the SLIDER!!!
+	To make a slider inside a row element simply use the function makeSlider();
+		exmple:
+			sliderContainer = makeSlider(rowElement);
+	sliderContainer.["label"].innerHTML is the title of your slider
+	sliderContainer.['slider'] is your html slider
+	sliderContainer.['valueLabel'].innerHTML is the place allocated for showing the current value of the slider
 
-    	//Setting style
-    	setPedroStyle(canvas);
+  Also, you can change this tewxt using:
+    sliderContainer.setTitleLabel("The text on the left of slider");
+    sliderContainer.setValueLabel("The text on the right of slider");
+    sliderContainer.slider gives the slider HTML slement;
+    sliderContainer.getSlider() also returns the html element;
+    sliderContainer.getValueLabel() returns valueLabel html element"text on the right";
+    sliderContainer.getTitleLabel() returns the text element in the left of the slider;
 
-    	//Further adding to the dropdown
-    	let item1 = makeItem(dd);
-    	let row1 = makeRow(item1);
-    	let sliderContainer = makeSlider(row1);
-    	let sliderTitle = sliderContainer['label'];
-    	let slider = sliderContainer.['slider'];
-    	let sliderValue = sliderContainer['valueLabel'];
-
-    	//Using slider as we wish:
-    	slider.max = 200;
-    	slider.min = 100;
-    	slider.step = 0.1;
-    	slider.value = 150;
-    	slider.oninput = () => {sliderValue.innerHTML = Number(slider.value).toFixed(0)};
-    	sliderValue.innerHTML = slider.value;//Updates the text to the new slider value
-    	sliderTitle.innerHTML = "Title";
+4. Making the slider look pretty!
+	After making the dropdown, you can use the function setPedroStyle(canvas);
+	to add the css styling to the dropdown and make it look and work like a dropdown.
 
 
+	+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	NOTE: MAKE SURE TO ONLY USE THIS FUNCTION AFTER makeDropdown(canvas) IS USED!
+	+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-    Additional information:
-    	if you want to add another dropdown inside a row of an item you can simply
-    	use makeItem(), and the supply your row as an argument.
+5. Adding checkboxes to the dropdown:
+  it is pretty simple actually, follow the same procedures as the dropdown.
 
-    	If you wish to add a random html element into a row of the dropdown
-    	you can follow the same steps I will follow below. In this case
-    	I will use an html BUTTON as for the example. But this works for any
-    	html element OTHER THAN A CANVAS!
+  makeDropdown(row); --> return {"label": label, "checkbox": checkBox};
+  let row = makeRow(item);
+  let checkboxContainer = createCheckbox(row);
+  let checkbox1 = checkboxContainer['checkbox'];
+  Change the label with
+  checkboxContainer.setLabel("My label");
+  Google event's that you can attach to your html checkbox!
 
-    		let button = document.createElement("button");
-    		button.innerHTML = "HELLO";
-    		row = makeRow(item);
-    		row.appendChild(button);
+6. Adding buttons!!!!
+
+  To add a button it is necessary to create a container designed for buttons!!!!
+  To make such a container use new buttonContainer(row);
+  where row is a row of an item in a dropdown element!
+
+  To make a button inside the container use:
+    let buttonContainer1 = new buttonContainer(row);
+    let button1 = buttonContainer1.makeButton(label, func);
+    where label is the name inside the button and func is the function performed by the button when it is pressed.
+    button1 is an html element so you can do whatever you want with it. Examples below:
+      button1.innerHTML= "my title";
+      button1.onclick = function (){"do something"};
+      button1.style = 'write your own css here';
+
+EXAMPLE OF A SIMPLE DROPDOWN:
+	//Creating canvas and dropdown
+	let canvas = createCanvas(500, 400);
+	let dd = makeDropdown(canvas);
+
+	//Changing the name of dropdown button
+	dd.parentElement.children[1].innerHTML = "MyOptions";
+
+	//Setting style
+	setPedroStyle(canvas);
+
+	//Further adding to the dropdown
+	let item1 = makeItem(dd);
+	let row1 = makeRow(item1);
+	let sliderContainer = makeSlider(row1);
+	let sliderTitle = sliderContainer['label'];
+	let slider = sliderContainer.['slider'];
+	let sliderValue = sliderContainer['valueLabel'];
+
+	//Using slider as we wish:
+	slider.max = 200;
+	slider.min = 100;
+	slider.step = 0.1;
+	slider.value = 150;
+	slider.oninput = () => {sliderValue.innerHTML = Number(slider.value).toFixed(0)};
+	sliderValue.innerHTML = slider.value;//Updates the text to the new slider value
+	sliderTitle.innerHTML = "Title";
 
 
 
-    */
+Additional information:
+	if you want to add another dropdown inside a row of an item you can simply
+	use makeItem(), and the supply your row as an argument.
+
+	If you wish to add a random html element into a row of the dropdown
+	you can follow the same steps I will follow below. In this case
+	I will use an html BUTTON as for the example. But this works for any
+	html element OTHER THAN A CANVAS!
+
+		let button = document.createElement("button");
+		button.innerHTML = "HELLO";
+		row = makeRow(item);
+		row.appendChild(button);
 
 
-    function makeCheckbox(parent){
-       /*Takes a row object as an argument and returns this object:
-       {"label": label, "checkbox": checkBox} where both label and checkbox are html objects*/
-      if (arguments.length == 0){
+
+*/
+function makeCheckbox(parent) {
+    /*Takes a row object as an argument and returns this object:
+    {"label": label, "checkbox": checkBox} where both label and checkbox are html objects*/
+    if (arguments.length == 0) {
         parent = document.body;
-      };
-      console.log(parent);
+    };
 
-      //Now since we must have a parent
-      let cbContainer = document.createElement("label");
-      cbContainer.className += "cbContainer";
-      parent.appendChild(cbContainer);
+    //Now since we must have a parent
+    let cbContainer = document.createElement("label");
+    cbContainer.className += "cbContainer";
+    parent.appendChild(cbContainer);
 
-      //now we make labels and checkbox
-      let label = document.createElement("span");
-      label.innerHTML = "Property";
-      cbContainer.appendChild(label);
+    //now we make labels and checkbox
+    let label = document.createElement("span");
+    label.innerHTML = "Property";
+    cbContainer.appendChild(label);
 
-      let checkBox = document.createElement("input");
-      checkBox.setAttribute("type", "checkbox");
-      cbContainer.appendChild(checkBox);
+    let checkBox = document.createElement("input");
+    checkBox.setAttribute("type", "checkbox");
+    cbContainer.appendChild(checkBox);
 
-      let obj = {"label": label, "checkbox": checkBox};
+    let obj = {
+        "label": label,
+        "checkbox": checkBox
+    };
 
-      obj.setLabel = (newlabel) =>{
+    obj.setLabel = (newlabel) => {
         label.innerHTML = newlabel;
-      };
-      obj.getLabel = () => label;
-      obj.getCheckbox = () => checkBox;
-      return obj;
     };
+    obj.getLabel = () => label;
+    obj.getCheckbox = () => checkBox;
+    return obj;
 
-    function makeRow(parent) {
-      //Makes a row in the returned element from makeItem
-      let row = document.createElement("li");
-      parent.appendChild(row);
+    obj.remove = () => {
+        cbContainer.parentElement.removeChild(cbContainer);
+    };
+};
 
-      row.setLabel = (label) => {
+function makeRow(parent) {
+    //Makes a row in the returned element from makeItem
+    let row = document.createElement("li");
+    parent.appendChild(row);
+
+    row.setLabel = (label) => {
         row.innerHTML = label;
-      };
-
-      return row;
     };
 
+    return row;
+};
 
-    function makeItem(parent) {
-        /*Takes the dropdown object as an argument and returns
-        an item object that can hold row objects in the dropdown.
 
-        To change the label of this object you can use:
-        item.parentElement.children[1].innerHTML = "your title" */
+function makeItem(parent) {
+    /*Takes the dropdown object as an argument and returns
+    an item object that can hold row objects in the dropdown.
 
-      //First make a variabel responsable for naming rows
-      if (typeof ddItemCount == "undefined") {
+    To change the label of this object you can use:
+    item.parentElement.children[1].innerHTML = "your title" */
+
+    //First make a variabel responsable for naming rows
+    if (typeof ddItemCount == "undefined") {
         window.ddItemCount = 0; //It is a global variable
-      };
-
-      //This function let's you define rows in a parent.
-      //This parent could be the returned element of makeDropdown OR
-      //a row from another ITEM.
-      let item = document.createElement("div");
-      item.className = "item";
-      parent.appendChild(item);
-
-      //Differenciates between droped and normal states
-      let itemCheck = document.createElement("input");
-      itemCheck.type = "checkbox";
-      itemCheck.id = "checkbox" + ddItemCount; //Needed for labels
-      item.appendChild(itemCheck);
-
-      //Making the label
-      let itemCheckLabel = document.createElement("label");
-      itemCheckLabel.innerHTML += String(ddItemCount);
-      itemCheckLabel.setAttribute("for", "checkbox" + ddItemCount);
-      ddItemCount++;
-      //Increase itemCount by one!!!
-      item.appendChild(itemCheckLabel);
-
-
-      //Making a container for the rows
-      /*THIS IS THE PARENT FOR THE ROWS!!!!!!*/
-      let rowContainer = document.createElement("ul");
-      item.appendChild(rowContainer);
-
-      rowContainer.setLabel = (label) => {
-        itemCheckLabel.innerHTML = label;
-      };
-
-      rowContainer.getLabel = () => itemCheckLabel;
-
-      return rowContainer;
     };
 
-    function makeDropdown(canvas) {
-        /*Takes a canvas object as an argument and returns
-        a dropdown element, which can hold item elements from makeItem()
+    //This function let's you define rows in a parent.
+    //This parent could be the returned element of makeDropdown OR
+    //a row from another ITEM.
+    let item = document.createElement("div");
+    item.className = "item";
+    parent.appendChild(item);
 
-        In order for this funciton to work, it must be used AFTER the canvas
-        is placed in its final container.
+    //Differenciates between droped and normal states
+    let itemCheck = document.createElement("input");
+    itemCheck.type = "checkbox";
+    itemCheck.id = "checkbox" + ddItemCount; //Needed for labels
+    item.appendChild(itemCheck);
 
-        To change the name of the dropdown do:
-        dropdown.parentElement.children[1].innerHTML = "Your title"*/
-      let div = document.createElement("div");
+    //Making the label
+    let itemCheckLabel = document.createElement("label");
+    itemCheckLabel.innerHTML += String(ddItemCount);
+    itemCheckLabel.setAttribute("for", "checkbox" + ddItemCount);
+    ddItemCount++;
+    //Increase itemCount by one!!!
+    item.appendChild(itemCheckLabel);
 
-      //Creating a canvas container for easier placement!!!
-      let canvasContainer; //Only ysed if canvas is in body
-      if (document.body == canvas.elt.parentElement || canvas.elt.parentElement == document.body.getElementsByTagName("main")[0]) {
+
+    //Making a container for the rows
+    /*THIS IS THE PARENT FOR THE ROWS!!!!!!*/
+    let rowContainer = document.createElement("ul");
+    item.appendChild(rowContainer);
+
+    rowContainer.setLabel = (label) => {
+        itemCheckLabel.innerHTML = label;
+    };
+
+    rowContainer.getLabel = () => itemCheckLabel;
+    rowContainer.remove = () => {
+        rowContainer.parentElement.remove()
+    };
+
+    return rowContainer;
+};
+
+function makeDropdown(canvas) {
+    /*Takes a canvas object as an argument and returns
+    a dropdown element, which can hold item elements from makeItem()
+
+    In order for this funciton to work, it must be used AFTER the canvas
+    is placed in its final container.
+
+    To change the name of the dropdown do:
+    dropdown.parentElement.children[1].innerHTML = "Your title"*/
+    let div = document.createElement("div");
+
+    //Creating a canvas container for easier placement!!!
+    let canvasContainer; //Only ysed if canvas is in body
+    if (document.body == canvas.elt.parentElement || canvas.elt.parentElement == document.body.getElementsByTagName("main")[0]) {
         canvasContainer = document.createElement("div");
         canvasContainer.id = "VeryUniqueOriginalCanvasContainer";
         document.body.appendChild(canvasContainer);
@@ -266,166 +272,181 @@
         canvas.elt.parentNode.removeChild(canvas.elt);
         canvasContainer.appendChild(canvas.elt);
         //Leaving canvas without a parent for the "if" statement
-      } else {
+    } else {
         canvasContainer = canvas.elt.parentElement;
-      };
-
-      let positionContainer = document.createElement('div');
-      positionContainer.id = "SomeCreativeID"; //CSS reasons
-      canvasContainer.appendChild(positionContainer);
-
-      //This contains the ENTIRE dropdown.
-      let ddContainer = document.createElement('div');
-      ddContainer.className = "ddContainer";
-      positionContainer.appendChild(ddContainer);
-
-      //Now we make the dropdown Button
-      let mainDdButton = document.createElement("input");
-      mainDdButton.type = "checkbox";
-      mainDdButton.id = "Root";
-      ddContainer.appendChild(mainDdButton);
-
-      let mainDdButtonLabel = document.createElement("label");
-      mainDdButtonLabel.setAttribute("for", "Root");
-      mainDdButtonLabel.style = "font-size: 1.5em; margin-left: 1em;";
-      mainDdButtonLabel.innerHTML = "Options";
-      ddContainer.appendChild(mainDdButtonLabel);
-
-      //This is the parent elemnt for any "ITEM" elements you make
-      let ddContents = document.createElement("div");
-      ddContents.className = "dd";
-      ddContainer.appendChild(ddContents);
-
-      ddContents.setLabel = (label) => {
-        mainDdButtonLabel.innerHTML = label;
-      };
-
-      ddContents.getLabel = () => mainDdButtonLabel;
-
-      return ddContents; //This is the parent of ITEM!!!
     };
 
-    function makeSlider(parent, max=100, min=0, step=.1, value=2, title) {
-      /*Returns the container that has 3 elements accesible by
-      element.children[index]. Where index=0: title,
-      index=1: slider, index=2: number;
-      This is the returned object:
-      {"label": sliderTitle, "slider": slider, "valueLabel": sliderValue}
-      */
-      if (typeof numberSliders == "undefined") {
+    let positionContainer = document.createElement('div');
+    positionContainer.id = "SomeCreativeID"; //CSS reasons
+    canvasContainer.appendChild(positionContainer);
+
+    //This contains the ENTIRE dropdown.
+    let ddContainer = document.createElement('div');
+    ddContainer.className = "ddContainer";
+    positionContainer.appendChild(ddContainer);
+
+    //Now we make the dropdown Button
+    let mainDdButton = document.createElement("input");
+    mainDdButton.type = "checkbox";
+    mainDdButton.id = "Root";
+    ddContainer.appendChild(mainDdButton);
+
+    let mainDdButtonLabel = document.createElement("label");
+    mainDdButtonLabel.setAttribute("for", "Root");
+    mainDdButtonLabel.style = "font-size: 1.5em; margin-left: 1em;";
+    mainDdButtonLabel.innerHTML = "Options";
+    ddContainer.appendChild(mainDdButtonLabel);
+
+    //This is the parent elemnt for any "ITEM" elements you make
+    let ddContents = document.createElement("div");
+    ddContents.className = "dd";
+    ddContainer.appendChild(ddContents);
+
+    ddContents.setLabel = (label) => {
+        mainDdButtonLabel.innerHTML = label;
+    };
+
+    ddContents.getLabel = () => mainDdButtonLabel;
+    ddContents.remove = () => {
+        ddContents.parentElement.remove();
+    };
+
+    return ddContents; //This is the parent of ITEM!!!
+};
+
+function makeSlider(parent, max = 100, min = 0, step = .1, value = 2, title) {
+    /*Returns the container that has 3 elements accesible by
+    element.children[index]. Where index=0: title,
+    index=1: slider, index=2: number;
+    This is the returned object:
+    {"label": sliderTitle, "slider": slider, "valueLabel": sliderValue}
+    */
+    if (typeof numberSliders == "undefined") {
         window.numberSliders = 0;
-      };
-      let sliderContainer = document.createElement("div");
-      sliderContainer.classList.add("sliderContainer");
-      sliderContainer.id = `slider${numberSliders}`;
+    };
+    let sliderContainer = document.createElement("div");
+    sliderContainer.classList.add("sliderContainer");
+    sliderContainer.id = `slider${numberSliders}`;
 
-      let sliderTitle = document.createElement("span");
-      sliderTitle.className = "sliderTitle";
-      sliderTitle.innerHTML = "slider" + numberSliders++;
-      if (title != undefined){
+    let sliderTitle = document.createElement("span");
+    sliderTitle.className = "sliderTitle";
+    sliderTitle.innerHTML = "slider" + numberSliders++;
+    if (title != undefined) {
         sliderTitle.innerHTML = title;
-      };
+    };
 
-      let slider = document.createElement("input");
-      slider.type = "range";
-      slider.class = "slider";
+    let slider = document.createElement("input");
+    slider.type = "range";
+    slider.class = "slider";
 
-      slider.max = max;
-      slider.min = min;
-      slider.value = value;
-      slider.step = step;
+    slider.max = max;
+    slider.min = min;
+    slider.value = value;
+    slider.step = step;
 
-      slider.oninput = () => {
+    slider.oninput = () => {
         sliderValue.innerHTML = slider.value;
-      };
+    };
 
-      let sliderValue = document.createElement("span");
-      sliderValue.innerHTML = slider.value;
-      sliderValue.className = "rangeValue";
+    let sliderValue = document.createElement("span");
+    sliderValue.innerHTML = slider.value;
+    sliderValue.className = "rangeValue";
 
-      sliderContainer.appendChild(sliderTitle);
-      sliderContainer.appendChild(slider);
-      sliderContainer.appendChild(sliderValue);
+    sliderContainer.appendChild(sliderTitle);
+    sliderContainer.appendChild(slider);
+    sliderContainer.appendChild(sliderValue);
 
-      parent.appendChild(sliderContainer);
-      console.log(sliderContainer);
+    parent.appendChild(sliderContainer);
+    console.log(sliderContainer);
 
-      let obj = {"label": sliderTitle,
-                "slider": slider,
-                "valueLabel": sliderValue};
+    let obj = {
+        "label": sliderTitle,
+        "slider": slider,
+        "valueLabel": sliderValue
+    };
 
-      obj.setTitleLabel = function title(titlelabel){
+    obj.setTitleLabel = function title(titlelabel) {
         //The label to the left of slider
         this.label.innerHTML = titlelabel;
-      };
-      obj.setValueLabel = function Valuelabel(newLabel){
+    };
+    obj.setValueLabel = function Valuelabel(newLabel) {
         //Set the new value label to a slider
         this.valueLabel.innerHTML = newLabel;
-      };
-      obj.getSlider = function getSlider(){
+    };
+    obj.getSlider = function getSlider() {
         //Returns the slider contained in the html object
         return this.slider;
-      };
-      obj.setParameters = function sliderValues(max=100, min=0, step=.1, value=2){
-        let slider = this.slider;
-        slider.max = max; slider.min = min; slider.step = step, slider.value = value;
-        this.valueLabel.innerHTML = String(value);
-      };
-      obj.getValue = function getValue(){
-        return this.slider.value;
-      };
-      return obj;
     };
+    obj.remove = () => {
+        sliderContainer.remove();
+    };
+    //Removes slider
 
-    function buttonContainer(parent){
-    	/*This function works a little differently from the others
-    	This function must be instanciated by new.
+    obj.setParameters = function sliderValues(max = 100, min = 0, step = .1, value = 2) {
+        let slider = this.slider;
+        slider.max = max;
+        slider.min = min;
+        slider.step = step, slider.value = value;
+        this.valueLabel.innerHTML = String(value);
+    };
+    obj.getValue = function getValue() {
+        return this.slider.value;
+    };
+    return obj;
+};
 
-    	buttonCont = new buttonContainer(row);
+function buttonContainer(parent) {
+    /*This function works a little differently from the others
+    This function must be instanciated by new.
 
-    	this instanciation can hold up to 3 buttons. Which are added using
-    	buttonCont.makeButton(), which returns an html button element*/
+    buttonCont = new buttonContainer(row);
 
-      if (parent == undefined) {
+    this instanciation can hold up to 3 buttons. Which are added using
+    buttonCont.makeButton(), which returns an html button element*/
+
+    if (parent == undefined) {
         alert("YOU need to place this inside a row!");
         return null;
-      };
-
-      let container = document.createElement("div");
-      parent.appendChild(container);
-      container.style = parent.style;
-      container.style["padding"] = "0";
-      container.style['display'] = "flex";
-      container.style['min-width'] = "100%";
-
-      this.container =container;
-
-      this.makeButton = (label, func) => {
-        let button = document.createElement("button");
-        container.appendChild(button);
-        button.innerHTML =label;
-        button.onclick = func;
-        return button;
-      };
-
     };
 
+    let container = document.createElement("div");
+    parent.appendChild(container);
+    container.style = parent.style;
+    container.style["padding"] = "0";
+    container.style['display'] = "flex";
+    container.style['min-width'] = "100%";
 
-        function setPedroStyle(canvas) {
-        	//Sets the CSS required for the dropdown
+    this.container = container;
+
+    this.makeButton = (label, func) => {
+        let button = document.createElement("button");
+        container.appendChild(button);
+        button.innerHTML = label;
+        button.onclick = func;
+        return button;
+    };
+    this.remove = () => {
+        this.container.remove()
+    };
+
+};
 
 
-          //Canvas is the element you get from createCanvas();
-          let id; //Necesary for canvas positioning
-          if (arguments.length == 0) {
-            id = "VeryUniqueOriginalCanvasContainer";
-          } else {
-            id = canvas.elt.parentNode.id;
-            //In case canvas is already inside another element.
-          };
-          //NOW THE CSS
-          var style = document.createElement('style');
-          style.innerHTML = `
+function setPedroStyle(canvas) {
+    //Sets the CSS required for the dropdown
+
+
+    //Canvas is the element you get from createCanvas();
+    let id; //Necesary for canvas positioning
+    if (arguments.length == 0) {
+        id = "VeryUniqueOriginalCanvasContainer";
+    } else {
+        id = canvas.elt.parentNode.id;
+        //In case canvas is already inside another element.
+    };
+    //NOW THE CSS
+    var style = document.createElement('style');
+    style.innerHTML = `
         /*Making it go inside the canvas*/
         #SomeCreativeID{
           position: absolute;
@@ -743,5 +764,5 @@
           background: #444;
         }
         `;
-          document.head.appendChild(style);
-        };
+    document.head.appendChild(style);
+};
