@@ -1,9 +1,12 @@
+html, body{
+      background-color: #222222 !important;
+}
 .simulations{
     margin: 60px;
 }
 .simulations h1{
     font-family: 'Rubik', sans-serif;
-    color: #302e4d;
+    color: #ffffff;
     font-size: 32px;
     line-height: 1;
     font-weight: 600;
@@ -66,7 +69,7 @@
 .simulations .sim-item .sim-title h4{
     font-size: 18px;
     font-weight: 700;
-    color: #302e4d;
+    color: #fff;
     text-transform: capitalize;
     
 }
@@ -81,7 +84,7 @@
 .simulations .sim-item .sim-description p{
     font-size: 16px;
     line-height: 25px;
-    color: #504e70;
+    color: #e9e9e9;
     font-weight: 400;
 
 }
