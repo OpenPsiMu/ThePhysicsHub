@@ -1,4 +1,4 @@
-QuickSettings.useExtStyleSheet();
+QuickSettings.useExtStyleSheet(); // function to use dark theme
 
 const tablePeri = 500;
 const massPeri = 28;
@@ -21,7 +21,7 @@ var myNumber = 10;
 var massGuis = [];
 var numOfWeights = [1, 2, 3, 4, 5, 6];
 
-var mass1 = "0";
+var mass1 = "0"; // assigning string values so that user input becomes a text field instead of a slider
 var mass2 = "0";
 var mass3 = "0";
 var mass4 = "0";
@@ -48,21 +48,21 @@ let nodeDefined = [];
 function setup() {
 
     cnv = createCanvas(1200, 600);
-    cnv.parent('simwrapper');
+    cnv.parent('simwrapper'); // simwrapper allows us to position our elements relative to tha canvas instead of the screen
     simwrapper = document.getElementById('simwrapper');
     rect = simwrapper.getBoundingClientRect();
     background(20);
     strokeWeight(1);
     stroke(150);
     for (i = 1; i <= 6; i++) {
-        line(i * 1100 / 8, 0, i * 1100 / 8, 600);
+        line(i * 1100 / 8, 0, i * 1100 / 8, 600); // vertical grid lines
     }
     for (i = 1; i <= 8; i++) {
-        line(0, i * 500 / 7.5, 827, i * 500 / 7.5);
+        line(0, i * 500 / 7.5, 827, i * 500 / 7.5); // horizontal grid lines
     }
 
     gui1 = createGui('myGui');
-    gui1.addGlobals('numOfWeights');
+    gui1.addGlobals('numOfWeights'); // lets user select the number of weights in the simulation
     gui1.setPosition(rect.left + 800, rect.top + 10);
 
     center = createVector(300, 300);
@@ -81,7 +81,7 @@ function setup() {
 
 function draw() {
 
-    for (i = 1; i <= numOfWeights; i++) {
+    for (i = 1; i <= numOfWeights; i++) { // creating a gui to set angle and mass for every mass the user wants to use in his simulation
         if (typeof massGuis[i] == 'undefined') {
             massGuis[i] = createGui('Weight' + i.toString());
             sliderRange(0, 50, 1);
@@ -124,12 +124,12 @@ function draw() {
 
 
 
-    if (started) {
+    if (started) { // simulation only starts when startButton changes started value to true
 
 
         stroke(155);
         fRes = createVector(0, 0);
-        forces.forEach(force => fRes.add(force));
+        forces.forEach(force => fRes.add(force)); // adding up all forces to resulting force
         forces.push(fRes);
 
         drawForces();
