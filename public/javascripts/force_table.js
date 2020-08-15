@@ -334,6 +334,10 @@ function resetSim(){
     x = 300;
     y = 300;
     numOfWeights = [1, 2, 3, 4, 5, 6];
+    forces = [];
+    xRes = 0;
+    yRes = 0;
+    fRes = 0;
     setup();
     
 }
