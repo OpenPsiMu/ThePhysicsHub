@@ -4,6 +4,7 @@ const simulations = [
         "description": "A bob connected to a rigid massless rod suspended from a hinge.",
         "urlName": "simplePendulum",
         "jsfile": "simplePendulum",
+        "image": "simplePendulum",
         "explanation": "-",
     },
     {
@@ -11,6 +12,7 @@ const simulations = [
         "description": "A bob connected to a spring suspended from a hinge.",
         "urlName": "elasticPendulum",
         "jsfile": "elasticPendulum",
+        "image": "ellasticPendulum",
         "explanation": "-",
     },
     {
@@ -18,6 +20,7 @@ const simulations = [
         "description": "Two pendulum coupled by a spring connecting the bobs.",
         "urlName": "coupledPendulum",
         "jsfile": "coupledPendulum",
+        "image": "coupledPendulum",
         "explanation": "-"
     },
     {
@@ -25,6 +28,7 @@ const simulations = [
         "description": "A force table for visualizing vector addition",
         "urlName": "force_table",
         "jsfile": "force_table",
+        "image": "forceTable",
         "explanation": "explanation will follow! Note that the simulation is still under development."
     }
 ];
