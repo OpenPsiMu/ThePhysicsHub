@@ -108,7 +108,7 @@ EXAMPLE OF A SIMPLE DROPDOWN:
 	let dd = makeDropdown(canvas);
 
 	//Changing the name of dropdown button
-	dd.parentElement.children[1].innerHTML = "MyOptions";
+	dd.setLabel("LOOK LABEL");
 
 	//Setting style
 	setPedroStyle(canvas);
@@ -117,24 +117,39 @@ EXAMPLE OF A SIMPLE DROPDOWN:
 	let item1 = makeItem(dd);
 	let row1 = makeRow(item1);
 	let sliderContainer = makeSlider(row1);
-	let sliderTitle = sliderContainer['label'];
 	let slider = sliderContainer.['slider'];
-	let sliderValue = sliderContainer['valueLabel'];
 
 	//Using slider as we wish:
 	slider.max = 200;
 	slider.min = 100;
 	slider.step = 0.1;
 	slider.value = 150;
+    
+    //This step can also be performed using sliderContainer.setParameters(max, min, step, value);
+    sliderContainer.setParameters(200, 100, .1, 150);
+    
 	slider.oninput = () => {sliderValue.innerHTML = Number(slider.value).toFixed(0)};
-	sliderValue.innerHTML = slider.value;//Updates the text to the new slider value
-	sliderTitle.innerHTML = "Title";
+	sliderContainer.setValueLabel('NAN')//Updates the text to the new slider value
+	sliderContainer.setTitleLabel("TITLE");//Updates the text on the left hand side of the slider.
 
 
 
 Additional information:
 	if you want to add another dropdown inside a row of an item you can simply
 	use makeItem(), and the supply your row as an argument.
+	
+	if you wish to delete an element or create an element in run time you can simply
+	do so in run time... 
+	To delete elements, use the `.remove()` method, which removes an html element from
+	html. For example:
+		let dd = makeDropdown(canvas);
+		let item = makeItem(dd);
+		let row = makeRow(item);
+		let sliderContainer = makeSlider(row);
+		sliderContainer.remove();//removes the sliderContainer with slider and labels
+		row.remove();//Removes the entire row with its contents;
+		item.remove();//REmoves the entire item with its rows;
+		dd.remove(); //Removes the entire dropdown :)
 
 	If you wish to add a random html element into a row of the dropdown
 	you can follow the same steps I will follow below. In this case
@@ -145,8 +160,6 @@ Additional information:
 		button.innerHTML = "HELLO";
 		row = makeRow(item);
 		row.appendChild(button);
-
-
 
 */
 function makeCheckbox(parent) {
