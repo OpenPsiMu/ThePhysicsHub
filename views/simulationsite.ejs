@@ -4,13 +4,6 @@
     <link rel="stylesheet" href="/stylesheets/sim.css" type="text/css">
     <link rel="stylesheet" href="/stylesheets/nav.css" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="/javascripts/libraries/p5.min.js"></script>
-    <script src="/javascripts/libraries/grafica.min.js"></script>
-    <script src="/javascripts/libraries/dropdownFunctions.js"></script>
-    <script src="/javascripts/libraries/sim-tools.js"></script>
-    <script src="/javascripts/libraries/quicksettings.js"></script>
-    <script src="/javascripts/libraries/p5.gui.js"></script>
-    <script src="/javascripts/<%= sim.jsfile %>.js"></script>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg">
@@ -38,6 +31,12 @@
       <div id = "simwrapper"></div>
       <p id = "explanation"><%= sim.explanation %></p>
     </div>
-
+    <script src="/javascripts/libraries/p5.min.js"></script>
+    <script src="/javascripts/libraries/grafica.min.js"></script>
+    <script src="/javascripts/libraries/dropdownFunctions.js"></script>
+    <script src="/javascripts/libraries/sim-tools.js"></script>
+    <script src="/javascripts/libraries/quicksettings.js"></script>
+    <script src="/javascripts/libraries/p5.gui.js"></script>
+    <script src="/javascripts/<%= sim.jsfile %>.js"></script>
   </body>
 </html>
