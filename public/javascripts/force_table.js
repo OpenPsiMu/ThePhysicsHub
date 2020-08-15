@@ -67,14 +67,14 @@ function setup() {
 
     center = createVector(300, 300);
     startButton = createButton('Start!');
-    startButton.position(965, 550);
+    startButton.position(945, 550);
     startButton.mousePressed(startSim);
     startButton.parent('simwrapper');
 
     resetButton = createButton("Reset");
-    resetButton.position(990, 550);
+    resetButton.position(1010, 550);
     resetButton.mousePressed(resetSim);
-    startButton.parent('simwrapper');
+    resetButton.parent('simwrapper');
 
 
 }
