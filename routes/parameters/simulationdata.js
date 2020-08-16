@@ -1,3 +1,7 @@
+const fs = require('fs');
+const path = require('path');
+
+
 const simulations = [
     {
         "name": "Simple pendulum",
@@ -5,7 +9,7 @@ const simulations = [
         "urlName": "simplePendulum",
         "jsfile": "simplePendulum",
         "image": "simplePendulum.png",
-        "explanation": "-",
+        "explanation": "<b> Yup, this text is bold and now <i>cursive</i></b>",
     },
     {
         "name": "Elastic pendulum",
@@ -29,8 +33,14 @@ const simulations = [
         "urlName": "force_table",
         "jsfile": "force_table",
         "image": "forceTable.png",
-        "explanation": "explanation will follow! Note that the simulation is still under development."
+        "explanation": getFile("force_table_explanation.ejs")
     }
 ];
+
+
+function getFile(filename){
+    str = fs.readFileSync(path.resolve(__dirname, filename), "utf-8");
+    return str;
+}
 
 module.exports = simulations;
