@@ -39,7 +39,7 @@ let par = {
 function setup() {
   let bgCanvas = createCanvas(W, H)
   bgCanvas.parent("simwrapper")
-  
+
   let dd = makeDropdown(bgCanvas);
   dd.parentElement.children[1].innerHTML = "Options";
   let dd1 = makeItem(dd);
@@ -209,11 +209,6 @@ function setup() {
     flag = false;
     pauseflag = false;
     fSlider.value = 300;
-    par.theta[0] = radians(a1Slider.value);
-    par.theta[1] = radians(a2Slider.value);
-    par.omega = [0, 0]
-    par.alpha = [0, 0]
-    par.length[0] = lSlider.value;
     fSliderContainer["valueLabel"].innerHTML = Number(fSlider.value).toFixed(2)
     dd27.innerHTML = "Running. Stop to change initial angles."
   });
@@ -232,6 +227,7 @@ function setup() {
   stopButton = stopButtonContainer1.makeButton("Stop", () => {
     flag = true;
     fSlider.value = 0;
+    par.theta = [radians(a1Slider.value), radians(a2Slider.value)]
     par.omega = [0, 0]
     par.alpha = [0, 0]
     fSliderContainer["valueLabel"].innerHTML = Number(fSlider.value).toFixed(2)

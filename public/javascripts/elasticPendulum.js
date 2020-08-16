@@ -1,21 +1,20 @@
-let W = 1200
-let H = 500
-let Wsim = W * 0.69
-let Hsim = H
-let Wplot = 0.25 * W
-let Hplot = 0.875 * H
+let W = 1200 //background canvas width
+let H = 500 //background canvas height
+let Wsim = W * 0.69 //sim canvas width
+let Hsim = H //sim canvas height
+let Wplot = 0.25 * W //plotting canvas width
+let Hplot = 0.875 * H //plotting canvas height
 
-let scale = 100;
+let scale = 100; //scaling factor for display on canvas ( 1 meter = x pixels)
 
-let plot1;
-let plot2;
+let pos1, pos2; //last two position points for tracing background
+let plot1, plot2; //phase plots
+let plot1Point, plot2Point; //last point plotted on the phase plots
 
-let pos1, pos2;
-
-let dd15;
+let dd15; //length display row
 
 let l0Slider, gSlider, kSlider, sSlider, fSlider, mSlider, cButton, checkbox1;
-// rest length, gravity, spring const, scale, frameskip, mass, clear, showplots
+//rest length, gravity, spring const, scale, frameskip, mass, clear, showplots
 
 let par = {
   theta: 0, //angle
@@ -28,13 +27,16 @@ let par = {
   mass: 1, //mass
   g: 9.8 / 100, //adjusted g
   hinge: [217, 136], //hinge position
-  radius: 30
+  radius: 30 //radius of bob
 }
+
 
 function setup() {
   let bgCanvas = createCanvas(W, H)
-  bgCanvas.parent("simwrapper")
-  
+  bgCanvas.parent("simwrapper") //wrapping the canvas so elements appear relative to canvas and not the webpage.
+
+  // --constructing the dropdown menu--
+
   let dd = makeDropdown(bgCanvas);
   dd.parentElement.children[1].innerHTML = "Options";
   let dd1 = makeItem(dd);
@@ -44,32 +46,32 @@ function setup() {
   dd15 = makeRow(dd1)
   dd15.innerHTML = "Initial length (m) = " + Number(par.r).toFixed(2);
 
-  //mass
+  //Mass
   let dd11 = makeRow(dd1);
   let mSliderContainer = makeSlider(dd11);
   mSlider = mSliderContainer['slider'];
   mSliderContainer['valueLabel'].innerHTML = mSlider.value;
   mSliderContainer['label'].innerHTML = "Mass";
-  [mSlider.min, mSlider.max, mSlider.step, mSlider.value] = [0.1, 10, 0.1, 1]
+  [mSlider.min, mSlider.max, mSlider.step, mSlider.value] = [1, 10, 0.1, 1]
   mSlider.oninput = () => {
     mSliderContainer["valueLabel"].innerHTML = Number(mSlider.value).toFixed(2)
     par.mass = mSlider.value
     par.radius = 30 * par.mass ** 0.25
   }
 
-  //gravity
+  //Acceleration due to gravity
   let dd12 = makeRow(dd1);
   let gSliderContainer = makeSlider(dd12);
   gSlider = gSliderContainer['slider'];
   gSliderContainer['valueLabel'].innerHTML = gSlider.value;
   gSliderContainer['label'].innerHTML = "g (m/s^2)";
-  [gSlider.min, gSlider.max, gSlider.step, gSlider.value] = [0, 100, 0.1, 9.8]
+  [gSlider.min, gSlider.max, gSlider.step, gSlider.value] = [0, 20, 0.1, 9.8]
   gSlider.oninput = () => {
     gSliderContainer["valueLabel"].innerHTML = Number(gSlider.value).toFixed(2)
     par.g = gSlider.value / 100
   }
 
-  //drag
+  //Rest length of spring
   let dd13 = makeRow(dd1);
   let l0SliderContainer = makeSlider(dd13);
   l0Slider = l0SliderContainer['slider'];
@@ -81,6 +83,7 @@ function setup() {
     par.l0 = l0Slider.value
   }
 
+  //Spring constant
   let dd14 = makeRow(dd1);
   let kSliderContainer = makeSlider(dd14);
   kSlider = kSliderContainer['slider'];
@@ -92,6 +95,7 @@ function setup() {
     par.k = kSlider.value / 100
   }
 
+  //plot toggle
   let dd2 = makeItem(dd);
   dd2.parentElement.children[1].innerHTML = "UI";
   let dd21 = makeRow(dd2);
@@ -104,6 +108,7 @@ function setup() {
     plot2.getMainLayer().points = [];
   }
 
+  //Scale of display
   let dd22 = makeRow(dd2);
   let sSliderContainer = makeSlider(dd22);
   sSlider = sSliderContainer['slider'];
@@ -116,16 +121,18 @@ function setup() {
     traceCanvas.clear()
   }
 
+  //Simulation speed
   let dd23 = makeRow(dd2);
   let fSliderContainer = makeSlider(dd23);
   fSlider = fSliderContainer['slider'];
   fSliderContainer['valueLabel'].innerHTML = fSlider.value;
-  fSliderContainer['label'].innerHTML = "Speed";
+  fSliderContainer['label'].innerHTML = "Simulation speed";
   [fSlider.min, fSlider.max, fSlider.step, fSlider.value] = [1, 500, 5, 200]
   fSlider.oninput = () => {
     fSliderContainer["valueLabel"].innerHTML = Number(fSlider.value).toFixed(2)
   }
 
+  //clear plots
   let dd24 = makeRow(dd2)
   let cButtonContainer1 = new buttonContainer(dd24);
   cButton = cButtonContainer1.makeButton("Clear plots", () => {
@@ -133,19 +140,23 @@ function setup() {
     plot2.getMainLayer().points = [];
   });
 
-  setPedroStyle(bgCanvas)
+  setPedroStyle(bgCanvas) //styling the dropdown elements
+
+  //--end construction of dropdown menu--
+
   simCanvas = createGraphics(Wsim, Hsim)
-  traceCanvas = createGraphics(Wsim, Hsim)
+
+  traceCanvas = createGraphics(Wsim, Hsim) //setting up tracecanvas
   traceCanvas.translate(...par.hinge)
 
-  plotCanvas = createGraphics(Wplot, Hplot)
+  plotCanvas = createGraphics(Wplot, Hplot) //setting up plot canvas
   plotCanvas.background(20)
   plotCanvas.stroke(255)
   plotCanvas.strokeWeight(3)
   plotCanvas.noFill()
   plotCanvas.rect(0, 0, Wplot, Hplot)
 
-  plot1 = new GPlot(plotCanvas);
+  plot1 = new GPlot(plotCanvas); //setting up tangential vel vs pos phase plot
   plot1.setLineColor(255);
   plot1.setBoxBgColor(20);
   plot1.title.fontColor = 255;
@@ -153,13 +164,15 @@ function setup() {
   plot1.title.fontStyle = NORMAL
   plot1.title.fontName = "sans-serif"
   plot1.title.offset = 2
+  plot1.setPointColor(255);
+  plot1.setPointSize(7);
 
   plot1.setPos(0, 0);
   plot1.setMar(10, 10, 22, 10);
   plot1.setOuterDim(Wplot, Hplot / 2);
   plot1.setTitleText("Phase-space (v/r)")
 
-  plot2 = new GPlot(plotCanvas);
+  plot2 = new GPlot(plotCanvas); //setting up angular vel vs pos phase plot
   plot2.setLineColor(255);
   plot2.setBoxBgColor(20);
   plot2.title.fontColor = 255;
@@ -167,12 +180,15 @@ function setup() {
   plot2.title.fontStyle = NORMAL
   plot2.title.fontName = "sans-serif"
   plot2.title.offset = 2
+  plot2.setPointColor(255);
+  plot2.setPointSize(7);
 
   plot2.setPos(0, Hplot / 2);
   plot2.setMar(10, 10, 22, 10);
   plot2.setOuterDim(Wplot, Hplot / 2);
   plot2.setTitleText("Phase-space (w/Q)")
 
+  //plotting grids over simCanvas
   gridCanvas = createGraphics(Wsim, Hsim)
   let nDiv = 8
   gridCanvas.clear()
@@ -183,7 +199,7 @@ function setup() {
     gridCanvas.line(10, 10 + i * Hsim / nDiv, Wsim - 10, 10 + i * Hsim / nDiv)
   }
 
-  //initialize first point in traceCanvas
+  //initialize first points in traceCanvas
   pos1 = [scale * par.r * sin(par.theta), scale * par.r * cos(par.theta)];
   pos2 = [...pos1]
 }
@@ -210,8 +226,8 @@ function draw() {
   simCanvas.stroke(255)
   simCanvas.fill(20)
   simCanvas.strokeWeight(2)
-  //pendulum
 
+  //pendulum
   drawSpring(0, 0, scale * par.r * sin(par.theta), scale * par.r * cos(par.theta), 50, simCanvas)
 
   simCanvas.fill(20)
@@ -219,6 +235,7 @@ function draw() {
 
   simCanvas.pop()
 
+  //plotting the trace of the pendulum's path
   pos1 = [scale * par.r * sin(par.theta), scale * par.r * cos(par.theta)]
   traceCanvas.stroke(200)
   traceCanvas.strokeWeight(1)
@@ -231,11 +248,16 @@ function draw() {
   image(traceCanvas, 0, 0)
   //sim canvas
   image(simCanvas, 0, 0);
+
   //plotting canvas
   if (checkbox1.checked) {
     //plotting the data
-    plot1.addPoint(new GPoint(par.r, par.v));
-    plot2.addPoint(new GPoint(par.theta, par.omega));
+    plot1Point = new GPoint(par.r, par.v)
+    plot1.addPoint(plot1Point);
+
+    plot2Point = new GPoint(par.theta, par.omega)
+    plot2.addPoint(plot2Point);
+
     image(plotCanvas, Wsim - Wplot - 30, 30)
   }
 
@@ -248,19 +270,23 @@ function draw() {
     par.theta += par.omega * par.dt;
   }
 
+  //plotting the grafica plots
   plot1.beginDraw();
   plot1.drawBox();
   plot1.drawTitle();
+  plot1.drawPoint(plot1Point);
   plot1.drawLines();
   plot1.endDraw();
 
   plot2.beginDraw();
   plot2.drawBox();
   plot2.drawTitle();
+  plot2.drawPoint(plot2Point);
   plot2.drawLines();
   plot2.endDraw();
 }
 
+//setting initial conditions on mouse click
 function mouseClicked() {
   if (mouseX > 0 && mouseX < Wsim && mouseY > 0 && mouseY < Hsim) {
     par.r = ((mouseX - par.hinge[0]) ** 2 + (mouseY - par.hinge[1]) ** 2) ** 0.5 / scale
@@ -270,7 +296,6 @@ function mouseClicked() {
     pos1 = [scale * par.r * sin(par.theta), scale * par.r * cos(par.theta)]
     pos2 = [...pos1]
 
-    traceCanvas.clear()
     plot1.getMainLayer().points = [];
     plot2.getMainLayer().points = [];
     traceCanvas.clear()
