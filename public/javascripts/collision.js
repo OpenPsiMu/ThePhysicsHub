@@ -1,5 +1,4 @@
-//This is the file with a collision simulation. It is still incomplete;
-let ball1, ballRenderer, lockedBall, canvas, focusedBall, ekCheckbox;
+var ball1, ballRenderer, lockedBall, canvas, focusedBall, ekCheckbox;
 let t = 0;
 let dt = 1 / 60;
 var H = 450;
@@ -42,6 +41,16 @@ function setup() {
   item3.setLabel("Commands");
   let item3Row1 = makeRow(item3);
   let item3Row2 = makeRow(item3);
+  let item3Row3 = makeRow(item3);
+  let item3Row4 = makeRow(item3);
+
+  let row7 = makeRow(item1);
+  let innerItem = makeItem(row7);
+  let row7_1 = makeRow(innerItem);
+  let row7_2 = makeRow(innerItem);
+  let row7_3 = makeRow(innerItem);
+  innerItem.setLabel("Color");
+
 
   //making sliders
   sliderContainer1 = makeSlider(row1);
@@ -50,6 +59,7 @@ function setup() {
   sliderContainer1.slider.oninput = () => {
     if (focusedBall != undefined) {
       focusedBall.vx = Number(sliderContainer1.slider.value);
+      focusedBall.speed = sqrt(focusedBall.vy * * 2 + focusedBall.vx * * 2);
     };
     sliderContainer1.setValueLabel(sliderContainer1.slider.value);
   };
@@ -60,6 +70,7 @@ function setup() {
   sliderContainer2.slider.oninput = () => {
     if (focusedBall != undefined) {
       focusedBall.vy = Number(sliderContainer2.slider.value);
+      focusedBall.speed = sqrt(focusedBall.vy * * 2 + focusedBall.vx * * 2);
     };
     sliderContainer2.setValueLabel(sliderContainer2.slider.value);
   };
@@ -108,6 +119,29 @@ function setup() {
     sliderContainer6.setValueLabel(sliderContainer6.slider.value);
   };
 
+  //Time for the color ones
+  let colorCont1 = makeSlider(row7_1);
+  let colorCont2 = makeSlider(row7_2);
+  let colorCont3 = makeSlider(row7_3);
+  colorCont1.setTitleLabel("Red");
+  colorCont2.setTitleLabel("Green");
+  colorCont3.setTitleLabel("Blue");
+
+  for (let item of[colorCont1, colorCont2, colorCont3]) {
+    item.setParameters(255, 1, 1, 255);
+    item.setValueLabel(255);
+    let slider = item.slider;
+    slider.oninput = () => {
+      if (focusedBall != undefined) {
+        let red = colorCont1.slider.value;
+        let green = colorCont2.slider.value;
+        let blue = colorCont3.slider.value;
+        focusedBall.lineColor = "rgb(" + red + "," + green + "," + blue + ")";
+      };
+      item.setValueLabel(String(item.slider.value));
+    };
+  };
+
   //Making checkbox
   checkboxContainer = makeCheckbox(item2Row1);
   checkboxContainer.setLabel("Kinetic Energy plot");
@@ -141,6 +175,80 @@ function setup() {
     focusedBall = undefined;
     mouseReleased();
   });
+
+  let buttonContainer3 = new buttonContainer(item3Row3);
+  let button3 = buttonContainer3.makeButton("Remove", () => {});
+
+  button3.onmouseenter = () => {
+    let bg = button3.style['background-color'];
+    let c = button3.style['color'];
+    button3.onmouseleave = () => {
+      button3.style['background-color'] = bg;
+      button3.style.color = c;
+    };
+    button3.onmousedown = () => {
+      button3.style['background-color'] = "darkred";
+      button3.style.color = "white";
+    };
+    button3.style['background-color'] = "tomato";
+    button3.style.color = "white";
+  };
+
+  button3.onclick = () => {
+    if (focusedBall != undefined) {
+      let index = body.prototype.bodyArray.indexOf(focusedBall);
+      body.prototype.bodyArray.splice(index, 1);
+    };
+    setTimeout(() => {
+      button3.style.backgroundColor = 'tomato';
+    }, 10);
+  };
+
+
+  let buttonContainer4 = new buttonContainer(item3Row4);
+  let button4 = buttonContainer4.makeButton("Add", () => {});
+
+  button4.onmouseenter = () => {
+    let bg = button4.style['background-color'];
+    let c = button4.style['color'];
+    button4.onmouseleave = () => {
+      button4.style['background-color'] = bg;
+      button4.style.color = c;
+    };
+    button4.onmousedown = () => {
+      button4.style['background-color'] = "darkgreen";
+      button4.style.color = "white";
+    };
+    button4.style['background-color'] = "green";
+    button4.style.color = "white";
+  };
+
+  button4.onclick = () => {
+    let scopedFunc = button4.onclick;
+    let oldMousePressed = mousePressed;
+    let oldOnmouseleave = button4.onmouseleave;
+    let oldOnmouseenter = button4.onmouseenter;
+    button4.backgroundColor = "darkGreen";
+    button4.onmouseleave = () => {
+      null
+    };
+    mousePressed = () => {
+      if (mouseX < H && mouseX > 0 && mouseY < H && mouseY > 0) {
+        let ball = new body(ballRenderer);
+        ball.x = mouseX - 10;
+        ball.y = mouseY - 10;
+        console.log(ball);
+      };
+    };
+    button4.onclick = () => {
+      mousePressed = oldMousePressed;
+      button4.backgroundColor = "green";
+      button4.onmouseleave = oldOnmouseleave;
+      button4.onmouseenter = oldOnmouseenter;
+      button4.onclick = scopedFunc;
+    };
+  };
+
 
   //Making renderer
   ballRenderer = createGraphics(H * .95, H * .95);
@@ -189,7 +297,8 @@ function updateSliders() {
 
 function mousePressed() {
   for (ball of body.prototype.bodyArray) {
-    if (sqrt((mouseX - ball.x) * * 2 + (mouseY - ball.y) * * 2) < ball.r) {
+    if (sqrt((mouseX - 10 - ball.x) * * 2 + (mouseY - 10 - ball.y) * * 2) <
+      ball.r) {
       lockedBall = ball;
       focusedBall = ball;
       ball.fillColor = 'darkblue';
@@ -197,8 +306,8 @@ function mousePressed() {
       ball.initvy = ball.vy;
       ball.initX = ball.x;
       ball.initY = ball.y;
-      ball.initMouseX = mouseX;
-      ball.initMouseY = mouseY;
+      ball.initMouseX = mouseX - 10;
+      ball.initMouseY = mouseY - 10;
       updateSliders();
       break;
     };
@@ -209,8 +318,8 @@ function mouseDragged() {
   if (lockedBall != undefined) {
     let ball = lockedBall;
     ball.vx = ball.vy = 0;
-    ball.x = mouseX + ball.initX - ball.initMouseX;
-    ball.y = mouseY + ball.initY - ball.initMouseY;
+    ball.x = mouseX + ball.initX - ball.initMouseX - 10;
+    ball.y = mouseY + ball.initY - ball.initMouseY - 10;
   };
 };
 
@@ -551,7 +660,180 @@ function body(renderer, radius = 1, mass = 10, fillColor = "#000", lineWidth =
 
 
 
-//Then we have the good and old dropdown
+//Now the plotting functions
+
+function makePlot(canvas) {
+  //First let's declare some global variables for a plot
+  //This is mainly for readibility
+  let figure, axes, bbox;
+  let contextPoint = this.contextPoint = [0, 0]; //Used for continuity!
+
+  /*bbox = [x0, y0, x1, y1];
+  x0 and y0 lie at the top left corner
+  x1 and y1 lie at the bottom right corner
+  Used for scaling and positioning*/
+  this.xlim = [0, 100];
+  this.ylim = [0, 100];
+
+  this.displayGrid = (rows = 4, columns = 4) => {
+    let rowStep = figure.height / (rows + 1);
+    let columnStep = figure.width / (columns + 1);
+
+    figure.context.lineWidth = 3;
+    figure.context.strokeStyle = "rgba(255, 255, 255, .2)";
+    this.figure.context.moveTo(0, rowStep);
+    for (let row = 1; row <= rows; row++) {
+      figure.context.moveTo(0, row * rowStep);
+      figure.context.lineTo(figure.width, row * rowStep);
+    };
+    for (let col = 1; col <= columns; col++) {
+      figure.context.moveTo(col * columnStep, 0);
+      figure.context.lineTo(col * columnStep, figure.height);
+    };
+    figure.context.stroke();
+    figure.context.beginPath();
+    figure.context.closePath();
+  };
+
+  this.build = (bbox) => {
+    this.bbox = (arguments.length > 0) ? bbox : [0, 0, 0, 0];
+    //Sets bbox for display later
+    pixelDensity(2);
+
+    figure = createGraphics(300, 300);
+    figure.pixelDensity(window.pixelDensity());
+    figure.context = figure.elt.getContext("2d");
+    figure.bg = "rgba(0, 0, 0, 1)";
+    figure.context.strokeStyle = '#fff';
+    figure.context.lineWidth = 6;
+    figure.background(figure.bg);
+    this.figure = figure;
+
+    axes = createGraphics(500, 500);
+    axes.pixelDensity(window.pixelDensity());
+    axes.context = axes.elt.getContext("2d");
+    axes.context.strokeStyle = "white";
+    axes.bg = "rgba(0, 0, 0, 1)";
+    axes.background(axes.bg);
+    this.axes = axes;
+
+    axes.mousePressed = function() {
+      console.log(axes.mouseX);
+    };
+  };
+
+  this.displayFrame = () => {
+    this.figure.context.lineWidth = 4;
+    figure.context.strokeStyle = "rgba(255, 255, 255, .8)";
+    this.figure.context.moveTo(0, 0);
+    this.figure.context.lineTo(0, this.figure.height);
+    this.figure.context.lineTo(this.figure.width, this.figure.height);
+    this.figure.context.lineTo(this.figure.width, 0);
+    this.figure.context.lineTo(0, 0);
+    this.figure.context.stroke();
+
+    figure.context.beginPath();
+    figure.context.closePath();
+  };
+
+  this.displayAxis = () => {
+    figure.context.lineWidth = 4;
+    figure.context.strokeStyle = "rgba(255, 255, 255, .8)";
+    figure.context.moveTo(0, 0);
+    figure.context.lineTo(0, this.figure.height);
+    figure.context.lineTo(figure.width, figure.height);
+    figure.context.stroke();
+    figure.context.beginPath();
+    figure.context.closePath();
+  };
+
+  this.display = () => {
+    let scale = window.pixelDensity();
+    canvas.elt.getContext('2d').setTransform(scale, 0, 0, scale, 0, 0);
+
+    figure.background(0);
+
+    this.figure.image(axes,
+      this.figure.width / 20,
+      this.figure.height / 20,
+      this.figure.width * 0.9,
+      this.figure.height * 0.9);
+
+    this.displayFrame();
+    this.displayGrid();
+
+    image(this.figure,
+      this.bbox[0], this.bbox[1],
+      this.bbox[2] - this.bbox[0],
+      this.bbox[3] - this.bbox[1]);
+  };
+
+  this.setAxLimits = (xlim = [10, 100], ylim = [0, 100]) => {
+    /*This is just a bunch of scaling and translating
+    I never had linear algebra so I don't know the terms*/
+    let xdist = xlim[1] - xlim[0];
+    let ydist = ylim[1] - ylim[0];
+    axes.context.setTransform(window.pixelDensity(), 0, 0, window.pixelDensity(),
+      0, 0);
+    axes.context.scale(axes.width / xdist, -axes.height / ydist);
+    axes.context.translate(-xlim[0], -ydist);
+
+    /*The comment is for TESTING in case a glitch is found*/
+    //     axes.ellipse(50, 10, 5, 5);
+    //     axes.fill(0, 250, 0);
+    //     axes.ellipse(50, 20, 5, 5);
+
+    //     axes.fill(0, 0, 0, 0);
+    //     axes.rect(xlim[0]*1.1, ylim[0]*1.1, xdist*0.8, ydist*0.8)
+    /*End of testing*/
+
+
+    //Now we use the OLD lims to resize the current drawing
+    //Negative signs are odd because of coordinate system
+
+    axes.scale(1, -1);
+    axes.context.drawImage(axes.elt,
+      this.xlim[0], -this.ylim[1],
+      this.xlim[1] - this.xlim[0],
+      this.ylim[1] - this.ylim[0]);
+    axes.scale(1, -1);
+
+    //We also need to avoid ANNYING connections between old and new lines we draw
+    axes.context.beginPath();
+    axes.context.closePath();
+    axes.context.moveTo(...this.contextPoint);
+
+    //Now we don't need the old lims anymore
+    this.xlim = xlim;
+    this.ylim = ylim;
+  };
+
+  this.addLineTo = (arr) => {
+    //Draws a line between the last drawn point and point
+    axes.context.lineTo(...arr);
+    axes.context.stroke();
+    this.contextPoint = arr;
+  };
+
+  this.startLine = (arr) => {
+    axes.context.moveTo(...arr);
+  };
+
+  this.plot = (arr) => {
+    if (arr.length == 0) {
+      return null
+    };
+    axes.context.moveTo(...arr[0]);
+    for (Point of arr) {
+      axes.context.lineTo(...Point);
+    };
+    axes.context.stroke();
+  };
+};
+
+
+
+//Now the dropdown
 /*This file contains many functions that can be used to
 add a wonderful dropdown to a p5 canvas!!!
 
@@ -1099,6 +1381,15 @@ function setPedroStyle(canvas) {
           padding: 0;
         }
 
+        .item>ul>li>.item>input{
+          display: none;
+        }
+
+        .item>ul>li>.item, .item>ul>li>.item>*{
+          width: 100%;
+        }
+
+
         .item>label{
           font-weight: 600;
           font-size: 1em;
@@ -1336,215 +1627,4 @@ function setPedroStyle(canvas) {
         }
         `;
   document.head.appendChild(style);
-};
-
-
-//Then we have some plotting functions
-// let canvas, figure, axes;
-// let W = H = 400;
-
-// function setup() {
-//   canvas = createCanvas(W, H);
-
-
-//   plot = new makePlot(canvas);
-//   plot.build([10, 10, 300, 300]);
-//   plot.axes.context.lineWidth = 2;
-
-//   plot.setAxLimits([0, 200], [0, 200]);
-//   plot.displayFrame();
-//   plot.displayGrid();
-//   let i = 0;
-//   canvas.background(250, 0, 0);
-//   plot.startLine([10, 100]);
-//   while (i++ < 1000) {
-//     plot.addLineTo([10 + i / 50, sin(i / 100) * 20 + 100]);
-//     plot.axes.context.stroke();
-//   };
-
-//   plot.setAxLimits([0, 250], [0, 150]);
-//   while (i++ < 2000) {
-//     // plot.addLineTo([10 + i / 20, sin(i / 20) * 20 + 100]);
-//     plot.axes.ellipse(...[10 + i / 10, sin(i / 20) * 20 + 80], .001, 001);
-//     plot.axes.context.stroke();
-//   };
-//   background(0, 0, 255);
-//   plot.display();
-//   i = 0;
-//   setInterval(
-//     () => {
-//       plot.setAxLimits([i - 100, i++], [0, 150]);
-//       plot.display();
-//     }, 100);
-// };
-
-// function draw() {};
-
-function makePlot(canvas) {
-  //First let's declare some global variables for a plot
-  //This is mainly for readibility
-  let figure, axes, bbox;
-  let contextPoint = this.contextPoint = [0, 0]; //Used for continuity!
-
-  /*bbox = [x0, y0, x1, y1];
-  x0 and y0 lie at the top left corner
-  x1 and y1 lie at the bottom right corner
-  Used for scaling and positioning*/
-  this.xlim = [0, 100];
-  this.ylim = [0, 100];
-
-  this.displayGrid = (rows = 4, columns = 4) => {
-    let rowStep = figure.height / (rows + 1);
-    let columnStep = figure.width / (columns + 1);
-
-    figure.context.lineWidth = 3;
-    figure.context.strokeStyle = "rgba(255, 255, 255, .2)";
-    this.figure.context.moveTo(0, rowStep);
-    for (let row = 1; row <= rows; row++) {
-      figure.context.moveTo(0, row * rowStep);
-      figure.context.lineTo(figure.width, row * rowStep);
-    };
-    for (let col = 1; col <= columns; col++) {
-      figure.context.moveTo(col * columnStep, 0);
-      figure.context.lineTo(col * columnStep, figure.height);
-    };
-    figure.context.stroke();
-    figure.context.beginPath();
-    figure.context.closePath();
-  };
-
-  this.build = (bbox) => {
-    this.bbox = (arguments.length > 0) ? bbox : [0, 0, 0, 0];
-    //Sets bbox for display later
-    pixelDensity(2);
-
-    figure = createGraphics(300, 300);
-    figure.pixelDensity(window.pixelDensity());
-    figure.context = figure.elt.getContext("2d");
-    figure.bg = "rgba(0, 0, 0, 1)";
-    figure.context.strokeStyle = '#fff';
-    figure.context.lineWidth = 6;
-    figure.background(figure.bg);
-    this.figure = figure;
-
-    axes = createGraphics(500, 500);
-    axes.pixelDensity(window.pixelDensity());
-    axes.context = axes.elt.getContext("2d");
-    axes.context.strokeStyle = "white";
-    axes.bg = "rgba(0, 0, 0, 1)";
-    axes.background(axes.bg);
-    this.axes = axes;
-
-    axes.mousePressed = function() {
-      console.log(axes.mouseX);
-    };
-  };
-
-  this.displayFrame = () => {
-    this.figure.context.lineWidth = 4;
-    figure.context.strokeStyle = "rgba(255, 255, 255, .8)";
-    this.figure.context.moveTo(0, 0);
-    this.figure.context.lineTo(0, this.figure.height);
-    this.figure.context.lineTo(this.figure.width, this.figure.height);
-    this.figure.context.lineTo(this.figure.width, 0);
-    this.figure.context.lineTo(0, 0);
-    this.figure.context.stroke();
-
-    figure.context.beginPath();
-    figure.context.closePath();
-  };
-
-  this.displayAxis = () => {
-    figure.context.lineWidth = 4;
-    figure.context.strokeStyle = "rgba(255, 255, 255, .8)";
-    figure.context.moveTo(0, 0);
-    figure.context.lineTo(0, this.figure.height);
-    figure.context.lineTo(figure.width, figure.height);
-    figure.context.stroke();
-    figure.context.beginPath();
-    figure.context.closePath();
-  };
-
-  this.display = () => {
-    let scale = window.pixelDensity();
-    canvas.elt.getContext('2d').setTransform(scale, 0, 0, scale, 0, 0);
-
-    figure.background(0);
-
-    this.figure.image(axes,
-      this.figure.width / 20,
-      this.figure.height / 20,
-      this.figure.width * 0.9,
-      this.figure.height * 0.9);
-
-    this.displayFrame();
-    this.displayGrid();
-
-    image(this.figure,
-      this.bbox[0], this.bbox[1],
-      this.bbox[2] - this.bbox[0],
-      this.bbox[3] - this.bbox[1]);
-  };
-
-  this.setAxLimits = (xlim = [10, 100], ylim = [0, 100]) => {
-    /*This is just a bunch of scaling and translating
-    I never had linear algebra so I don't know the terms*/
-    let xdist = xlim[1] - xlim[0];
-    let ydist = ylim[1] - ylim[0];
-    axes.context.setTransform(window.pixelDensity(), 0, 0, window.pixelDensity(),
-      0, 0);
-    axes.context.scale(axes.width / xdist, -axes.height / ydist);
-    axes.context.translate(-xlim[0], -ydist);
-
-    /*The comment is for TESTING in case a glitch is found*/
-    //     axes.ellipse(50, 10, 5, 5);
-    //     axes.fill(0, 250, 0);
-    //     axes.ellipse(50, 20, 5, 5);
-
-    //     axes.fill(0, 0, 0, 0);
-    //     axes.rect(xlim[0]*1.1, ylim[0]*1.1, xdist*0.8, ydist*0.8)
-    /*End of testing*/
-
-
-    //Now we use the OLD lims to resize the current drawing
-    //Negative signs are odd because of coordinate system
-
-    axes.scale(1, -1);
-    axes.context.drawImage(axes.elt,
-      this.xlim[0], -this.ylim[1],
-      this.xlim[1] - this.xlim[0],
-      this.ylim[1] - this.ylim[0]);
-    axes.scale(1, -1);
-
-    //We also need to avoid ANNYING connections between old and new lines we draw
-    axes.context.beginPath();
-    axes.context.closePath();
-    axes.context.moveTo(...this.contextPoint);
-
-    //Now we don't need the old lims anymore
-    this.xlim = xlim;
-    this.ylim = ylim;
-  };
-
-  this.addLineTo = (arr) => {
-    //Draws a line between the last drawn point and point
-    axes.context.lineTo(...arr);
-    axes.context.stroke();
-    this.contextPoint = arr;
-  };
-
-  this.startLine = (arr) => {
-    axes.context.moveTo(...arr);
-  };
-
-  this.plot = (arr) => {
-    if (arr.length == 0) {
-      return null
-    };
-    axes.context.moveTo(...arr[0]);
-    for (Point of arr) {
-      axes.context.lineTo(...Point);
-    };
-    axes.context.stroke();
-  };
 };
