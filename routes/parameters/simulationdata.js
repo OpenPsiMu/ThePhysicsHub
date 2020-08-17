@@ -31,9 +31,9 @@ const simulations = [{
   "image": "forceTable.png",
   "explanation": getFile("force_table_explanation.ejs")
 }, {
-  "name": "Collision",
+  "name": "collision",
   "description": "Two pendulum coupled by a spring connecting the bobs.",
-  "urlName": "Collision",
+  "urlName": "collision",
   "jsfile": "collision",
   "image": "collision.png",
   "explanation": "Play around and have fun"
