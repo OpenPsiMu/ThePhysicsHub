@@ -2,7 +2,7 @@ var ball1, ballRenderer, lockedBall, canvas, focusedBall, ekCheckbox;
 let t = 0;
 let dt = 1 / 60;
 var H = 450;
-let g = 9.8;
+let g = 0;
 let plot;
 let running = false;
 let checkboxContainer;
