@@ -1,4 +1,4 @@
-var ball1, ballRenderer, lockedBall, canvas, focusedBall, ekCheckbox;
+var ballRenderer, lockedBall, canvas, focusedBall, ekCheckbox, explanationCanvas;
 let t = 0;
 let dt = 1 / 60;
 var H = 450;
@@ -9,10 +9,11 @@ let checkboxContainer;
 let sliderContainer1, sliderContainer2, sliderContainer3, sliderContainer4,
   sliderContainer5;
 let someBall;
+let showExplanation;//Will be a checkbox
 
 function setup() {
   canvas = createCanvas(H, H);
-  canvas.parent("simwrapper");
+  // canvas.parent("simwrapper");
 
   //Making dropdown
   let dd = makeDropdown(canvas);
@@ -36,6 +37,7 @@ function setup() {
   let item2 = makeItem(dd);
   item2.setLabel("Display");
   let item2Row1 = makeRow(item2);
+  let item2Row2 = makeRow(item2);
   dd.setLabel("Dropdown");
   item1.setLabel("Parameters");
   let item3 = makeItem(dd);
@@ -158,6 +160,12 @@ function setup() {
 
     cont.style.width = !checkbox.checked ? "700px" : "";
   };
+  
+  let infoCheckboxContainer = makeCheckbox(item2Row2);
+  infoCheckboxContainer.setLabel("Show instructions");
+  showExplanation = infoCheckboxContainer.checkbox;
+  showExplanation.checked = true;
+  
 
   //Making buttons
   let buttonContainer1 = new buttonContainer(item3Row1);
@@ -387,6 +395,65 @@ function draw() {
   if (ekCheckbox.checked) {
     body.prototype.plotEk(plot);
   };
+  
+  
+  if (showExplanation.checked){
+    showInfo();//Instructions
+  };
+  
+};
+
+function showInfo(){
+  if (explanationCanvas==undefined){
+    explanationCanvas = createGraphics(H*.85, H*.85);
+    setTimeout(()=>{
+      showExplanation.checked = false;
+      let cont = document.getElementById("Root");
+      let dd = cont.parentElement.children[2];
+      let item = dd.children[1];
+      setTimeout(()=>{
+      item.children[0].checked = true;},500);
+      
+      setTimeout(()=>{cont.checked = true;},200);
+      
+    }, 10000);
+  };
+  explanationCanvas.pixelDensity(2);
+  let ct = explanationCanvas.elt.getContext("2d");
+  ct.strokeStyle = "white";
+  ct.fillStyle = "#333";
+  ct.lineWidth = 20;
+  ct.fillRect(0, 0, H*.85, H*.85);
+  ct.beginPath();
+  ct.rect(0, 0, H*.85, H*.85);
+  ct.stroke();
+  explanationCanvas.textSize(15);
+  explanationCanvas.fill(255);
+  let y = 30; let dy = 20;
+  explanationCanvas.text("-To select an object, click on it.", 15, y);
+  y+=dy*1.2;
+  explanationCanvas.text("-To move an object, click and drag.", 15, y);
+  y+=dy*1.2;
+  explanationCanvas.text("-The dropdown changes the property for the", 15, y);
+  y+=dy;
+  explanationCanvas.text("selected ball. The only exeption being gravity.", 15, y);
+  y+=dy;
+  explanationCanvas.text("Which is the same for all balls.", 15, y);
+  y+=dy;
+  explanationCanvas.text("-Use the buttons to perform actions.", 15, y);
+  y+=dy*1.2;
+  explanationCanvas.text("-Delete button deletes the selected button.", 15, y);
+  y+=dy*1.2;
+  explanationCanvas.text("-Add button lets you add buttons by touching", 15, y);
+  y+=dy;
+  explanationCanvas.text("the screen while the button is green.", 15, y);
+  y+=dy;
+  explanationCanvas.text("Press it either activate or deactivate.", 15, y);
+  y+=dy*1.5;
+  explanationCanvas.textSize(20);
+  explanationCanvas.text("Play to learn more :)", 15, y);
+  image(explanationCanvas, H*.075, H*.075);
+  
 };
 
 
