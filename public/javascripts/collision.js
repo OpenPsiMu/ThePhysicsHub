@@ -13,7 +13,7 @@ let showExplanation;//Will be a checkbox
 
 function setup() {
   canvas = createCanvas(H, H);
-  // canvas.parent("simwrapper");
+  canvas.parent("simwrapper");
 
   //Making dropdown
   let dd = makeDropdown(canvas);
