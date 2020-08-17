@@ -60,7 +60,7 @@ function setup() {
   sliderContainer1.slider.oninput = () => {
     if (focusedBall != undefined) {
       focusedBall.vx = Number(sliderContainer1.slider.value);
-      focusedBall.speed = sqrt(focusedBall.vy * * 2 + focusedBall.vx * * 2);
+      focusedBall.speed = sqrt(focusedBall.vy ** 2 + focusedBall.vx ** 2);
     };
     sliderContainer1.setValueLabel(sliderContainer1.slider.value);
   };
@@ -71,7 +71,7 @@ function setup() {
   sliderContainer2.slider.oninput = () => {
     if (focusedBall != undefined) {
       focusedBall.vy = Number(sliderContainer2.slider.value);
-      focusedBall.speed = sqrt(focusedBall.vy * * 2 + focusedBall.vx * * 2);
+      focusedBall.speed = sqrt(focusedBall.vy ** 2 + focusedBall.vx ** 2);
     };
     sliderContainer2.setValueLabel(sliderContainer2.slider.value);
   };
@@ -270,7 +270,7 @@ function setup() {
     someBall.vy = random(2, 18);
     someBall.r = random(10, 40);
     someBall.m = someBall.r * 2;
-    someBall.speed = sqrt(someBall.vx * * 2 + someBall.vy * * 2);
+    someBall.speed = sqrt(someBall.vx ** 2 + someBall.vy ** 2);
     someBall.lineColor = "rgba(" + random(0, 255) + "," + random(0, 255) + "," +
       random(0, 255) + ")";
   };
@@ -298,7 +298,7 @@ function updateSliders() {
 
 function mousePressed() {
   for (ball of body.prototype.bodyArray) {
-    if (sqrt((mouseX - 10 - ball.x) * * 2 + (mouseY - 10 - ball.y) * * 2) <
+    if (sqrt((mouseX - 10 - ball.x) ** 2 + (mouseY - 10 - ball.y) ** 2) <
       ball.r) {
       lockedBall = ball;
       focusedBall = ball;
@@ -457,8 +457,8 @@ function body(renderer, radius = 1, mass = 10, fillColor = "#000", lineWidth =
         let b2 = this.bodyArray[j]; //Body2
         let x12 = b2.x - b1.x;
         let y12 = b2.y - b1.y;
-        let distp2 = x12 * * 2 + y12 * * 2; //Distance power 2
-        let distp1 = sqrt(x12 * * 2 + y12 * * 2); //Distance power 1
+        let distp2 = x12 ** 2 + y12 ** 2; //Distance power 2
+        let distp1 = sqrt(x12 ** 2 + y12 ** 2); //Distance power 1
         if (distp1 < b1.r + b2.r) {
           //If the balls intersect
           //get other vectors
@@ -570,9 +570,9 @@ function body(renderer, radius = 1, mass = 10, fillColor = "#000", lineWidth =
     this.vy += (fy / this.m + ay) * dt;
     this.x += this.vx * dt * 10; //10px per meter
     this.y += this.vy * dt * 10;
-    this.speed = sqrt(this.vx * * 2 + this.vy * * 2);
+    this.speed = sqrt(this.vx ** 2 + this.vy ** 2);
     this.lastEk = this.ek * 1;
-    this.ek = 1 / 2 * this.m * this.speed * * 2;
+    this.ek = 1 / 2 * this.m * this.speed ** 2;
   };
 
   //Collide with sides of canvas
@@ -611,8 +611,8 @@ function body(renderer, radius = 1, mass = 10, fillColor = "#000", lineWidth =
         let b2 = this.bodyArray[i]; //Body2
         let x12 = b2.x - b1.x;
         let y12 = b2.y - b1.y;
-        let distp2 = x12 * * 2 + y12 * * 2; //Distance power 2
-        let distp1 = sqrt(x12 * * 2 + y12 * * 2); //Distance power 1
+        let distp2 = x12 ** 2 + y12 ** 2; //Distance power 2
+        let distp1 = sqrt(x12 ** 2 + y12 ** 2); //Distance power 1
         if (distp1 < b1.r + b2.r) {
           //If the balls intersect
           //get other vectors
