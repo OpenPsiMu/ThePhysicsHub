@@ -36,6 +36,7 @@ const simulations = [{
   "urlName": "collision",
   "jsfile": "collision",
   "image": "collision.png",
+  "description": "A simple collision engine to explore momentum conservation.",
   "explanation": "Play around and have fun"
 }];
 
