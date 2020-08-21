@@ -11,7 +11,7 @@ let i1r5checkboxCont; //Collision with walls
 function setup() {
     canvas = createCanvas(H, H);
     canvas.isMouseOver = true;
-    // canvas.parent("simwrapper");
+    canvas.parent("simwrapper");
     trailRenderer = createGraphics(H, H);
     trailContext = trailRenderer.elt.getContext("2d");
 
@@ -20,13 +20,13 @@ function setup() {
     trailRenderer.pixelDensity(2);
     arena.pixelDensity(2);
 
-    for (let i = 0; i < 36; i++) {
+    for (let i = 0; i < 6; i++) {
         someBall = new body(arena);
         someBall.x = random(20, 380);
         someBall.y = random(20, 380);
         someBall.vx = random(-2, 2);
         someBall.vy = random(-2, 2);
-        someBall.r = random(5, 15);
+        someBall.r = random(5, 25);
         someBall.m = someBall.r;
         someBall.speed = sqrt(someBall.vx ** 2 + someBall.vy ** 2);
         let r = random(0, 255);
