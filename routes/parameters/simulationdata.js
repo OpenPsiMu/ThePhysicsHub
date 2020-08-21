@@ -32,11 +32,17 @@ const simulations = [{
   "explanation": getFile("force_table_explanation.ejs")
 }, {
   "name": "collision",
-  "description": "Two pendulum coupled by a spring connecting the bobs.",
   "urlName": "collision",
   "jsfile": "collision",
   "image": "collision.png",
   "description": "A simple collision engine to explore momentum conservation.",
+  "explanation": "Play around and have fun"
+},{
+  "name": "nBody",
+  "description": "Simulation that demonstrates gravity and collisions with n bodies",
+  "urlName": "nBody",
+  "jsfile": "nBody",
+  "image": "collision.png",
   "explanation": "Play around and have fun"
 }];
 
