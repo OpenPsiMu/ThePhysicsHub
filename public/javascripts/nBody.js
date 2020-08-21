@@ -12,6 +12,17 @@ let i1r5checkboxCont; //Collision with walls
 
 function setup() {
     canvas = createCanvas(H, H);
+    let mouseWheelOriginal = mouseWheel;
+    canvas.elt.onmouseenter = () => {
+        document.body.style.overflow = "hidden";
+        mouseWheel = mouseWheelOriginal;
+    };
+    canvas.elt.onmouseleave = () => {
+        document.body.style.overflow = "auto";
+        mouseWheel = () => {
+            null
+        };
+    };
     canvas.isMouseOver = true;
     canvas.parent("simwrapper");
     trailRenderer = createGraphics(H, H);
@@ -42,7 +53,6 @@ function setup() {
 
     /*Time to make the dropdown*/
     let dd = makeDropdown(canvas);
-    let mouseWheelOriginal = mouseWheel;
     dd.parentElement.parentElement.onmouseenter = () => {
         canvas.isMouseOver = false;
         mouseWheel = () => {
