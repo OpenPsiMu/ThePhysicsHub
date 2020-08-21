@@ -2,11 +2,13 @@
 let t = 0;
 let dt = 1 / 1960;
 let H = 400;
+let scalingFactor = 2;
 let speed = 10;
 let canvas, arena, b1, b2, running = true,
     lockedBall, trailRenderer, trailContext;
 let i1r4checkboxCont; //FUSION OF BALLS
 let i1r5checkboxCont; //Collision with walls
+
 
 function setup() {
     canvas = createCanvas(H, H);
@@ -40,9 +42,12 @@ function setup() {
 
     /*Time to make the dropdown*/
     let dd = makeDropdown(canvas);
+    let mouseWheelOriginal = mouseWheel;
     dd.parentElement.parentElement.onmouseenter = () => {
         canvas.isMouseOver = false;
-        console.log("entered");
+        mouseWheel = () => {
+            null
+        };
         if (lockedBall == undefined) {
             return null;
         };
@@ -61,7 +66,7 @@ function setup() {
     };
     dd.parentElement.parentElement.onmouseleave = () => {
         canvas.isMouseOver = true;
-        console.log("left");
+        mouseWheel = mouseWheelOriginal;
     };
     dd.setLabel("Options");
     setPedroStyle(canvas);
@@ -105,7 +110,7 @@ function setup() {
     i1r1sliderCont.setTitleLabel("G");
     i1r2sliderCont.setTitleLabel("Speed");
     i1r3sliderCont.setTitleLabel("Damping");
-    i1r1sliderCont.setParameters(4000, 0, 1, 2000);
+    i1r1sliderCont.setParameters(6000, 0, 1, 2000);
     i1r2sliderCont.setParameters(100, 1, 1, 10);
     i1r3sliderCont.setParameters(1, 0, 0.01, 0.0);
     i1r1sliderCont.slider.oninput = () => {
@@ -127,7 +132,7 @@ function setup() {
             return null;
         };
         let d = Number(i1r3sliderCont.slider.value);
-        for (b of body.prototype.bodyArray) {
+        for (let b of body.prototype.bodyArray) {
             b.damping = b.bodyDamping = 1 - d;
         };
         i1r3sliderCont.setValueLabel(String(d));
@@ -266,7 +271,7 @@ function setup() {
         };
     });
     let hideFButton = i3r4buttonCont.makeButton("Hide ALL forces", () => {
-        for (b of body.prototype.bodyArray) {
+        for (let b of body.prototype.bodyArray) {
             b.showF = false;
         };
     });
@@ -348,11 +353,29 @@ function draw() {
     image(arena, 0, 0);
 };
 
+
+function mouseWheel(event) {
+    let previousScalingFactor = scalingFactor;
+    if (scalingFactor >= .2) {
+        scalingFactor += event.delta / 1000;
+    } else {
+        scalingFactor = .2
+    };
+    arena.elt.getContext("2d").setTransform(scalingFactor, 0, 0, scalingFactor, 0, 0);
+    canvas.elt.getContext("2d").setTransform(2, 0, 0, 2, 0, 0);
+
+    let s = H / previousScalingFactor * 2;
+    trailContext.setTransform(scalingFactor, 0, 0, scalingFactor, 0, 0);
+    trailContext.drawImage(trailRenderer.elt, 0, 0, s, s);
+};
+
 function mousePressed() {
     if (!canvas.isMouseOver) {
         return null
     };
     lockedBall = undefined;
+    mouseX /= scalingFactor / 2;
+    mouseY /= scalingFactor / 2;
     for (ball of body.prototype.bodyArray) {
         if (sqrt((mouseX - ball.x) ** 2 + (mouseY - ball.y) ** 2) <
             ball.r) {
@@ -377,6 +400,8 @@ function mousePressedDelete() {
         return null
     };
     lockedBall = undefined;
+    mouseX /= scalingFactor / 2;
+    mouseY /= scalingFactor / 2;
     for (ball of body.prototype.bodyArray) {
         if (sqrt((mouseX - ball.x) ** 2 + (mouseY - ball.y) ** 2) < ball.r) {
             let index = body.prototype.bodyArray.indexOf(ball);
@@ -390,6 +415,8 @@ function mousePressedAdd() {
         return null
     };
     let ball = new body(arena);
+    mouseX /= scalingFactor / 2;
+    mouseY /= scalingFactor / 2;
     ball.x = mouseX;
     ball.y = mouseY;
     ball.trailContext = trailContext;
@@ -402,6 +429,8 @@ function mouseDragged() {
     };
     if (lockedBall != undefined) {
         let ball = lockedBall;
+        mouseX /= scalingFactor / 2;
+        mouseY /= scalingFactor / 2;
         ball.lastX = ball.x;
         ball.lastY = ball.y;
         ball.vx = ball.vy = 0;
@@ -428,13 +457,14 @@ function mouseReleased() {
 function drawGrid(renderer) {
     let h = renderer.height;
     let w = renderer.width;
-    let n = 9;
-    let dh = h / (n + 1);
-    let dw = w / (n + 1);
+    let s = 50 * scalingFactor;
+    let n = (h / s).toFixed(0);
+    let dh = s; //h / (n + 1);
+    let dw = s; //w / (n + 1);
     let rendererContext = renderer.elt.getContext("2d");
 
     rendererContext.strokeStyle = "rgba(200, 200, 200, .3)";
-    rendererContext.lineWidth = 1;
+    rendererContext.lineWidth = 1 + scalingFactor * 2;
     for (let i = 1; i <= n; i++) {
         rendererContext.moveTo(0, i * dh);
         rendererContext.lineTo(w, i * dh);
@@ -540,18 +570,23 @@ function body(renderer, radius = 1, mass = 10, fillColor = "yellow", lineWidth =
             body.prototype.trailContext = body.prototype.bodyArray[0].trailContext;
             body.prototype.fadeTrail = () => {
                 body.prototype.trailContext.fillStyle = "rgba(0, 0, 0, .02)";
-                body.prototype.trailContext.fillRect(0, 0, H, H);
+                let s = H / scalingFactor * 2;
+                body.prototype.trailContext.fillRect(0, 0, s, s);
             };
         };
         body.prototype.trailContext.fillStyle = "rgba(0, 0, 0, .02)";
-        body.prototype.trailContext.fillRect(0, 0, H, H);
+        let s = H / scalingFactor * 2;
+        body.prototype.trailContext.fillRect(0, 0, s, s);
     };
 
     body.prototype.applyGAcc = () => {
         //LETS every object affect every object
         if (body.prototype.bodyArray.length < 2) {
-            for (BODY of body.prototype.bodyArray) {
-                BODY.fx = BODY.fy = BODY.ax = BODY.ay = 0;
+            for (let BODY of body.prototype.bodyArray) {
+                BODY.fx = 0;
+                BODY.fy = 0;
+                BODY.ax = 0;
+                BODY.ay = 0;
             };
             return null;
         };
@@ -757,7 +792,7 @@ function body(renderer, radius = 1, mass = 10, fillColor = "yellow", lineWidth =
                 };
                 continue;
             };
-            let G = 20000;
+            let G = body.prototype.G;
             let ax = G * rx / (dist ** 3);
             let ay = G * ry / (dist ** 3);
             this.accX += BODY.m * ax;
@@ -869,8 +904,8 @@ function body(renderer, radius = 1, mass = 10, fillColor = "yellow", lineWidth =
 
     //Collide with sides of canvas
     this.borderCollision = () => {
-        let xlim = this.renderer.width;
-        let ylim = this.renderer.height;
+        let xlim = this.renderer.width / scalingFactor * 2;
+        let ylim = this.renderer.height / scalingFactor * 2;
         let damping = this.damping;
 
         if (this.x - this.r < 0) {
@@ -895,12 +930,13 @@ function body(renderer, radius = 1, mass = 10, fillColor = "yellow", lineWidth =
             return null
         };
         this.trailContext.lineWidth = 2;
+        this.trailContext.closePath();
         this.trailContext.strokeStyle = this.fillColor;
         this.trailContext.beginPath();
         this.trailContext.moveTo(this.lastX, this.lastY);
         this.trailContext.lineTo(this.x, this.y);
-        this.trailContext.closePath();
         this.trailContext.stroke();
+        this.trailContext.closePath();
     };
 
     this.bodyCollision = () => {
@@ -963,7 +999,6 @@ function body(renderer, radius = 1, mass = 10, fillColor = "yellow", lineWidth =
         };
     };
 };
-
 
 
 
