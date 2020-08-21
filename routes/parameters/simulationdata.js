@@ -42,7 +42,7 @@ const simulations = [{
   "description": "Simulation that demonstrates gravity and collisions with n bodies",
   "urlName": "nBody",
   "jsfile": "nBody",
-  "image": "collision.png",
+  "image": "nBody.png",
   "explanation": "Play around and have fun"
 }];
 
