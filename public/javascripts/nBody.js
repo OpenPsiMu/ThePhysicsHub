@@ -646,8 +646,8 @@ function body(renderer, radius = 1, mass = 10, fillColor = "yellow", lineWidth =
       body.prototype.trailContext = body.prototype.bodyArray[0].trailContext;
       body.prototype.fadeTrail = () => {
         body.prototype.trailContext.fillStyle = "rgba(0, 0, 0, .04)";
-        let sx2 = (canvas.width+canvas.transX)/ scalingFactor * 2;
-        let sy2 = (canvas.height+canvas.transY)/scalingFactor*2;
+        let sx2 = canvas.width/scalingFactor*2;
+        let sy2 = canvas.height/scalingFactor*2;
         let sx = canvas.transX/scalingFactor*2;
         let sy = canvas.transY/scalingFactor*2;
         body.prototype.trailContext.fillRect(-sx, -sy, sx2, sy2);

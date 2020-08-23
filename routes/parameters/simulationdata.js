@@ -43,7 +43,7 @@ const simulations = [{
   "urlName": "nBody",
   "jsfile": "nBody",
   "image": "nBody.png",
-  "explanation": "Play around and have fun"
+  "explanation": getFile("nBodyExplanation.ejs")
 }];
 
 
