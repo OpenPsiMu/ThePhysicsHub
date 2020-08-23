@@ -523,26 +523,27 @@ function mouseReleased() {
 function drawGrid(renderer) {
     let h = renderer.height;
     let w = renderer.width;
-    let s = 50 * scalingFactor;
+    let s = 50 * scalingFactor / 2;
     let n = (h / s).toFixed(0);
     let dh = s; //h / (n + 1);
     let dw = s; //w / (n + 1);
     let rendererContext = renderer.elt.getContext("2d");
 
-    rendererContext.strokeStyle = "rgba(200, 200, 200, .3)";
-    rendererContext.lineWidth = 1;
-    let transX = -s * ((renderer.transX * scalingFactor / s).toFixed(0));
-    let transY = -s * ((renderer.transY * scalingFactor / s).toFixed(0));
+    rendererContext.strokeStyle = "rgba(200, 200, 200, .7)";
+    rendererContext.lineWidth = 2;
+    let transX = -s * ((renderer.transX / s).toFixed(0));
+    let transY = -s * ((renderer.transY / s).toFixed(0));
     rendererContext.translate(transX, transY);
     for (let i = 0; i <= n; i++) {
-        rendererContext.moveTo(-s * 5, i * dh);
-        rendererContext.lineTo(w + s * 5, i * dh);
+        rendererContext.moveTo(-s * 2, i * dh);
+        rendererContext.lineTo(w + s * 2, i * dh);
     };
     for (let i = 0; i <= n; i++) {
-        rendererContext.moveTo(i * dw, -s * 5);
-        rendererContext.lineTo(i * dw, h + s * 5);
+        rendererContext.moveTo(i * dw, -s * 2);
+        rendererContext.lineTo(i * dw, h + s * 2);
     };
     rendererContext.translate(-transX, -transY);
+    rendererContext.translate(-canvas.transX, -canvas.transY);
     rendererContext.stroke();
     rendererContext.beginPath();
     rendererContext.closePath();
@@ -555,6 +556,7 @@ function drawGrid(renderer) {
     rendererContext.strokeStyle = "white";
     rendererContext.lineWidth = 5;
     rendererContext.stroke();
+    rendererContext.translate(canvas.transX, canvas.transY);
 };
 
 function body(renderer, radius = 1, mass = 10, fillColor = "yellow", lineWidth =
@@ -974,12 +976,12 @@ function body(renderer, radius = 1, mass = 10, fillColor = "yellow", lineWidth =
 
     //Collide with sides of canvas
     this.borderCollision = () => {
-        let xlim = this.renderer.width / scalingFactor * 2;
-        let ylim = this.renderer.height / scalingFactor * 2;
+        let xlim = this.renderer.width / scalingFactor * 2 - canvas.transX;
+        let ylim = this.renderer.height / scalingFactor * 2 - canvas.transY;
         let damping = this.damping;
 
-        if (this.x - this.r < 0) {
-            this.x = this.lastX = this.r;
+        if (this.x - this.r < -canvas.transX) {
+            this.x = this.lastX = this.r - canvas.transX;
             this.vx *= -damping;
         } else if (this.x + this.r > xlim) {
             this.x = this.lastX = xlim - this.r;
@@ -989,8 +991,8 @@ function body(renderer, radius = 1, mass = 10, fillColor = "yellow", lineWidth =
         if (this.y + this.r > ylim) {
             this.y = this.lastY = ylim - this.r;
             this.vy *= -damping;
-        } else if (this.y - this.r < 0) {
-            this.y = this.lastY = this.r;
+        } else if (this.y - this.r < -canvas.transY) {
+            this.y = this.lastY = this.r - canvas.transY;
             this.vy *= -damping
         };
     };
@@ -1071,7 +1073,6 @@ function body(renderer, radius = 1, mass = 10, fillColor = "yellow", lineWidth =
         };
     };
 };
-
 
 //Time for the dropdown, which will be different from the other simulations
 /*This file contains many functions that can be used to
