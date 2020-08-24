@@ -1,4 +1,80 @@
-<h1 class = "sim_explanation">Explanation</h1>
+<html>
+<head>
+	<meta charset="UTF-8">
+</head>
+  <style>
+    body {
+		margin:0;
+	}
+	.myUl {
+		display: flex;
+		justify-content: space-between;
+		margin: 0;
+		align-items: baseline;
+		background-color: rgb(20, 40, 120);
+		list-style: none;
+		font-size: 24px;
+		font-family: Consolas;
+		text-decoration: none;
+		color: white;
+		padding: 0.4em 0.7em;
+	}
+	.myUl li:hover {
+		transform: scale(1.1);
+		transition-duration: 0.1s;
+	}
+	.spacedli{
+		float: right;
+		font-size: 20px;
+	}
+	.spacedli li{
+		display: inline-block;
+		padding: 0.4em 0.7em;
+	}
+
+	.simBoxOut{
+		display: flex;
+		background-color: orange;
+		position: relative;
+		margin: auto;
+		height:100%;
+		width: 100%;
+		justify-content: center;
+		text-align: center;
+	}
+
+.simtitle{
+	font-family:Consolas;
+	color: black;
+	text-align: center;
+}
+.explanation{
+  display: flex;
+  flex-direction: column;
+  padding-left: 4em;
+  padding-right: 4em;
+}
+
+#explanationCanvas0{
+  height: 200px;
+  width: 400px;
+  border: .1em solid gray;
+  border-radius: .3em;
+}
+
+  </style>
+	<body>
+		<div class="FlexContainer">
+			<ul class = "myUl" style="position: right">
+				<li>ThePhysHub</li>
+				<div class = "spacedli">
+				<li onclick="alert('Nevah gonna call u!')">Call</li>
+				<li onclick="alert('Nevah gonna contribute to u!')">Contribute</li>
+				<li onclick="alert('I aint fbi')">About</li>
+        </div>
+        </div>
+      <div class = "explanation">
+        <h1 class = "sim_explanation">Explanation</h1>
 <p class="sim_explanation">This is an N-body simulation where all bodies occupy
 part of the 2dimensional space available in the simulation. To make numerical inputs
 less intimidating, some values were scaled up and down. This simulation is still under
@@ -37,8 +113,229 @@ gridlines is 50m. This text is not final, it is only meant as a test!</p>
 <p class="sim_explanation">As shown in the picture, the forces are always directed torwards the centers of mass of the masses. This is because of the symetry of the sphere. For every atom above the middle point of each mass, there is one below pulling in the exact opposite direction. Therefore what is left for the net force is the pulling directly torwards the center of mass.</p>
 <p class="sim_explanation">Another property of gravitation is that the force that one the masses involved feel is the same (of course only valid for the simple geometry of two sphere and some other specific scenarios.) But let us focus on the simple case with two masses. In this case it has been shown that doubling either mass causes the gravitational pull to double. Doubling both masses causes the attraction to become four times greater!!! Therefore it makes sense that a formula that describes the gravitational pull as a function of the masses and distance would contain a term that results from multiplying to the masses involved!
   Something in the form:
- m1*m2*k
+ $$m1m2k$$
 </p>
-<p class="sim_explanation">Furthermore, doubling the distance between the bodies causes the pull to become a fourth of what it was before, therefore it makes sense that part of this relationship comes in the form: 1/r^2*k*m1*m2</p>
-<p class="sim_explanation">Lastly, measurements show that the absolute value of the force is obtained when we take k to be 6.674 30 x 10-11 m3 kg-1 s-2. This value is usually written in textbooks using capital G, for what could mean "gravity"!!!</p>
-<p class="sim_explanation">There is much more to say about gravitation but no time to write about it just yet. Therefore we provide you with the simulation above. To play and develop an intuition to what it "looks like" when bodies attract through gravity!</p>
+<p class="sim_explanation">Furthermore, doubling the distance between the bodies causes the pull to become a fourth of what it was before, therefore it makes sense that part of this relationship comes in the form: $${1\over r^2}km1m2$$</p>
+<p class="sim_explanation">Lastly, measurements show that the absolute value of the force is obtained when we take k to be 6.674 30 x 10-11 m3 kg-1 s-2. This value is usually written in textbooks using capital G, for what could mean "gravity"!!!$$|F| = |Gm1m2|\over r^2$$</p>
+<p class="sim_explanation">So, now you can compute the strength of gravitational attraction, what about direction?</p>
+        <p>The "best" way to approach this is to first set up a frame of reference. In other words, to create a coordinate system that allows for objective description of positions and velocities of the objects relative to an origin. Follows an example of a coordinate system where our masses could be located.</p>
+        <div style="display: flex; align-items:center; flex-direction: column;">
+        <canvas id="explanationCanvas0"/>
+      </div>
+      </div>
+	</body>
+    <script>
+      {
+  let canvas = document.getElementById("explanationCanvas0");
+  canvas.height*=2;
+  canvas.width*=2;
+  let context = canvas.getContext("2d");
+  let drawGrid = ()=>{
+    context.fillRect(0, 0, canvas.width, canvas.height);
+    context.strokeStyle = "#fff";
+    let w = canvas.width;
+    let h = canvas.height;
+    let dw = canvas.width/(6);
+    let dh = dw/2;
+    for (let i=0; i<6; i++){
+      context.beginPath();
+      context.moveTo(i*dw, 0);
+      context.lineTo(i*dw, h);
+      context.closePath();
+      context.stroke();
+      context.beginPath();
+      context.moveTo(0, i*dh);
+      context.lineTo(w, i*dh);
+      context.closePath();
+      context.stroke();
+    };
+  };
+  let fadeMasses = ()=>{
+    context.lineWidth = 2;
+    let x1 = canvas.width/4;
+    let y1 = canvas.height/2;
+    let x2 = x1*3;
+    let y2 = y1;
+    for (let i=0; i<100; i++){
+      setTimeout(
+        ()=>{
+          context.clearRect(0, 0,canvas.width, canvas.height);
+          context.fillStyle = "#000";
+          drawGrid();
+          context.fillStyle = "blue";
+          context.strokeStyle = "#999";
+          context.globalAlpha = 1-i/100;
+          context.beginPath();
+          context.arc(x1, y1, 90, 0, 6.28);
+          context.closePath();
+          context.fill();
+          context.stroke();
+          context.beginPath();
+          context.arc(x2, y2, 90, 0, 6.28);
+          context.closePath();
+          context.fill();
+          context.stroke();
+          context.fillStyle = "black";
+          context.fillText("m1", x1, y1+10);
+          context.fillText("m2", x2, y2+10);
+          context.fillStyle = "blue";
+          context.globalAlpha = 1;
+          },i*20
+      );
+    };
+  };
+  let showMasses = ()=>{
+    context.fillStyle = "blue";
+    context.strokeStyle = "#999";
+    context.lineWidth = 2;
+    let x1 = canvas.width/4;
+    let y1 = canvas.height/2;
+    let x2 = x1*3;
+    let y2 = y1;
+    context.font = "20px Consolas";
+    for (let i=0; i<100; i++){
+      setTimeout(
+        ()=>{
+          context.globalAlpha = i/100;
+          context.beginPath();
+          context.arc(x1, y1, 90, 0, 6.28);
+          context.closePath();
+          context.fill();
+          context.stroke();
+          context.fillStyle = "black";
+          context.fillText("m1", x1, y1+10);
+          context.fillStyle = "blue";
+          context.globalAlpha = 1;
+          },i*20);
+    setTimeout(
+      ()=>{
+        context.globalAlpha = i/100;
+        context.beginPath();
+        context.arc(x2, y2, 90, 0, 6.28);
+        context.closePath();
+        context.fill();
+        context.stroke();
+        context.fillStyle = "black";
+        context.fillText("m2", x2, y2+10);
+        context.fillStyle = "blue";
+        context.globalAlpha = 1;
+      },i*20+100);
+    };
+    return 20*100+200;
+  };
+  let showPoints = ()=>{
+    context.fillStyle = "blue";
+    context.strokeStyle = "#999";
+    context.lineWidth = 2;
+    let x1 = canvas.width/4;
+    let y1 = canvas.height/2;
+    let x2 = x1*3;
+    let y2 = y1;
+    let nFrames = 100;
+    for (let i = 0; i<nFrames; i++){
+      setTimeout(()=>{
+        context.fillStyle = "white";
+        context.strokeStyle = "#999";
+        context.lineWidth = 3;
+        context.globalAlpha = i/100;
+        context.beginPath();
+        context.arc(x1, y1, 10, 0, 6.28);
+        context.closePath();
+        context.fill();
+        context.stroke();
+        context.beginPath();
+        context.arc(x2, y2, 10, 0, 6.28);
+        context.closePath();
+        context.fill();
+        context.stroke();
+        setTimeout(()=>{
+          context.font = "20px Consolas";
+          context.fillText("(x1, y1)", x1-20, y1-30);
+          context.fillText("(x2, y2)", x2-20, y2-30);
+        },50);
+        context.globalAlpha = 1;
+      },i*20);
+    };
+  };
+  let fadeCanvas = ()=>{
+    let dummyCanvas = document.createElement("canvas");
+    dummyCanvas.height = canvas.height;
+    dummyCanvas.width = canvas.width;
+    let dt = 5;
+    let nFrames = 500;
+    let duration = nFrames*dt;
+    for (let t = 0; t<duration; t+=dt){
+      setTimeout(()=>{
+        dummyCanvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+        dummyCanvas.getContext("2d").drawImage(canvas, 0, 0);
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.fillStyle = "#000";
+        context.fillRect(0, 0, canvas.width, canvas.height);
+        context.globalAlpha = (1-t/duration)**2;
+        context.drawImage(dummyCanvas, 0 , 0);
+        context.globalAlpha = 1;
+      },t);
+    };
+    setTimeout(()=>{delete dummyCanvas;}, duration+100);
+  };
+  let showDoubleHeadedArrow = () =>{
+    let x1 = canvas.width/4;
+    let y1 = canvas.height/2;
+    let x2 = x1*3;
+    let y2 = y1;
+    context.globalAlpha =1;
+    let dt = 10;
+    let nFrames = 100;
+    let duration = nFrames*dt;
+    for (let t=0; t<duration; t+=dt){
+      setTimeout(
+      ()=>{
+        context.globalAlpha = t/duration;
+        context.fillStyle = "black";
+        context.strokeStyle = "white";
+        context.beginPath();
+        context.moveTo(x1, y1+10);
+        context.lineTo(x1-10, y1);
+        context.lineTo(x1, y1-10);
+        context.lineTo(x1, y1);
+        context.closePath();
+        context.fill();
+        context.stroke();
+        context.beginPath();
+        context.moveTo(x1, y1);
+        context.lineTo(x2, y2);
+        context.lineTo(x2, y2+10);
+        context.lineTo(x2+10, y1);
+        context.lineTo(x2, y1-10);
+        context.lineTo(x2, y2);
+        context.closePath();
+        context.fill();
+        context.stroke();
+        let w =40;
+        context.globalAlpha = 1;
+        context.fillRect((x1+x2)/2-w/2, y1-w/2, w, w);
+        context.globalAlpha = t/duration;
+        context.fillStyle = "white";
+        context.font = '25px cambria'
+        context.fillText("r", (x1+x2)/2-10, y1);
+      }, t);
+    };
+  };
+  drawGrid();
+  let t = showMasses();
+  setTimeout(fadeMasses, t);
+  setTimeout(showPoints, 5000);
+  setTimeout(fadeCanvas, 8000);
+  setTimeout(showDoubleHeadedArrow, 11000);
+  setInterval(()=>{
+    context.fillStyle = "black";
+    drawGrid();
+    let t = showMasses();
+    setTimeout(fadeMasses, t);
+    setTimeout(showPoints, 5000);
+    setTimeout(fadeCanvas, 8000);
+    setTimeout(showDoubleHeadedArrow, 11000);
+  },13000);
+};
+    </script>
+</html>
