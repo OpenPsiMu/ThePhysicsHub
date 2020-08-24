@@ -1,8 +1,4 @@
-<DOCTYPE! html>
-<html>
-<head>
-	<meta charset="UTF-8">
-</head>
+
   <style>
     body {
 		margin:0;
@@ -62,20 +58,9 @@
   border: .1em solid gray;
   border-radius: .3em;
 }
-
-  </style>
-	<body>
-		<div class="FlexContainer">
-			<ul class = "myUl" style="position: right">
-				<li>ThePhysHub</li>
-				<div class = "spacedli">
-				<li onclick="alert('Nevah gonna call u!')">Call</li>
-				<li onclick="alert('Nevah gonna contribute to u!')">Contribute</li>
-				<li onclick="alert('I aint fbi')">About</li>
-        </div>
-        </div>
-      <div class = "explanation">
-        <h1 class = "sim_explanation">Explanation</h1>
+</style>
+<div class = "explanation">
+<h1 class = "sim_explanation">Explanation</h1>
 <p class="sim_explanation">This is an N-body simulation where all bodies occupy
 part of the 2dimensional space available in the simulation. To make numerical inputs
 less intimidating, some values were scaled up and down. This simulation is still under
@@ -123,9 +108,8 @@ gridlines is 50m. This text is not final, it is only meant as a test!</p>
         <div style="display: flex; align-items:center; flex-direction: column;">
         <canvas id="explanationCanvas0"/>
       </div>
-      </div>
-	</body>
-    <script>
+</div>
+<script>
       {
   let canvas = document.getElementById("explanationCanvas0");
   canvas.height*=2;
@@ -339,4 +323,3 @@ gridlines is 50m. This text is not final, it is only meant as a test!</p>
   },13000);
 };
     </script>
-</html>
