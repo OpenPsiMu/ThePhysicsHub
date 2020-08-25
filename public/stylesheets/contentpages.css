@@ -1,3 +1,4 @@
+@import url("https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css");
 html, body{
     background-color: #222222 !important;
 }
@@ -18,3 +19,37 @@ html, body{
     margin-top: 20px;
     color: #e9e9e9;
 }
+
+.social-links{
+    margin-top: 2em;
+    align: center;
+}
+
+.social-links a{
+    height: 3em;
+    width: 3em;
+    display: inline-block;
+    text-align: center;
+    line-height: 35px;
+    color: #ffffff;
+    margin: 0 4px;
+    border-radius: 50%;
+    text-decoration: none;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+
+}
+
+.social-links a:hover{
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+    
+}
+
+.social-links a img{
+    display: block;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+
