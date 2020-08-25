@@ -98,7 +98,7 @@ gridlines is 50m. This text is not final, it is only meant as a test!</p>
 <p class="sim_explanation">Furthermore, doubling the distance between the bodies causes the pull to become a fourth of what it was before, therefore it makes sense that part of this relationship comes in the form: $${1\over r^2}km1m2$$</p>
 <p class="sim_explanation">Lastly, measurements show that the absolute value of the force is obtained when we take k to be 6.674 30 x 10-11 m3 kg-1 s-2. This value is usually written in textbooks using capital G, for what could mean "gravity"!!!$$|F| = |Gm1m2|\over r^2$$</p>
 <p class="sim_explanation">So, now you can compute the strength of gravitational attraction, given the absolute distance between them, what happens when all you are give is a set of points and the objects' masses?</p>
-<p>The "best" way to approach this is to first set up and understand the frame of reference which defines the positions of the objects. In other words, the coordinate system that allows for objective description of positions and velocities of the objects relative to an origin, which could be another object. Follows an example of what it would "look like" for masses to be in a coordinate  system.</p>
+<p class="sim_explanation">The "best" way to approach this is to first set up and understand the frame of reference which defines the positions of the objects. In other words, the coordinate system that allows for objective description of positions and velocities of the objects relative to an origin, which could be another object. Follows an example of what it would "look like" for masses to be in a coordinate  system.</p>
 <style>
 body{
   display: flex;
@@ -413,8 +413,8 @@ svg:hover>.staticMathText>.mathText{
             <text class="mathText" x="0" y="0">r</text>
           </svg>
       </div>
-    <p>In this case, all we mean when we say the objects are in a coordinate system is that they have known positions. The gridlines for instance could represent some known space in between them.</p>
-    <p>How can this be helpful you may ask? The relationship between gravity depends exclusively on the masses of the objects involved and their absolute distance. Which does not depend on it's position relative to the coordinate system where it resides. Therefore receiving a coordinate system with unusual appearence does not stop you from being able to find out the forces between the objects in it. In the animation below we illustrate this by rotating the objects relative to a random point within the coordinate system. As long as the abslute distance between the objects remains the same, the gravitational pull will remain unchanged.</p>
+    <p class="sim_explanation">In this case, all we mean when we say the objects are in a coordinate system is that they have known positions. The gridlines for instance could represent some known space in between them.</p>
+    <p class="sim_explanation">How can this be helpful you may ask? The relationship between gravity depends exclusively on the masses of the objects involved and their absolute distance. Which does not depend on it's position relative to the coordinate system where it resides. Therefore receiving a coordinate system with unusual appearence does not stop you from being able to find out the forces between the objects in it. In the animation below we illustrate this by rotating the objects relative to a random point within the coordinate system. As long as the abslute distance between the objects remains the same, the gravitational pull will remain unchanged.</p>
     <div style="display: flex; align-items:center; flex-direction: column;">
       <svg height = "200px" width="400px">
         <rect height="100%" width="100%" fill="black"/>
@@ -456,11 +456,11 @@ svg:hover>.staticMathText>.mathText{
         </g>
       </svg>
     </div>
-    <p>
+    <p class="sim_explanation">
       Now that you know that the only factor influencing the gravitational attraction between two random objects is their absolute distance and their masses, it should become clear as well that whenever a gravitational pull is calculated for two objects, the net pull on each object should point torwards the other.
       This essencially means that if you have two planets, A and B, all you the force exerted on A is in the direction of A to B, and vice versa for the force of A on B. This terminology should remind you of vectors, which are the key to numerically describing direction. Which is what we will do now.
     </p>
-    <p>
+    <p class="sim_explanation">
       Lets start with the situation where you are given two spheres $A$ and $B$ of the same mass $m$. These masses have positions $(Ax, Ay)$ and $(Bx, By)$.
       This is what the problem would look like.
     </p>
@@ -507,10 +507,10 @@ svg:hover>.staticMathText>.mathText{
         </g>
       </svg>
     </div>
-    <p>
+    <p class="sim_explanation">
       So, if you are fresh on vectors you can skip this paragraph, else, keep your attention right here. So, to obtain the force we must first get the absolute distance between the objects. This can be done by use of the pythagorean theorem. Therefore we know: $$r=\sqrt{(Bx-Ax)^2+(By-Ay)^2}$$.
     </p>
-    <p>If you do not know where this comes from, play look at the image below and do research on the pythagorean theorem:</p>
+    <p class="sim_explanation">If you do not know where this comes from, play look at the image below and do research on the pythagorean theorem:</p>
     <div style="display: flex; align-items:center; flex-direction: column;">
       <canvas id="pythagoreanCanvas"/>
     </div>
