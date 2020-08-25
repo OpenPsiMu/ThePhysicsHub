@@ -106,220 +106,184 @@ gridlines is 50m. This text is not final, it is only meant as a test!</p>
 <p class="sim_explanation">So, now you can compute the strength of gravitational attraction, what about direction?</p>
         <p>The "best" way to approach this is to first set up a frame of reference. In other words, to create a coordinate system that allows for objective description of positions and velocities of the objects relative to an origin. Follows an example of a coordinate system where our masses could be located.</p>
         <div style="display: flex; align-items:center; flex-direction: column;">
-        <canvas id="explanationCanvas0"/>
+
+            <!-- <link rel="stylesheet" href="style.css"> -->
+            <style>
+            .purpleCircle:nth-child(2){
+              transform: translate(25%, 50%);
+              fill: cornflowerblue;
+            }
+            .purpleCircle:nth-child(3){
+              transform: translate(75%, 50%);
+              fill: cornflowerblue;
+            }
+            svg:hover>.purpleCircle:nth-child(2){
+              animation-name: circleAnimationLeft;
+              animation-fill-mode: forwards;
+              animation-duration: 9s;
+              transform: translate(25%, 50%);
+            }
+            svg:hover>.purpleCircle:nth-child(3){
+              animation-name: circleAnimationRight;
+              animation-fill-mode: forwards;
+              animation-duration: 9s;
+              transform: translate(75%, 50%);
+            }
+            svg:hover>.horizontalLine{
+              animation-name: horizontalLineAnimation;
+              animation-duration: 4s;
+              animation-fill-mode: repeat;
+              stroke-width: 1;
+              stroke: "none";
+            }
+            svg:hover>.verticalLine{
+              animation-name: verticalLineAnimation;
+              animation-duration: 4s;
+              animation-fill-mode: repeat;
+              stroke-width: 1;
+              stroke: "white";
+            }
+
+            svg:hover>.leftArrowHead, svg:hover>.leftArrowTail{
+              animation-name: leftArrowAnimation;
+              animation-duration: 4s;
+              animation-delay: 4s;
+              animation-fill-mode: repeat;
+              animation-timing-function: linear;
+            }
+
+            svg:hover>.rightArrowHead, svg:hover>.rightArrowTail{
+              animation-name: rightArrowAnimation;
+              animation-duration: 4s;
+              animation-delay: 4s;
+              animation-fill-mode: repeat;
+              animation-timing-function: linear;
+            }
+            svg:hover>.mathText{
+              animation-name: mathTextAnimation;
+              animation-duration: 3s;
+              animation-fill-mode: forwards;
+              animation-timing-function: linear;
+              animation-delay: 5s;
+            }
+
+            .horizontalLine:nth-child(3) { animation-delay: .2s }
+            .horizontalLine:nth-child(4) { animation-delay: .4s }
+            .horizontalLine:nth-child(5) { animation-delay: .6s }
+            .horizontalLine:nth-child(6) { animation-delay: .8s }
+            .horizontalLine:nth-child(7) { animation-delay: 1s }
+            .verticalLine:nth-child(8) { animation-delay: .1s }
+            .verticalLine:nth-child(9) { animation-delay: .2s }
+            .verticalLine:nth-child(10) { animation-delay: .3s }
+            .verticalLine:nth-child(11) { animation-delay: .4s }
+            .verticalLine:nth-child(12) { animation-delay: .5s }
+            .verticalLine:nth-child(13) { animation-delay: .6s }
+            .verticalLine:nth-child(14) { animation-delay: .7s }
+            .verticalLine:nth-child(15) { animation-delay: .8s }
+            .verticalLine:nth-child(16) { animation-delay: .9s }
+            .verticalLine:nth-child(17) { animation-delay: 1s }
+
+            .verticalLine, .horizontalLine{
+              stroke: white;
+            }
+            .leftArrowHead, .rightArrowHead{
+              fill: black;
+            }
+            .leftArrowHead, .leftArrowTail{
+              transform: translate(45%, 50%) scale(-.1, 1);
+            }
+            .rightArrowHead, .rightArrowTail{
+              transform: translate(55%, 50%) scale(.1, 1);
+            }
+            .mathText{
+              fill: white;
+              font: 15px Consolas;
+              transform: translate(48.5%, 50%);
+              opacity: 0;
+            }
+
+            @keyframes circleAnimationLeft {
+              0% {fill: cornflowerblue}
+              15% {transform: translate(25%, 50%); fill: cornflowerblue}
+              20% {transform: translate(25%, 50%); fill: cornflowerblue}
+              30% {stroke: black;fill: white;transform: translate(25%, 50%)}
+              50% {stroke: black ;fill: white ;transform: translate(25%, 50%) scale(.2);opacity: 1}
+              90% {stroke: black;fill: white ;transform: translate(25%, 50%) scale(.2); opacity: 0;}
+              100% {stroke: black;fill: white ;transform: translate(25%, 50%) scale(1); opacity: 0;}
+            }
+            @keyframes circleAnimationRight {
+              0% {fill: cornflowerblue}
+              15% {transform:translate(75%, 50%); fill: cornflowerblue}
+              20% {transform:translate(75%, 50%); fill: cornflowerblue}
+              30% {stroke: black;fill: white; transform: translate(75%, 50%);}
+              50% {stroke: black;fill: white ;transform: translate(75%, 50%) scale(.2);opacity: 1}
+              90% {stroke: black;fill: white ;transform: translate(75%, 50%) scale(.2); opacity: 0;}
+              100% {stroke: black;fill: white ;transform: translate(75%, 50%) scale(1); opacity: 0;}
+            }
+            @keyframes horizontalLineAnimation {
+              0% {transform: translateX(0%); stroke: rgba(255, 255, 255, 0);}
+              25% {transform: translateX(100%); stroke: rgba(255, 255, 255, .5);}
+              65% {transform: translateX(100%); stroke: rgba(255, 255, 255, 1);}
+              100% {transform: translateX(0%); stroke: rgba(255, 255, 255, 1);}
+            }
+            @keyframes verticalLineAnimation {
+              0% {transform: translateY(0%); stroke: rgba(255, 255, 255, 0);}
+              25% {transform: translateY(100%); stroke: rgba(255, 255, 255, .5);}
+              75% {transform: translateY(100%); stroke: rgba(255, 255, 255, 1);}
+              100% {transform: translateY(0%); stroke: rgba(255, 255, 255, 1);}
+            }
+
+            @keyframes leftArrowAnimation {
+              0% {transform: translate(47.5%, 50%) scale(-.1, 1);stroke: white; opacity:0;}
+              25% {transform: translate(37.5%, 50%) scale(-.5, 1);stroke: white; opacity:1;}
+              50% {transform: translate(27.5%, 50%) scale(-1, 1);stroke: white; opacity:1;}
+              70% {transform: translate(27.5%, 50%) scale(-1, 1);stroke: white; opacity:0;}
+              100% {transform: translate(27.5%, 50%) scale(-1, 1);stroke: white; opacity:0;}
+            }
+            @keyframes rightArrowAnimation {
+              0% {transform: translate(52.5%, 50%) scale(.1, 1); stroke: white; opacity:0;}
+              25% {transform: translate(62.5%, 50%) scale(.5, 1); stroke: white; opacity:1;}
+              50% {transform: translate(72.5%, 50%) scale(1, 1); stroke: white; opacity:1;}
+              70% {transform: translate(72.5%, 50%) scale(1, 1); stroke: white; opacity:0;}
+              100% {transform: translate(72.5%, 50%) scale(1, 1); stroke: white; opacity:0;}
+            }
+            @keyframes mathTextAnimation{
+              0%{transform: translate(48.5%, 50%); opacity: 0}
+              50%{transform: translate(48.5%, 50%); opacity: 1}
+              100%{transform: translate(48.5%, 50%); opacity: 1}
+            }
+            </style>
+            <svg height = "200px" width="400px">
+              <rect height="100%" width="100%" fill="black"/>
+              <circle class="purpleCircle" cx="0" cy="0" r="25" fill="purple" />
+              <circle class="purpleCircle" cx="0" cy="0" r="25" fill="purple" />
+              <line class="horizontalLine" x1="0%" y1="80%" x2="-100%" y2="80%"/>
+              <line class="horizontalLine" x1="0%" y1="60%" x2="-100%" y2="60%"/>
+              <line class="horizontalLine" x1="0%" y1="40%" x2="-100%" y2="40%"/>
+              <line class="horizontalLine" x1="0%" y1="20%" x2="-100%" y2="20%"/>
+
+              <line class="verticalLine" x1="90%" y1="0%" x2="90%" y2="-100%"/>
+              <line class="verticalLine" x1="80%" y1="0%" x2="80%" y2="-100%"/>
+              <line class="verticalLine" x1="70%" y1="0%" x2="70%" y2="-100%"/>
+              <line class="verticalLine" x1="60%" y1="0%" x2="60%" y2="-100%"/>
+              <line class="verticalLine" x1="50%" y1="0%" x2="50%" y2="-100%"/>
+              <line class="verticalLine" x1="40%" y1="0%" x2="40%" y2="-100%"/>
+              <line class="verticalLine" x1="30%" y1="0%" x2="30%" y2="-100%"/>
+              <line class="verticalLine" x1="20%" y1="0%" x2="20%" y2="-100%"/>
+              <line class="verticalLine" x1="10%" y1="0%" x2="10%" y2="-100%"/>
+
+              <line class='leftArrowHead' x1="0%" y1="2.5%" x2="2.5%" y2="0%"/>
+              <line class='leftArrowHead' x1="0%" y1="-2.5%" x2="2.5%" y2="0%"/>
+              <line class='leftArrowHead' x1="0%" y1="-2.5%" x2="0%" y2="2.5%"/>
+
+              <line class='rightArrowHead' x1="0%" y1="2.5%" x2="2.5%" y2="0%"/>
+              <line class='rightArrowHead' x1="0%" y1="-2.5%" x2="2.5%" y2="0%"/>
+              <line class='rightArrowHead' x1="0%" y1="-2.5%" x2="0%" y2="2.5%"/>
+
+              <line class="leftArrowTail" x1="0%" y1="0%" x2="-15%" y2="0%"/>
+              <line class="rightArrowTail" x1="0%" y1="0%" x2="-15%" y2="0%"/>
+
+              <text class="mathText" x="0" y="0">r</text>
+            </svg>
       </div>
 </div>
-<script>
-      {
-  let canvas = document.getElementById("explanationCanvas0");
-  canvas.height*=2;
-  canvas.width*=2;
-  let context = canvas.getContext("2d");
-  let drawGrid = ()=>{
-    context.fillRect(0, 0, canvas.width, canvas.height);
-    context.strokeStyle = "#fff";
-    let w = canvas.width;
-    let h = canvas.height;
-    let dw = canvas.width/(6);
-    let dh = dw/2;
-    for (let i=0; i<6; i++){
-      context.beginPath();
-      context.moveTo(i*dw, 0);
-      context.lineTo(i*dw, h);
-      context.closePath();
-      context.stroke();
-      context.beginPath();
-      context.moveTo(0, i*dh);
-      context.lineTo(w, i*dh);
-      context.closePath();
-      context.stroke();
-    };
-  };
-  let fadeMasses = ()=>{
-    context.lineWidth = 2;
-    let x1 = canvas.width/4;
-    let y1 = canvas.height/2;
-    let x2 = x1*3;
-    let y2 = y1;
-    for (let i=0; i<100; i++){
-      setTimeout(
-        ()=>{
-          context.clearRect(0, 0,canvas.width, canvas.height);
-          context.fillStyle = "#000";
-          drawGrid();
-          context.fillStyle = "blue";
-          context.strokeStyle = "#999";
-          context.globalAlpha = 1-i/100;
-          context.beginPath();
-          context.arc(x1, y1, 90, 0, 6.28);
-          context.closePath();
-          context.fill();
-          context.stroke();
-          context.beginPath();
-          context.arc(x2, y2, 90, 0, 6.28);
-          context.closePath();
-          context.fill();
-          context.stroke();
-          context.fillStyle = "black";
-          context.fillText("m1", x1, y1+10);
-          context.fillText("m2", x2, y2+10);
-          context.fillStyle = "blue";
-          context.globalAlpha = 1;
-          },i*20
-      );
-    };
-  };
-  let showMasses = ()=>{
-    context.fillStyle = "blue";
-    context.strokeStyle = "#999";
-    context.lineWidth = 2;
-    let x1 = canvas.width/4;
-    let y1 = canvas.height/2;
-    let x2 = x1*3;
-    let y2 = y1;
-    context.font = "20px Consolas";
-    for (let i=0; i<100; i++){
-      setTimeout(
-        ()=>{
-          context.globalAlpha = i/100;
-          context.beginPath();
-          context.arc(x1, y1, 90, 0, 6.28);
-          context.closePath();
-          context.fill();
-          context.stroke();
-          context.fillStyle = "black";
-          context.fillText("m1", x1, y1+10);
-          context.fillStyle = "blue";
-          context.globalAlpha = 1;
-          },i*20);
-    setTimeout(
-      ()=>{
-        context.globalAlpha = i/100;
-        context.beginPath();
-        context.arc(x2, y2, 90, 0, 6.28);
-        context.closePath();
-        context.fill();
-        context.stroke();
-        context.fillStyle = "black";
-        context.fillText("m2", x2, y2+10);
-        context.fillStyle = "blue";
-        context.globalAlpha = 1;
-      },i*20+100);
-    };
-    return 20*100+200;
-  };
-  let showPoints = ()=>{
-    context.fillStyle = "blue";
-    context.strokeStyle = "#999";
-    context.lineWidth = 2;
-    let x1 = canvas.width/4;
-    let y1 = canvas.height/2;
-    let x2 = x1*3;
-    let y2 = y1;
-    let nFrames = 100;
-    for (let i = 0; i<nFrames; i++){
-      setTimeout(()=>{
-        context.fillStyle = "white";
-        context.strokeStyle = "#999";
-        context.lineWidth = 3;
-        context.globalAlpha = i/100;
-        context.beginPath();
-        context.arc(x1, y1, 10, 0, 6.28);
-        context.closePath();
-        context.fill();
-        context.stroke();
-        context.beginPath();
-        context.arc(x2, y2, 10, 0, 6.28);
-        context.closePath();
-        context.fill();
-        context.stroke();
-        setTimeout(()=>{
-          context.font = "20px Consolas";
-          context.fillText("(x1, y1)", x1-20, y1-30);
-          context.fillText("(x2, y2)", x2-20, y2-30);
-        },50);
-        context.globalAlpha = 1;
-      },i*20);
-    };
-  };
-  let fadeCanvas = ()=>{
-    let dummyCanvas = document.createElement("canvas");
-    dummyCanvas.height = canvas.height;
-    dummyCanvas.width = canvas.width;
-    let dt = 5;
-    let nFrames = 500;
-    let duration = nFrames*dt;
-    for (let t = 0; t<duration; t+=dt){
-      setTimeout(()=>{
-        dummyCanvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
-        dummyCanvas.getContext("2d").drawImage(canvas, 0, 0);
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        context.fillStyle = "#000";
-        context.fillRect(0, 0, canvas.width, canvas.height);
-        context.globalAlpha = (1-t/duration)**2;
-        context.drawImage(dummyCanvas, 0 , 0);
-        context.globalAlpha = 1;
-      },t);
-    };
-    setTimeout(()=>{delete dummyCanvas;}, duration+100);
-  };
-  let showDoubleHeadedArrow = () =>{
-    let x1 = canvas.width/4;
-    let y1 = canvas.height/2;
-    let x2 = x1*3;
-    let y2 = y1;
-    context.globalAlpha =1;
-    let dt = 10;
-    let nFrames = 100;
-    let duration = nFrames*dt;
-    for (let t=0; t<duration; t+=dt){
-      setTimeout(
-      ()=>{
-        context.globalAlpha = t/duration;
-        context.fillStyle = "black";
-        context.strokeStyle = "white";
-        context.beginPath();
-        context.moveTo(x1, y1+10);
-        context.lineTo(x1-10, y1);
-        context.lineTo(x1, y1-10);
-        context.lineTo(x1, y1);
-        context.closePath();
-        context.fill();
-        context.stroke();
-        context.beginPath();
-        context.moveTo(x1, y1);
-        context.lineTo(x2, y2);
-        context.lineTo(x2, y2+10);
-        context.lineTo(x2+10, y1);
-        context.lineTo(x2, y1-10);
-        context.lineTo(x2, y2);
-        context.closePath();
-        context.fill();
-        context.stroke();
-        let w =40;
-        context.globalAlpha = 1;
-        context.fillRect((x1+x2)/2-w/2, y1-w/2, w, w);
-        context.globalAlpha = t/duration;
-        context.fillStyle = "white";
-        context.font = '25px cambria'
-        context.fillText("r", (x1+x2)/2-10, y1);
-      }, t);
-    };
-  };
-  drawGrid();
-  let t = showMasses();
-  setTimeout(fadeMasses, t);
-  setTimeout(showPoints, 5000);
-  setTimeout(fadeCanvas, 8000);
-  setTimeout(showDoubleHeadedArrow, 11000);
-  setInterval(()=>{
-    context.fillStyle = "black";
-    drawGrid();
-    let t = showMasses();
-    setTimeout(fadeMasses, t);
-    setTimeout(showPoints, 5000);
-    setTimeout(fadeCanvas, 8000);
-    setTimeout(showDoubleHeadedArrow, 11000);
-  },13000);
-};
-    </script>
