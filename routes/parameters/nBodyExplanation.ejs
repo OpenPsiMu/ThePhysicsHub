@@ -52,12 +52,6 @@
   padding-right: 4em;
 }
 
-#explanationCanvas0{
-  height: 200px;
-  width: 400px;
-  border: .1em solid gray;
-  border-radius: .3em;
-}
 </style>
 <div class = "explanation">
 <h1 class = "sim_explanation">Explanation</h1>
@@ -103,175 +97,308 @@ gridlines is 50m. This text is not final, it is only meant as a test!</p>
 </p>
 <p class="sim_explanation">Furthermore, doubling the distance between the bodies causes the pull to become a fourth of what it was before, therefore it makes sense that part of this relationship comes in the form: $${1\over r^2}km1m2$$</p>
 <p class="sim_explanation">Lastly, measurements show that the absolute value of the force is obtained when we take k to be 6.674 30 x 10-11 m3 kg-1 s-2. This value is usually written in textbooks using capital G, for what could mean "gravity"!!!$$|F| = |Gm1m2|\over r^2$$</p>
-<p class="sim_explanation">So, now you can compute the strength of gravitational attraction, what about direction?</p>
-        <p>The "best" way to approach this is to first set up a frame of reference. In other words, to create a coordinate system that allows for objective description of positions and velocities of the objects relative to an origin. Follows an example of a coordinate system where our masses could be located.</p>
+<p class="sim_explanation">So, now you can compute the strength of gravitational attraction, given the absolute distance between them, what happens when all you are give is a set of points and the objects' masses?</p>
+<p>The "best" way to approach this is to first set up and understand the frame of reference which defines the positions of the objects. In other words, the coordinate system that allows for objective description of positions and velocities of the objects relative to an origin, which could be another object. Follows an example of what it would "look like" for masses to be in a coordinate  system.</p>
+<style>
+body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+svg{
+  margin: 1em;
+}
+
+svg:hover>.circles>.purpleCircle:nth-child(1){
+  animation-name: circleAnimationLeft;
+  animation-fill-mode: forwards;
+  animation-duration: 9s;
+  transform: translate(25%, 50%);
+}
+svg:hover>.circles>.purpleCircle:nth-child(2){
+  animation-name: circleAnimationRight;
+  animation-fill-mode: forwards;
+  animation-duration: 9s;
+  transform: translate(75%, 50%);
+}
+svg:hover>.rotatingCircles>.purpleCircle:nth-child(1){
+  animation-name: rotatingCircleAnimationLeft;
+  animation-fill-mode: forwards;
+  animation-duration: 10s;
+  transform: translate(25%, 50%);
+}
+svg:hover>.rotatingCircles>.purpleCircle:nth-child(2){
+  animation-name: rotatingCircleAnimationRight;
+  animation-fill-mode: forwards;
+  animation-duration: 10s;
+  transform: translate(75%, 50%);
+}
+svg:hover>.lines>.horizontalLine{
+  animation-name: horizontalLineAnimation;
+  animation-duration: 4s;
+  animation-fill-mode: repeat;
+  stroke-width: 1;
+  stroke: "none";
+}
+svg:hover>.lines>.verticalLine{
+  animation-name: verticalLineAnimation;
+  animation-duration: 4s;
+  animation-fill-mode: repeat;
+  stroke-width: 1;
+  stroke: "gray";
+}
+
+svg:hover>.arrows>.leftArrowHead, svg:hover>.arrows>.leftArrowTail{
+  animation-name: leftArrowAnimation;
+  animation-duration: 4s;
+  animation-delay: 4s;
+  animation-fill-mode: repeat;
+  animation-timing-function: linear;
+}
+
+svg:hover>.arrows>.rightArrowHead, svg:hover>.arrows>.rightArrowTail{
+  animation-name: rightArrowAnimation;
+  animation-duration: 4s;
+  animation-delay: 4s;
+  animation-fill-mode: repeat;
+  animation-timing-function: linear;
+}
+
+svg:hover>.rotatingArrows>.leftArrowHead, svg:hover>.rotatingArrows>.leftArrowTail{
+  animation-name: rotatingLeftArrowAnimation;
+  animation-duration: 10s;
+  animation-delay: 0s;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+}
+
+svg:hover>.rotatingArrows>.rightArrowHead, svg:hover>.rotatingArrows>.rightArrowTail{
+  animation-name: rotatingRightArrowAnimation;
+  animation-duration: 10s;
+  animation-delay: 0s;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+}
+
+svg:hover>.mathText{
+  animation-name: mathTextAnimation;
+  animation-duration: 3s;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+  animation-delay: 5s;
+}
+
+svg:hover>.rotatingArrows>.mathText{
+  animation-name: rotatingMathTextAnimation;
+  animation-duration: 5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+  animation-delay: 3s;
+}
+
+svg:hover>.staticMathText>.mathText{
+  animation-name: staticMathTextAnimation;
+  animation-duration: 5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+  animation-delay: 3s;
+}
+
+.purpleCircle:nth-child(1){
+  transform: translate(25%, 50%);
+  fill: cornflowerblue;
+  stroke: lightblue;
+}
+.purpleCircle:nth-child(2){
+  transform: translate(75%,50%);
+  fill: cornflowerblue;
+  stroke: lightblue;
+}
+.rotatingCircles .purpleCircle{
+  transform-origin: 50% 50%;
+}
+.lines>.horizontalLine:nth-child(1) { animation-delay: .2s }
+.lines>.horizontalLine:nth-child(2) { animation-delay: .4s }
+.lines>.horizontalLine:nth-child(3) { animation-delay: .6s }
+.lines>.horizontalLine:nth-child(4) { animation-delay: .8s }
+.lines>.horizontalLine:nth-child(5) { animation-delay: 1s }
+.lines>.verticalLine:nth-child(6) { animation-delay: .1s }
+.lines>.verticalLine:nth-child(7) { animation-delay: .2s }
+.lines>.verticalLine:nth-child(8) { animation-delay: .3s }
+.lines>.verticalLine:nth-child(9) { animation-delay: .4s }
+.lines>.verticalLine:nth-child(10) { animation-delay: .5s }
+.lines>.verticalLine:nth-child(11) { animation-delay: .6s }
+.lines>.verticalLine:nth-child(12) { animation-delay: .7s }
+.lines>.verticalLine:nth-child(13) { animation-delay: .8s }
+.lines>.verticalLine:nth-child(14) { animation-delay: .9s }
+.lines>.verticalLine:nth-child(15) { animation-delay: 1s }
+
+.verticalLine, .horizontalLine, .rotatingHorizontalLine, .rotatingVerticalLine{
+  stroke: gray;
+}
+.leftArrowHead, .rightArrowHead, .leftArrowTail, .rightArrowTail{
+  fill: black;
+  stroke: white;
+  opacity: 0;
+}
+
+.rotatingArrows>.leftArrowHead, .rotatingArrows>.rightArrowHead,
+.rotatingArrows>.leftArrowTail, .rotatingArrows>.rightArrowTail,
+.rotatingArrows>.mathText{
+  transform-origin: 50% 50%;
+}
+
+.mathText{
+  fill: white;
+  font: 15px Consolas;
+  transform: translate(48.5%, 50%);
+  opacity: 0;
+}
+.staticMathText .mathText{
+  transform: none;
+}
+
+@keyframes circleAnimationLeft {
+  0% {fill: cornflowerblue}
+  15% {transform: translate(25%, 50%); fill: cornflowerblue}
+  20% {transform: translate(25%, 50%); fill: cornflowerblue}
+  30% {stroke: lightblue;fill: white;transform: translate(25%, 50%);}
+  50% {stroke: lightblue ;fill: white ;transform: translate(25%, 50%) scale(.2);opacity: 1}
+  90% {stroke: lightblue;fill: white ;transform: translate(25%, 50%) scale(.2); opacity: .2;}
+  100% {stroke: lightblue;fill: white ;transform: translate(25%, 50%) scale(1); opacity: 0;}
+}
+
+@keyframes circleAnimationRight {
+  0% {fill: cornflowerblue}
+  15% {transform:translate(75%, 50%); fill: cornflowerblue}
+  20% {transform:translate(75%, 50%); fill: cornflowerblue}
+  30% {stroke: lightblue;fill: white; transform: translate(75%, 50%);}
+  50% {stroke: lightblue;fill: white ;transform: translate(75%, 50%) scale(.2);opacity: 1}
+  90% {stroke: lightblue;fill: white ;transform: translate(75%, 50%) scale(.2); opacity: 0.2;}
+  100% {stroke: lightblue;fill: white ;transform: translate(75%, 50%) scale(1); opacity: 0;}
+}
+
+@keyframes rotatingCircleAnimationLeft{
+  0%{transform: translate(25%, 50%)}
+  10%{transform: rotate(0deg) translate(-25%, 0%) scale(.1) translate(50%, 50%); fill: white;}
+  30%{transform: rotate(-45deg) translate(-25%, 0%) scale(.1) translate(50%, 50%); fill: white;}
+  60%{transform: rotate(-45deg) translate(-25%, 0%) scale(.1) translate(50%, 50%); fill: white;}
+  100%{transform: rotate(0deg) translate(-25%, 0%) scale(1) translate(50%, 50%); fill: cornflowerblue;}
+}
+
+@keyframes rotatingCircleAnimationRight{
+  0%{transform: translate(25%, 0%) scale(1) translate(50%, 50%)}
+  10%{transform: rotate(0deg) translate(25%, 0%) scale(.1) translate(50%, 50%); fill: white;}
+  30%{transform: rotate(-45deg) translate(25%, 0%) scale(.1) translate(50%, 50%); fill: white;}
+  60%{transform: rotate(-45deg) translate(25%, 0%) scale(.1) translate(50%, 50%); fill: white;}
+  100%{transform: rotate(0deg) translate(25%, 0%) scale(1) translate(50%, 50%); fill: cornflowerblue;}
+}
+
+@keyframes horizontalLineAnimation {
+  0% {transform: translateX(0%) rotateZ(180deg); stroke: rgba(255, 255, 255, 0);}
+  25% {transform: translateX(100%) ; stroke: rgba(255, 255, 255, .5);}
+  65% {transform: translateX(100%); stroke: rgba(255, 255, 255, 1);}
+  100% {transform: translateX(0%); stroke: rgba(255, 255, 255, 1);}
+}
+@keyframes verticalLineAnimation {
+  0% {transform: translateY(0%) rotateZ(180deg); stroke: rgba(255, 255, 255, 0);}
+  25% {transform: translateY(100%); stroke: rgba(255, 255, 255, .5);}
+  75% {transform: translateY(100%); stroke: rgba(255, 255, 255, 1);}
+  100% {transform: translateY(0%); stroke: rgba(255, 255, 255, 1);}
+}
+
+@keyframes leftArrowAnimation {
+  0% {transform: translate(47.5%, 50%) scale(-.1, 1);opacity:0;}
+  25% {transform: translate(37.5%, 50%) scale(-.5, 1);opacity:1;}
+  50% {transform: translate(27.5%, 50%) scale(-1, 1); opacity:1;}
+  70% {transform: translate(27.5%, 50%) scale(-1, 1);opacity:1;}
+  100% {transform: translate(27.5%, 50%) scale(-1, 1); opacity:0;}
+}
+@keyframes rightArrowAnimation {
+  0% {transform: translate(52.5%, 50%) scale(.1, 1); opacity:0;}
+  25% {transform: translate(62.5%, 50%) scale(.5, 1); opacity:1;}
+  50% {transform: translate(72.5%, 50%) scale(1, 1); opacity:1;}
+  70% {transform: translate(72.5%, 50%) scale(1, 1); opacity:1;}
+  100% {transform: translate(72.5%, 50%) scale(1, 1); opacity:0;}
+}
+
+@keyframes rotatingLeftArrowAnimation {
+  0% {transform: translate(-2.5%, 0%) scale(0, 1) translate(50%, 50%);opacity:0;}
+  10% {transform: rotate(0deg) translate(-12.5%, 0%) scale(0, 1) translate(50%, 50%);opacity:1;}
+  30% {transform: rotate(-45deg) translate(-22.5%, 0%) scale(-0, 1) translate(50%, 50%);opacity:1;}
+  40% {transform: rotate(-45deg) translate(-22.5%, 0%) scale(-1, 1) translate(50%, 50%);opacity:1;}
+  60% {transform: rotate(-45deg) translate(-22.5%, 0%) scale(-1, 1) translate(50%, 50%); opacity:1;}
+  70% {transform: rotate(0deg) translate(-22.5%, 0%) scale(0, 1) translate(50%, 50%); opacity:0;}
+  100% {transform: translate(-22.5%, 0%) scale(0, 1) translate(50%, 50%); opacity:0;}
+}
+
+@keyframes rotatingRightArrowAnimation {
+  0% {transform: translate(2.5%, 0%) scale(0, 1) translate(50%, 50%);opacity:0;}
+  10% {transform: rotate(0deg) translate(12.5%, 0%) scale(0, 1) translate(50%, 50%);opacity:1;}
+  30% {transform: rotate(-45deg) translate(22.5%, 0%) scale(0, 1) translate(50%, 50%);opacity:1;}
+  40% {transform: rotate(-45deg) translate(22.5%, 0%) scale(1, 1) translate(50%, 50%);opacity:1;}
+  60% {transform: rotate(-45deg) translate(22.5%, 0%) scale(1, 1) translate(50%, 50%); opacity:1;}
+  70% {transform: rotate(0deg) translate(22.5%, 0%) scale(0, 1) translate(50%, 50%); opacity:0;}
+  100% {transform: translate(22.5%, 0%) scale(0, 1) translate(50%, 50%); opacity:0;}
+}
+
+@keyframes mathTextAnimation{
+  0%{transform: translate(48.5%, 50%); opacity: 0}
+  50%{transform: translate(48.5%, 50%); opacity: 1}
+  100%{transform: translate(48.5%, 50%); opacity: 1}
+}
+
+@keyframes rotatingMathTextAnimation{
+  0%{transform: translate(-1.5%, 0%) rotate(-45deg) translate(50%, 50%); opacity: 0}
+  50%{transform: translate(-1.5%, 0%) rotate(-45deg) translate(50%, 50%); opacity: 1}
+  100%{transform: translate(-1.5%, 0%) rotate(0deg) translate(50%, 50%); opacity: 1}
+}
+
+@keyframes staticMathTextAnimation{
+  0%{}
+  50%{opacity: 1;}
+  100%{opacity: 1;}
+}
+
+#pythagoreanCanvas{
+  background-color: black;
+  broder: .1em solid gray;
+  height: 200px;
+  width: 400px;
+}
+
+</style>
         <div style="display: flex; align-items:center; flex-direction: column;">
+          <svg height = "200px" width="400px">
+            <rect height="100%" width="100%" fill="black"/>
+            <g class="lines">
+              <line class="horizontalLine" x1="0%" y1="80%" x2="-150%" y2="80%"/>
+              <line class="horizontalLine" x1="0%" y1="60%" x2="-150%" y2="60%"/>
+              <line class="horizontalLine" x1="0%" y1="40%" x2="-150%" y2="40%"/>
+              <line class="horizontalLine" x1="0%" y1="20%" x2="-150%" y2="20%"/>
 
-            <!-- <link rel="stylesheet" href="style.css"> -->
-            <style>
-            .purpleCircle:nth-child(2){
-              transform: translate(25%, 50%);
-              fill: cornflowerblue;
-            }
-            .purpleCircle:nth-child(3){
-              transform: translate(75%, 50%);
-              fill: cornflowerblue;
-            }
-            svg:hover>.purpleCircle:nth-child(2){
-              animation-name: circleAnimationLeft;
-              animation-fill-mode: forwards;
-              animation-duration: 9s;
-              transform: translate(25%, 50%);
-            }
-            svg:hover>.purpleCircle:nth-child(3){
-              animation-name: circleAnimationRight;
-              animation-fill-mode: forwards;
-              animation-duration: 9s;
-              transform: translate(75%, 50%);
-            }
-            svg:hover>.horizontalLine{
-              animation-name: horizontalLineAnimation;
-              animation-duration: 4s;
-              animation-fill-mode: repeat;
-              stroke-width: 1;
-              stroke: "none";
-            }
-            svg:hover>.verticalLine{
-              animation-name: verticalLineAnimation;
-              animation-duration: 4s;
-              animation-fill-mode: repeat;
-              stroke-width: 1;
-              stroke: "white";
-            }
-
-            svg:hover>.leftArrowHead, svg:hover>.leftArrowTail{
-              animation-name: leftArrowAnimation;
-              animation-duration: 4s;
-              animation-delay: 4s;
-              animation-fill-mode: repeat;
-              animation-timing-function: linear;
-            }
-
-            svg:hover>.rightArrowHead, svg:hover>.rightArrowTail{
-              animation-name: rightArrowAnimation;
-              animation-duration: 4s;
-              animation-delay: 4s;
-              animation-fill-mode: repeat;
-              animation-timing-function: linear;
-            }
-            svg:hover>.mathText{
-              animation-name: mathTextAnimation;
-              animation-duration: 3s;
-              animation-fill-mode: forwards;
-              animation-timing-function: linear;
-              animation-delay: 5s;
-            }
-
-            .horizontalLine:nth-child(3) { animation-delay: .2s }
-            .horizontalLine:nth-child(4) { animation-delay: .4s }
-            .horizontalLine:nth-child(5) { animation-delay: .6s }
-            .horizontalLine:nth-child(6) { animation-delay: .8s }
-            .horizontalLine:nth-child(7) { animation-delay: 1s }
-            .verticalLine:nth-child(8) { animation-delay: .1s }
-            .verticalLine:nth-child(9) { animation-delay: .2s }
-            .verticalLine:nth-child(10) { animation-delay: .3s }
-            .verticalLine:nth-child(11) { animation-delay: .4s }
-            .verticalLine:nth-child(12) { animation-delay: .5s }
-            .verticalLine:nth-child(13) { animation-delay: .6s }
-            .verticalLine:nth-child(14) { animation-delay: .7s }
-            .verticalLine:nth-child(15) { animation-delay: .8s }
-            .verticalLine:nth-child(16) { animation-delay: .9s }
-            .verticalLine:nth-child(17) { animation-delay: 1s }
-
-            .verticalLine, .horizontalLine{
-              stroke: white;
-            }
-            .leftArrowHead, .rightArrowHead{
-              fill: black;
-            }
-            .leftArrowHead, .leftArrowTail{
-              transform: translate(45%, 50%) scale(-.1, 1);
-            }
-            .rightArrowHead, .rightArrowTail{
-              transform: translate(55%, 50%) scale(.1, 1);
-            }
-            .mathText{
-              fill: white;
-              font: 15px Consolas;
-              transform: translate(48.5%, 50%);
-              opacity: 0;
-            }
-
-            @keyframes circleAnimationLeft {
-              0% {fill: cornflowerblue}
-              15% {transform: translate(25%, 50%); fill: cornflowerblue}
-              20% {transform: translate(25%, 50%); fill: cornflowerblue}
-              30% {stroke: black;fill: white;transform: translate(25%, 50%)}
-              50% {stroke: black ;fill: white ;transform: translate(25%, 50%) scale(.2);opacity: 1}
-              90% {stroke: black;fill: white ;transform: translate(25%, 50%) scale(.2); opacity: 0;}
-              100% {stroke: black;fill: white ;transform: translate(25%, 50%) scale(1); opacity: 0;}
-            }
-            @keyframes circleAnimationRight {
-              0% {fill: cornflowerblue}
-              15% {transform:translate(75%, 50%); fill: cornflowerblue}
-              20% {transform:translate(75%, 50%); fill: cornflowerblue}
-              30% {stroke: black;fill: white; transform: translate(75%, 50%);}
-              50% {stroke: black;fill: white ;transform: translate(75%, 50%) scale(.2);opacity: 1}
-              90% {stroke: black;fill: white ;transform: translate(75%, 50%) scale(.2); opacity: 0;}
-              100% {stroke: black;fill: white ;transform: translate(75%, 50%) scale(1); opacity: 0;}
-            }
-            @keyframes horizontalLineAnimation {
-              0% {transform: translateX(0%); stroke: rgba(255, 255, 255, 0);}
-              25% {transform: translateX(100%); stroke: rgba(255, 255, 255, .5);}
-              65% {transform: translateX(100%); stroke: rgba(255, 255, 255, 1);}
-              100% {transform: translateX(0%); stroke: rgba(255, 255, 255, 1);}
-            }
-            @keyframes verticalLineAnimation {
-              0% {transform: translateY(0%); stroke: rgba(255, 255, 255, 0);}
-              25% {transform: translateY(100%); stroke: rgba(255, 255, 255, .5);}
-              75% {transform: translateY(100%); stroke: rgba(255, 255, 255, 1);}
-              100% {transform: translateY(0%); stroke: rgba(255, 255, 255, 1);}
-            }
-
-            @keyframes leftArrowAnimation {
-              0% {transform: translate(47.5%, 50%) scale(-.1, 1);stroke: white; opacity:0;}
-              25% {transform: translate(37.5%, 50%) scale(-.5, 1);stroke: white; opacity:1;}
-              50% {transform: translate(27.5%, 50%) scale(-1, 1);stroke: white; opacity:1;}
-              70% {transform: translate(27.5%, 50%) scale(-1, 1);stroke: white; opacity:0;}
-              100% {transform: translate(27.5%, 50%) scale(-1, 1);stroke: white; opacity:0;}
-            }
-            @keyframes rightArrowAnimation {
-              0% {transform: translate(52.5%, 50%) scale(.1, 1); stroke: white; opacity:0;}
-              25% {transform: translate(62.5%, 50%) scale(.5, 1); stroke: white; opacity:1;}
-              50% {transform: translate(72.5%, 50%) scale(1, 1); stroke: white; opacity:1;}
-              70% {transform: translate(72.5%, 50%) scale(1, 1); stroke: white; opacity:0;}
-              100% {transform: translate(72.5%, 50%) scale(1, 1); stroke: white; opacity:0;}
-            }
-            @keyframes mathTextAnimation{
-              0%{transform: translate(48.5%, 50%); opacity: 0}
-              50%{transform: translate(48.5%, 50%); opacity: 1}
-              100%{transform: translate(48.5%, 50%); opacity: 1}
-            }
-            </style>
-            <svg height = "200px" width="400px">
-              <rect height="100%" width="100%" fill="black"/>
-              <circle class="purpleCircle" cx="0" cy="0" r="25" fill="purple" />
-              <circle class="purpleCircle" cx="0" cy="0" r="25" fill="purple" />
-              <line class="horizontalLine" x1="0%" y1="80%" x2="-100%" y2="80%"/>
-              <line class="horizontalLine" x1="0%" y1="60%" x2="-100%" y2="60%"/>
-              <line class="horizontalLine" x1="0%" y1="40%" x2="-100%" y2="40%"/>
-              <line class="horizontalLine" x1="0%" y1="20%" x2="-100%" y2="20%"/>
-
-              <line class="verticalLine" x1="90%" y1="0%" x2="90%" y2="-100%"/>
-              <line class="verticalLine" x1="80%" y1="0%" x2="80%" y2="-100%"/>
-              <line class="verticalLine" x1="70%" y1="0%" x2="70%" y2="-100%"/>
-              <line class="verticalLine" x1="60%" y1="0%" x2="60%" y2="-100%"/>
-              <line class="verticalLine" x1="50%" y1="0%" x2="50%" y2="-100%"/>
-              <line class="verticalLine" x1="40%" y1="0%" x2="40%" y2="-100%"/>
-              <line class="verticalLine" x1="30%" y1="0%" x2="30%" y2="-100%"/>
-              <line class="verticalLine" x1="20%" y1="0%" x2="20%" y2="-100%"/>
-              <line class="verticalLine" x1="10%" y1="0%" x2="10%" y2="-100%"/>
-
+              <line class="verticalLine" x1="90%" y1="0%" x2="90%" y2="-150%"/>
+              <line class="verticalLine" x1="80%" y1="0%" x2="80%" y2="-150%"/>
+              <line class="verticalLine" x1="70%" y1="0%" x2="70%" y2="-150%"/>
+              <line class="verticalLine" x1="60%" y1="0%" x2="60%" y2="-150%"/>
+              <line class="verticalLine" x1="50%" y1="0%" x2="50%" y2="-150%"/>
+              <line class="verticalLine" x1="40%" y1="0%" x2="40%" y2="-150%"/>
+              <line class="verticalLine" x1="30%" y1="0%" x2="30%" y2="-150%"/>
+              <line class="verticalLine" x1="20%" y1="0%" x2="20%" y2="-150%"/>
+              <line class="verticalLine" x1="10%" y1="0%" x2="10%" y2="-150%"/>
+            </g>
+            <g class="circles">
+              <circle class="purpleCircle" cx="0" cy="0" r="25"/>
+              <circle class="purpleCircle" cx="0" cy="0" r="25"/>
+            </g>
+            <g class="arrows">
               <line class='leftArrowHead' x1="0%" y1="2.5%" x2="2.5%" y2="0%"/>
               <line class='leftArrowHead' x1="0%" y1="-2.5%" x2="2.5%" y2="0%"/>
               <line class='leftArrowHead' x1="0%" y1="-2.5%" x2="0%" y2="2.5%"/>
@@ -282,8 +409,314 @@ gridlines is 50m. This text is not final, it is only meant as a test!</p>
 
               <line class="leftArrowTail" x1="0%" y1="0%" x2="-15%" y2="0%"/>
               <line class="rightArrowTail" x1="0%" y1="0%" x2="-15%" y2="0%"/>
-
-              <text class="mathText" x="0" y="0">r</text>
-            </svg>
+            </g>
+            <text class="mathText" x="0" y="0">r</text>
+          </svg>
       </div>
+    <p>In this case, all we mean when we say the objects are in a coordinate system is that they have known positions. The gridlines for instance could represent some known space in between them.</p>
+    <p>How can this be helpful you may ask? The relationship between gravity depends exclusively on the masses of the objects involved and their absolute distance. Which does not depend on it's position relative to the coordinate system where it resides. Therefore receiving a coordinate system with unusual appearence does not stop you from being able to find out the forces between the objects in it. In the animation below we illustrate this by rotating the objects relative to a random point within the coordinate system. As long as the abslute distance between the objects remains the same, the gravitational pull will remain unchanged.</p>
+    <div style="display: flex; align-items:center; flex-direction: column;">
+      <svg height = "200px" width="400px">
+        <rect height="100%" width="100%" fill="black"/>
+
+        <g class = "rotatingLines">
+          <line class="horizontalLine" x1="0%" y1="80%" x2="100%" y2="80%"/>
+          <line class="horizontalLine" x1="0%" y1="60%" x2="100%" y2="60%"/>
+          <line class="horizontalLine" x1="0%" y1="40%" x2="100%" y2="40%"/>
+          <line class="horizontalLine" x1="0%" y1="20%" x2="100%" y2="20%"/>
+
+          <line class="verticalLine" x1="90%" y1="-25%" x2="90%" y2="125%"/>
+          <line class="verticalLine" x1="80%" y1="-25%" x2="80%" y2="125%"/>
+          <line class="verticalLine" x1="70%" y1="-25%" x2="70%" y2="125%"/>
+          <line class="verticalLine" x1="60%" y1="-25%" x2="60%" y2="125%"/>
+          <line class="verticalLine" x1="50%" y1="-25%" x2="50%" y2="125%"/>
+          <line class="verticalLine" x1="40%" y1="-25%" x2="40%" y2="125%"/>
+          <line class="verticalLine" x1="30%" y1="-25%" x2="30%" y2="125%"/>
+          <line class="verticalLine" x1="20%" y1="-25%" x2="20%" y2="125%"/>
+          <line class="verticalLine" x1="10%" y1="-25%" x2="10%" y2="125%"/>
+        </g>
+
+        <g class="rotatingCircles">
+          <circle class="purpleCircle" cx="0" cy="0" r="25" fill="purple" />
+          <circle class="purpleCircle" cx="0" cy="0" r="25" fill="purple" />
+        </g class="rotatingCircles">
+
+        <g class = "rotatingArrows">
+          <line class='leftArrowHead' x1="0%" y1="2.5%" x2="2.5%" y2="0%"/>
+          <line class='leftArrowHead' x1="0%" y1="-2.5%" x2="2.5%" y2="0%"/>
+          <line class='leftArrowHead' x1="0%" y1="-2.5%" x2="0%" y2="2.5%"/>
+
+          <line class='rightArrowHead' x1="0%" y1="2.5%" x2="2.5%" y2="0%"/>
+          <line class='rightArrowHead' x1="0%" y1="-2.5%" x2="2.5%" y2="0%"/>
+          <line class='rightArrowHead' x1="0%" y1="-2.5%" x2="0%" y2="2.5%"/>
+
+          <line class="leftArrowTail" x1="0%" y1="0%" x2="-15%" y2="0%"/>
+          <line class="rightArrowTail" x1="0%" y1="0%" x2="-15%" y2="0%"/>
+          <text class="mathText" x="0" y="0">r</text>
+        </g>
+      </svg>
+    </div>
+    <p>
+      Now that you know that the only factor influencing the gravitational attraction between two random objects is their absolute distance and their masses, it should become clear as well that whenever a gravitational pull is calculated for two objects, the net pull on each object should point torwards the other.
+      This essencially means that if you have two planets, A and B, all you the force exerted on A is in the direction of A to B, and vice versa for the force of A on B. This terminology should remind you of vectors, which are the key to numerically describing direction. Which is what we will do now.
+    </p>
+    <p>
+      Lets start with the situation where you are given two spheres $A$ and $B$ of the same mass $m$. These masses have positions $(Ax, Ay)$ and $(Bx, By)$.
+      This is what the problem would look like.
+    </p>
+    <div style="display: flex; align-items:center; flex-direction: column;">
+      <svg height = "200px" width="400px">
+        <rect height="100%" width="100%" fill="black"/>
+
+        <g class = "rotatingLines">
+          <line class="horizontalLine" x1="0%" y1="80%" x2="100%" y2="80%"/>
+          <line class="horizontalLine" x1="0%" y1="60%" x2="100%" y2="60%"/>
+          <line class="horizontalLine" x1="0%" y1="40%" x2="100%" y2="40%"/>
+          <line class="horizontalLine" x1="0%" y1="20%" x2="100%" y2="20%"/>
+
+          <line class="verticalLine" x1="90%" y1="-25%" x2="90%" y2="125%"/>
+          <line class="verticalLine" x1="80%" y1="-25%" x2="80%" y2="125%"/>
+          <line class="verticalLine" x1="70%" y1="-25%" x2="70%" y2="125%"/>
+          <line class="verticalLine" x1="60%" y1="-25%" x2="60%" y2="125%"/>
+          <line class="verticalLine" x1="50%" y1="-25%" x2="50%" y2="125%"/>
+          <line class="verticalLine" x1="40%" y1="-25%" x2="40%" y2="125%"/>
+          <line class="verticalLine" x1="30%" y1="-25%" x2="30%" y2="125%"/>
+          <line class="verticalLine" x1="20%" y1="-25%" x2="20%" y2="125%"/>
+          <line class="verticalLine" x1="10%" y1="-25%" x2="10%" y2="125%"/>
+        </g>
+        <g class="arrows">
+          <line class='leftArrowHead' x1="0%" y1="2.5%" x2="2.5%" y2="0%"/>
+          <line class='leftArrowHead' x1="0%" y1="-2.5%" x2="2.5%" y2="0%"/>
+          <line class='leftArrowHead' x1="0%" y1="-2.5%" x2="0%" y2="2.5%"/>
+
+          <line class='rightArrowHead' x1="0%" y1="2.5%" x2="2.5%" y2="0%"/>
+          <line class='rightArrowHead' x1="0%" y1="-2.5%" x2="2.5%" y2="0%"/>
+          <line class='rightArrowHead' x1="0%" y1="-2.5%" x2="0%" y2="2.5%"/>
+
+          <line class="leftArrowTail" x1="0%" y1="0%" x2="-15%" y2="0%"/>
+          <line class="rightArrowTail" x1="0%" y1="0%" x2="-15%" y2="0%"/>
+        </g>
+        <g class="circles">
+          <circle class="purpleCircle" cx="0" cy="0" r="25" fill="purple" />
+          <circle class="purpleCircle" cx="0" cy="0" r="25" fill="purple" />
+        </g>
+        <g class="staticMathText">
+          <text class="mathText" x="10%" y="40%">(Ax, Ay)</text>
+          <text class="mathText" x="60%" y="40%">(Bx, By)</text>
+          <text class="mathText" x="48.5%" y="50%" style="animation-delay:5s">r</text>
+        </g>
+      </svg>
+    </div>
+    <p>
+      So, if you are fresh on vectors you can skip this paragraph, else, keep your attention right here. So, to obtain the force we must first get the absolute distance between the objects. This can be done by use of the pythagorean theorem. Therefore we know: $$r=\sqrt{(Bx-Ax)^2+(By-Ay)^2}$$.
+    </p>
+    <p>If you do not know where this comes from, play look at the image below and do research on the pythagorean theorem:</p>
+    <div style="display: flex; align-items:center; flex-direction: column;">
+      <canvas id="pythagoreanCanvas"/>
+    </div>
+    <script>
+    {
+      let canvas = document.getElementById("pythagoreanCanvas");
+      canvas.style.height = "200px";
+      canvas.style.width = "400px";
+      canvas.height = 800;
+      canvas.width = 1600;
+      let scale = 4;
+      let ctx = canvas.getContext("2d");
+      ctx.setTransform(scale, 0, 0, scale, 0, 0);
+
+      function drawAxis(){
+        ctx.lineCap = "round";
+        ctx.strokeStyle = "white";
+        //Drawing axis;
+        let startingx = 20;
+        let startingy = 180;
+        ctx.moveTo(startingx, startingy);
+        ctx.beginPath();
+        let dw =20;
+        let dh = -20;
+        for(let i=0; i<17; i++){
+          ctx.lineTo(startingx+i*dw, startingy);
+          ctx.moveTo(startingx+i*dw, startingy-5);
+          ctx.lineTo(startingx+i*dw, startingy+5);
+          if(i<=7){
+            if(i==0){
+              ctx.moveTo(startingx, startingy+i*dh);
+            } else {
+              ctx.moveTo(startingx, startingy+(i-1)*dh);
+            };
+            ctx.lineTo(startingx, startingy+i*dh);
+            ctx.moveTo(startingx-5, startingy+i*dh);
+            ctx.lineTo(startingx+5, startingy+i*dh);
+          };
+          ctx.moveTo(startingx+i*dw, startingy);
+        };
+        //x arrow
+        ctx.closePath();
+        ctx.stroke();
+        ctx.beginPath();
+        let i=16;
+        ctx.moveTo(startingx+i*dw, startingy);
+        ctx.lineTo(startingx+i*dw, startingy+5);
+        ctx.lineTo(startingx+i*dw+10, startingy);
+        ctx.lineTo(startingx+i*dw, startingy-5);
+        ctx.closePath();
+        ctx.stroke();
+
+        //yarrow
+        i=7;
+        ctx.beginPath();
+        ctx.moveTo(startingx+5, startingy+i*dh);
+        ctx.lineTo(startingx-5, startingy+i*dh);
+        ctx.lineTo(startingx, startingy+i*dh-10);
+        ctx.lineTo(startingx+5, startingy+i*dh);
+        ctx.closePath();
+        ctx.stroke();
+
+        //Labels
+        ctx.font = "15px Consolas";
+        ctx.fillStyle = "white";
+        ctx.fillText("x", 17*dw+15, startingy+10);
+        ctx.fillText("y", startingx-10, startingy+8*dh);
+      };
+      //Making a point class
+      function point(x, y, text){
+        this.x = x;
+        this.y = y;
+        this.r = 5;
+        this.textOffsetX = 10;
+        this.textOffsetY = 20;
+        this.text = text;
+        this.fillStyle = "cornflowerblue";
+        this.strokeStyle = "lightblue";
+        if (point.pointArray == undefined){
+          point.pointArray = [this];
+        } else {
+          point.pointArray.push(this);
+        };
+        this.draw = ()=>{
+          ctx.setTransform(scale, 0, 0, scale, 0, 0);
+          ctx.fillStyle = this.fillStyle;
+          ctx.strokeStyle = this.strokeStyle;
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.r, 0, 6.28);
+          ctx.closePath();
+          ctx.fill();
+          ctx.stroke();
+        };
+        this.drawText = () =>{
+          ctx.setTransform(scale, 0, 0, scale, 0, 0);
+          ctx.font = "15px Consolas";
+          ctx.fillStyle = "white";
+          ctx.fillText(this.text, this.x+this.textOffsetX, this.y+this.textOffsetY);
+        };
+        this.isMouseIn = (event)=>{
+          if (Math.sqrt((this.x-event.offsetX)**2+(this.y-event.offsetY)**2<=this.r*2)){
+            return true;
+          } else {
+            return false;
+          };
+        };
+      };
+      point.prototype.drawR = (p1, p2)=>{
+        let rx = p2.x-p1.x;
+        let ry = p2.y-p1.y;
+        let midx = (p2.x+p1.x)/2;
+        let midy = (p2.y+p1.y)/2;
+        let r_ = Math.sqrt(rx**2+ry**2);
+        let sine = ry/r_;
+        let cosine = rx/r_;
+
+        ctx.strokeStyle = "tomato";
+        ctx.setTransform(scale, 0, 0, scale, 0, 0);
+        ctx.beginPath();
+        ctx.setLineDash([Math.sqrt(rx**2)/40, Math.sqrt(rx**2)/20]);
+        ctx.moveTo(p1.x, p1.y);
+        ctx.lineTo(p2.x, p1.y);
+        ctx.closePath();
+        ctx.stroke();
+
+        ctx.strokeStyle = "lightblue";
+        ctx.beginPath();
+        ctx.setLineDash([Math.sqrt(ry**2)/20, Math.sqrt(ry**2)/10]);
+        ctx.moveTo(p2.x, p1.y);
+        ctx.lineTo(p2.x, p2.y);
+        ctx.closePath();
+        ctx.stroke();
+
+        ctx.strokeStyle = "lightgreen";
+        ctx.setTransform(scale, 0, 0, scale, midx*scale, midy*scale);
+        ctx.beginPath();
+        ctx.setLineDash([r_/40, r_/20]);
+        ctx.transform(cosine, sine, -sine, cosine, 0, 0);
+        ctx.moveTo(-r_/2, 0);
+        ctx.lineTo(r_/2, 0);
+        ctx.closePath();
+        ctx.stroke();
+        ctx.fillStyle = 'black';
+        ctx.fillRect(-r_/12, -7.5, r_/6, 15);
+        ctx.fillStyle = 'white';
+        ctx.font = "15px Consolas";
+        ctx.fillText("r",-r_/44, 0);
+        ctx.setLineDash([0, 0]);
+      };
+
+      function drawFormula(){
+        ctx.setTransform(scale, 0, 0, scale, 0,0);
+        ctx.fillStyle="white";
+        ctx.font = "15px Consolas";
+      };
+
+      drawAxis();
+      let p1 = new point(50, 150, "(Ax, Ay)");
+      let p2 = new point(250, 100, "(Bx, By)");
+      p2.drawR(p1, p2);
+      p1.draw();
+      p1.drawText();
+      p2.draw();
+      p2.drawText();
+
+      let lockedBall = undefined;
+
+      let runningTag = false;
+      function startMoving(event){
+        runningTag = true;
+        if (p1.isMouseIn(event)){
+          p1.strokeStyle ="white";
+          p2.strokeStyle = "lightblue";
+          lockedBall = p1;
+        } else if (p2.isMouseIn(event)){
+          p2.strokeStyle ="white";
+          p1.strokeStyle = "lightblue";
+          lockedBall = p2;
+        } else {
+          p1.strokeStyle ="lightblue";
+          p2.strokeStyle = "lightblue";
+          lockedBall = undefined;
+        };
+      };
+      function stopMoving(){
+        runningTag = false;
+      };
+      function moveMouse(event){
+        if(!runningTag){return null;};
+        if (lockedBall == undefined){return null;};
+        let x = event.offsetX;
+        let y = event.offsetY;
+        lockedBall.x=x;
+        lockedBall.y=y;
+        ctx.clearRect(0, 0, canvas.height, canvas.width);
+        p2.drawR(p1, p2);
+        p1.draw();
+        p1.drawText();
+        p2.draw();
+        p2.drawText();
+        drawAxis();
+      };
+
+      canvas.addEventListener('mousedown', startMoving);
+      canvas.addEventListener("mouseup", stopMoving);
+      canvas.addEventListener("mousemove", moveMouse);
+    };
+    </script>
 </div>
