@@ -1,57 +1,11 @@
 
-  <style>
-    body {
-		margin:0;
-	}
-	.myUl {
-		display: flex;
-		justify-content: space-between;
-		margin: 0;
-		align-items: baseline;
-		background-color: rgb(20, 40, 120);
-		list-style: none;
-		font-size: 24px;
-		font-family: Consolas;
-		text-decoration: none;
-		color: white;
-		padding: 0.4em 0.7em;
-	}
-	.myUl li:hover {
-		transform: scale(1.1);
-		transition-duration: 0.1s;
-	}
-	.spacedli{
-		float: right;
-		font-size: 20px;
-	}
-	.spacedli li{
-		display: inline-block;
-		padding: 0.4em 0.7em;
-	}
-
-	.simBoxOut{
-		display: flex;
-		background-color: orange;
-		position: relative;
-		margin: auto;
-		height:100%;
-		width: 100%;
-		justify-content: center;
-		text-align: center;
-	}
-
-.simtitle{
-	font-family:Consolas;
-	color: black;
-	text-align: center;
-}
+<style>
 .explanation{
   display: flex;
   flex-direction: column;
   padding-left: 4em;
   padding-right: 4em;
 }
-
 </style>
 <div class = "explanation">
 <h1 class = "sim_explanation">Explanation</h1>
@@ -100,18 +54,6 @@ gridlines is 50m. This text is not final, it is only meant as a test!</p>
 <p class="sim_explanation">So, now you can compute the strength of gravitational attraction, given the absolute distance between them, what happens when all you are give is a set of points and the objects' masses?</p>
 <p class="sim_explanation">The "best" way to approach this is to first set up and understand the frame of reference which defines the positions of the objects. In other words, the coordinate system that allows for objective description of positions and velocities of the objects relative to an origin, which could be another object. Follows an example of what it would "look like" for masses to be in a coordinate  system.</p>
 <style>
-body{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-body{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
 svg{
   margin: 1em;
 }
@@ -374,6 +316,13 @@ svg:hover>.staticMathText>.mathText{
   width: 400px;
 }
 
+.movableCirclesText>.mathText{
+  opacity: 1;
+  fill: white;
+  transform: none;
+  animation-name: none;
+}
+
 </style>
         <div style="display: flex; align-items:center; flex-direction: column;">
           <svg height = "200px" width="400px">
@@ -512,211 +461,153 @@ svg:hover>.staticMathText>.mathText{
     </p>
     <p class="sim_explanation">If you do not know where this comes from, play look at the image below and do research on the pythagorean theorem:</p>
     <div style="display: flex; align-items:center; flex-direction: column;">
-      <canvas id="pythagoreanCanvas"/>
-    </div>
-    <script>
-    {
-      let canvas = document.getElementById("pythagoreanCanvas");
-      canvas.style.height = "200px";
-      canvas.style.width = "400px";
-      canvas.height = 800;
-      canvas.width = 1600;
-      let scale = 4;
-      let ctx = canvas.getContext("2d");
-      ctx.setTransform(scale, 0, 0, scale, 0, 0);
+      <svg height = "200px" width="400px" id="pythagoreanSVG">
+        <rect height="100%" width="100%" fill="black"></rect>
 
-      function drawAxis(){
-        ctx.lineCap = "round";
-        ctx.strokeStyle = "white";
-        //Drawing axis;
-        let startingx = 20;
-        let startingy = 180;
-        ctx.moveTo(startingx, startingy);
-        ctx.beginPath();
-        let dw =20;
-        let dh = -20;
-        for(let i=0; i<17; i++){
-          ctx.lineTo(startingx+i*dw, startingy);
-          ctx.moveTo(startingx+i*dw, startingy-5);
-          ctx.lineTo(startingx+i*dw, startingy+5);
-          if(i<=7){
-            if(i==0){
-              ctx.moveTo(startingx, startingy+i*dh);
-            } else {
-              ctx.moveTo(startingx, startingy+(i-1)*dh);
-            };
-            ctx.lineTo(startingx, startingy+i*dh);
-            ctx.moveTo(startingx-5, startingy+i*dh);
-            ctx.lineTo(startingx+5, startingy+i*dh);
-          };
-          ctx.moveTo(startingx+i*dw, startingy);
-        };
-        //x arrow
-        ctx.closePath();
-        ctx.stroke();
-        ctx.beginPath();
-        let i=16;
-        ctx.moveTo(startingx+i*dw, startingy);
-        ctx.lineTo(startingx+i*dw, startingy+5);
-        ctx.lineTo(startingx+i*dw+10, startingy);
-        ctx.lineTo(startingx+i*dw, startingy-5);
-        ctx.closePath();
-        ctx.stroke();
+        <g class = "rotatingLines">
+          <line class="horizontalLine" x1="0%" y1="80%" x2="100%" y2="80%"/>
+          <line class="horizontalLine" x1="0%" y1="60%" x2="100%" y2="60%"/>
+          <line class="horizontalLine" x1="0%" y1="40%" x2="100%" y2="40%"/>
+          <line class="horizontalLine" x1="0%" y1="20%" x2="100%" y2="20%"/>
 
-        //yarrow
-        i=7;
-        ctx.beginPath();
-        ctx.moveTo(startingx+5, startingy+i*dh);
-        ctx.lineTo(startingx-5, startingy+i*dh);
-        ctx.lineTo(startingx, startingy+i*dh-10);
-        ctx.lineTo(startingx+5, startingy+i*dh);
-        ctx.closePath();
-        ctx.stroke();
+          <line class="verticalLine" x1="90%" y1="-25%" x2="90%" y2="125%"/>
+          <line class="verticalLine" x1="80%" y1="-25%" x2="80%" y2="125%"/>
+          <line class="verticalLine" x1="70%" y1="-25%" x2="70%" y2="125%"/>
+          <line class="verticalLine" x1="60%" y1="-25%" x2="60%" y2="125%"/>
+          <line class="verticalLine" x1="50%" y1="-25%" x2="50%" y2="125%"/>
+          <line class="verticalLine" x1="40%" y1="-25%" x2="40%" y2="125%"/>
+          <line class="verticalLine" x1="30%" y1="-25%" x2="30%" y2="125%"/>
+          <line class="verticalLine" x1="20%" y1="-25%" x2="20%" y2="125%"/>
+          <line class="verticalLine" x1="10%" y1="-25%" x2="10%" y2="125%"/>
+        </g>
 
-        //Labels
-        ctx.font = "15px Consolas";
-        ctx.fillStyle = "white";
-        ctx.fillText("x", 17*dw+15, startingy+10);
-        ctx.fillText("y", startingx-10, startingy+8*dh);
-      };
-      //Making a point class
-      function point(x, y, text){
-        this.x = x;
-        this.y = y;
-        this.r = 5;
-        this.textOffsetX = 10;
-        this.textOffsetY = 20;
-        this.text = text;
-        this.fillStyle = "cornflowerblue";
-        this.strokeStyle = "lightblue";
-        if (point.pointArray == undefined){
-          point.pointArray = [this];
-        } else {
-          point.pointArray.push(this);
+        <g class="dashedLines" stroke-dasharray="4" stroke="white">
+          <line x1="50" x2="250" y1="150" y2="50"/>
+          <line x1="250" x2="250" y1="50" y2="150"/>
+          <line x1="50" x2="250" y1="150" y2="150"/>
+        </g>
+
+        <g class="movableCircles">
+          <circle cx="50" cy="150" r="15" fill="cornflowerblue"/>
+          <circle cx="250" cy="50" r="15" fill="cornflowerblue"/>
+        </g>
+
+        <g class="movableCirclesText" style="opacity:0">
+          <text class="mathText" x="50" y="150">(Ax, Ay)</text>
+          <text class="mathText" x="250" y="50">(Bx, By)</text>
+          <text class="mathText" x="0" y="0">r=(Δx^2+Δy^2)^1/2</text>
+          <text class="mathText" x="135" y="170">Δx</text>
+          <text class="mathText" x="255" y="100">Δy</text>
+        </g>
+      </svg>
+      <script type="text/javascript">
+      {//Brackets to avoig conflicting scopes
+        let canvas = document.getElementById("pythagoreanSVG");
+        let rect = canvas.children[0];
+        let lines = document.getElementsByClassName("dashedLines")[0].children;
+        let circles = document.getElementsByClassName("movableCircles")[0].children;
+        let texts = document.getElementsByClassName("movableCirclesText")[0].children;
+        let b1Text = texts[0];
+        let b2Text = texts[1];
+        let line_Text = texts[2];
+        let textΔx = texts[3];
+        let textΔy = texts[4];
+        let line_ = lines[0];
+        let linex = lines[1];
+        let liney = lines[2];
+        let b1 = circles[0];
+        let b2 = circles[1];
+        b1.style.cursor = b2.style.cursor= "grab";
+        b1.style.transition = b2.style.transition= "cursor .2s";
+        let selectedBall = false;
+        function moveBall(event){
+          if (!selectedBall){return null;};
+          b1.style.cursor = b2.style.cursor= "grabbing";
+
+          selectedBall.setAttribute("cx", event.offsetX);
+          selectedBall.setAttribute("cy", event.offsetY);
+
+          let b1x = b1.cx.animVal.value;
+          let b1y = b1.cy.animVal.value;
+          let b2x = b2.cx.animVal.value;
+          let b2y = b2.cy.animVal.value;
+
+          line_.setAttribute("x1", b1x);
+          line_.setAttribute("x2", b2x);
+          line_.setAttribute("y1", b1y);
+          line_.setAttribute("y2", b2y);
+
+          linex.setAttribute("x1", b1x);
+          linex.setAttribute("x2", b2x);
+          linex.setAttribute("y1", b1y);
+          linex.setAttribute("y2", b1y);
+
+          liney.setAttribute("x1", b2x);
+          liney.setAttribute("x2", b2x);
+          liney.setAttribute("y1", b1y);
+          liney.setAttribute("y2", b2y);
+
+          b1Text.setAttribute("x", b1x+10);
+          b1Text.setAttribute("y", b1y+20);
+          b2Text.setAttribute("x", b2x+10);
+          b2Text.setAttribute("y", b2y+20);
+
+          let r_ = Math.sqrt((b2x-b1x)**2+(b2y-b1y)**2);
+          let cosine = (b2x-b1x)/r_;
+          let sine = (b2y-b1y)/r_;
+          line_Text.setAttribute("x", 0);
+          line_Text.setAttribute("y", 0);
+          line_Text.style.transform = `translate(-${cosine*50}px, ${sine*50}px) matrix(${cosine}, ${sine}, ${-sine}, ${cosine}, ${(b1x+b2x)/2}, ${(b1y+b2y)/2})`;
+
+          textΔx.setAttribute("x", (b1x+b2x)/2);
+          textΔx.setAttribute("y", b1y+15);
+          textΔy.setAttribute("x", b2x+15);
+          textΔy.setAttribute("y", (b1y+b2y)/2);
         };
-        this.draw = ()=>{
-          ctx.setTransform(scale, 0, 0, scale, 0, 0);
-          ctx.fillStyle = this.fillStyle;
-          ctx.strokeStyle = this.strokeStyle;
-          ctx.beginPath();
-          ctx.arc(this.x, this.y, this.r, 0, 6.28);
-          ctx.closePath();
-          ctx.fill();
-          ctx.stroke();
-        };
-        this.drawText = () =>{
-          ctx.setTransform(scale, 0, 0, scale, 0, 0);
-          ctx.font = "15px Consolas";
-          ctx.fillStyle = "white";
-          ctx.fillText(this.text, this.x+this.textOffsetX, this.y+this.textOffsetY);
-        };
-        this.isMouseIn = (event)=>{
-          if (Math.sqrt((this.x-event.offsetX)**2+(this.y-event.offsetY)**2<=this.r*2)){
-            return true;
+        function checkIntersection(event){
+          let x = event.offsetX;
+          let y = event.offsetY;
+          let b1x = b1.cx.animVal.value;
+          let b1y = b1.cy.animVal.value;
+          let b2x = b2.cx.animVal.value;
+          let b2y = b2.cy.animVal.value;
+          let b1r = b1.r.animVal.value;
+          let b2r = b2.r.animVal.value;
+          let sqrt = Math.sqrt
+          if (sqrt((b1x-x)**2+(b1y-y)**2)<=b1r){
+            selectedBall = b1;
+          } else  if (sqrt((b2x-x)**2+(b2y-y)**2)<=b2r){
+            selectedBall = b2;
           } else {
-            return false;
+            selectedBall = false;
+            b1.style.stroke = b2.style.stroke = "lightblue";
+            return null;
+          };
+          b1.style.stroke = b2.style.stroke = "lightblue";
+          selectedBall.style.stroke = "white";
+          let element = document.getElementsByClassName("movableCirclesText")[0];
+          console.log(element.style.opacity);
+          if (element.style.opacity == "0"){
+            element.style.transition = "opacity 2s";
+            element.style.opacity = "1";
           };
         };
-      };
-      point.prototype.drawR = (p1, p2)=>{
-        let rx = p2.x-p1.x;
-        let ry = p2.y-p1.y;
-        let midx = (p2.x+p1.x)/2;
-        let midy = (p2.y+p1.y)/2;
-        let r_ = Math.sqrt(rx**2+ry**2);
-        let sine = ry/r_;
-        let cosine = rx/r_;
-
-        ctx.strokeStyle = "tomato";
-        ctx.setTransform(scale, 0, 0, scale, 0, 0);
-        ctx.beginPath();
-        ctx.setLineDash([Math.sqrt(rx**2)/40, Math.sqrt(rx**2)/20]);
-        ctx.moveTo(p1.x, p1.y);
-        ctx.lineTo(p2.x, p1.y);
-        ctx.closePath();
-        ctx.stroke();
-
-        ctx.strokeStyle = "lightblue";
-        ctx.beginPath();
-        ctx.setLineDash([Math.sqrt(ry**2)/20, Math.sqrt(ry**2)/10]);
-        ctx.moveTo(p2.x, p1.y);
-        ctx.lineTo(p2.x, p2.y);
-        ctx.closePath();
-        ctx.stroke();
-
-        ctx.strokeStyle = "lightgreen";
-        ctx.setTransform(scale, 0, 0, scale, midx*scale, midy*scale);
-        ctx.beginPath();
-        ctx.setLineDash([r_/40, r_/20]);
-        ctx.transform(cosine, sine, -sine, cosine, 0, 0);
-        ctx.moveTo(-r_/2, 0);
-        ctx.lineTo(r_/2, 0);
-        ctx.closePath();
-        ctx.stroke();
-        ctx.fillStyle = 'black';
-        ctx.fillRect(-r_/12, -7.5, r_/6, 15);
-        ctx.fillStyle = 'white';
-        ctx.font = "15px Consolas";
-        ctx.fillText("r",-r_/44, 0);
-        ctx.setLineDash([0, 0]);
-      };
-
-      function drawFormula(){
-        ctx.setTransform(scale, 0, 0, scale, 0,0);
-        ctx.fillStyle="white";
-        ctx.font = "15px Consolas";
-      };
-
-      drawAxis();
-      let p1 = new point(50, 150, "(Ax, Ay)");
-      let p2 = new point(250, 100, "(Bx, By)");
-      p2.drawR(p1, p2);
-      p1.draw();
-      p1.drawText();
-      p2.draw();
-      p2.drawText();
-
-      let lockedBall = undefined;
-
-      let runningTag = false;
-      function startMoving(event){
-        runningTag = true;
-        if (p1.isMouseIn(event)){
-          p1.strokeStyle ="white";
-          p2.strokeStyle = "lightblue";
-          lockedBall = p1;
-        } else if (p2.isMouseIn(event)){
-          p2.strokeStyle ="white";
-          p1.strokeStyle = "lightblue";
-          lockedBall = p2;
-        } else {
-          p1.strokeStyle ="lightblue";
-          p2.strokeStyle = "lightblue";
-          lockedBall = undefined;
+        function endMovement(){
+          selectedBall = false;
+          let element = document.getElementsByClassName("movableCirclesText")[0];
+          console.log(element.style.opacity);
+          if (element.style.opacity == "1"){
+            element.style.transition = "opacity 2s";
+            element.style.opacity = "0";
+          };
+          b1.style.cursor = b2.style.cursor= "grab";
         };
-      };
-      function stopMoving(){
-        runningTag = false;
-      };
-      function moveMouse(event){
-        if(!runningTag){return null;};
-        if (lockedBall == undefined){return null;};
-        let x = event.offsetX;
-        let y = event.offsetY;
-        lockedBall.x=x;
-        lockedBall.y=y;
-        ctx.clearRect(0, 0, canvas.height, canvas.width);
-        p2.drawR(p1, p2);
-        p1.draw();
-        p1.drawText();
-        p2.draw();
-        p2.drawText();
-        drawAxis();
-      };
 
-      canvas.addEventListener('mousedown', startMoving);
-      canvas.addEventListener("mouseup", stopMoving);
-      canvas.addEventListener("mousemove", moveMouse);
-    };
-    </script>
+        canvas.addEventListener("mousemove", moveBall);
+        canvas.addEventListener("mousedown", checkIntersection);
+        canvas.addEventListener("mouseup", endMovement)
+      };
+      </script>
+    </div>
+
 </div>
