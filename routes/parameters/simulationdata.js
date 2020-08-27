@@ -44,13 +44,6 @@ const simulations = [{
   "jsfile": "nBody",
   "image": "nBody.png",
   "explanation": getFile("nBodyExplanation.ejs")
-}{
-  "name": "DoubleSphericalPendulum",
-  "description": "Simulation of the chaotic nature of a double spherical pendulum",
-  "urlName": "Double_Spherical_Pendulum",
-  "jsfile": "DoubleSphericalPendulum",
-  "image": "-",
-  "explanation": getFile("-")
 }];
 
 

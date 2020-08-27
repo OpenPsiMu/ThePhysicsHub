@@ -13,7 +13,6 @@ const elasticPendulum = require('./routes/elasticPendulum');
 const forceTableRouter = require('./routes/force_table');
 const collisionRouter = require('./routes/collision');
 const nBodyRouter = require('./routes/nBody');
-const doubleSphericalPendulumRouter = require('./routes/Double_Spherical_Pendulum');
 const coupledPendulum = require('./routes/coupledPendulum');
 
 const app = express();
@@ -39,7 +38,6 @@ app.use('/simulations/elasticPendulum', elasticPendulum);
 app.use('/simulations/force_table', forceTableRouter);
 app.use('/simulations/collision', collisionRouter);
 app.use('/simulations/nBody', nBodyRouter);
-app.use('/simulations/Double_Spherical_Pendulum', doubleSphericalPendulumRouter);
 app.use('/simulations/coupledPendulum', coupledPendulum);
 
 // Stylesheets
