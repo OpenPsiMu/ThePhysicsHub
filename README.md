@@ -5,6 +5,8 @@ serving as a place to view  high school/undergraduate university level physics s
 The simulations are currently written using the javascript library [p5.js](https://p5js.org/).
 Everybody is welcome to contribute, no matter whether you're a beginner or an expert.
 
+
+1. Add your simulation js-file code to /public/javascripts/
 **Contact**: physhub@protonmail.com.  **Website**: [physicshub.herokuapp.com](https://physicshub.herokuapp.com) **Discord**: [Invitation](https://discord.gg/B2M9p4y)
 
 
@@ -20,6 +22,8 @@ The website is based on ExpressJS. The Node Package Manager [(npm)](https://www.
 ### Instructions to add simulations to the website
 
 In order to simplify the process of adding simulations, we wrote a python script that automates the grunt work.
+0. Run `npm install` in terminal
+
 1. If any p5.dom elements are being used, add \<element\>.parent("simwrapper") in your js file (including the main canvas).
 
 2. Add your simulation file (p5 code) to /public/javascripts/
