@@ -1,33 +1,20 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel="stylesheet" href="stylesheets/style.css" type="text/css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg">
-      <a class="navbar-brand" href="/">ThePhysicsHub</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/simulations">Simulations</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/about">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/contribute">Contribute</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-    <h1>Contribute</h1>
-    <p>If you like the project and want to contribute, you can head over to our Github page for code contributions and our Open Collective page for monetary contributions.</p>
-    <p>Github: https://github.com/ThePhysHub</p>
-    <p>Open Collective: https://opencollective.com/physhub</p>
-  </body>
+ <head>
+   <link rel="stylesheet" href="stylesheets/style.css" type="text/css">
+   <link rel="stylesheet" href="stylesheets/contentpages.css" type="text/css">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+ </head>
+ <body>
+   <%- navbar %>
+   <div class="container">
+   <h1 class="header">Contribute</h1>
+   <p class="textpassage">If you're interested in the project and want to contribute, you can head over to our Github page for code contributions and our Patreon page for monetary contributions by clicking on their logos..<br>
+   <div class="social-links">
+       <a href="https://github.com/ThePhysHub/ThePhysicsHub" target="_blank"><img src = "images/logo_images/github_logo.png" alt="github link"></a>
+       <a href="https://www.patreon.com/physhub" target="_blank"><img src = "images/logo_images/patreon_logo.png" alt="patreon link"></a>
+       
+   </div>
+ </div>
+ </body>
 </html>

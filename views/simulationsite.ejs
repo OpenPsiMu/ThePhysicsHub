@@ -4,35 +4,24 @@
     <link rel="stylesheet" href="/stylesheets/sim.css" type="text/css">
     <link rel="stylesheet" href="/stylesheets/nav.css" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="/javascripts/<%= sim.jsfile %>.js"></script>
-    <script src="/javascripts/p5.min.js"></script>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg">
-      <a class="navbar-brand" href="/">ThePhysicsHub</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/simulations">Simulations</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/about">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link " href="/contribute">Contribute</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+    <%- navbar %>
     <div id="simcontainer">
         <h2 id = "simulation-headline"><span><%= sim.name %></span></h2>
       <div id = "simwrapper"></div>
-      <p id = "explanation"><%= sim.explanation %></p>
+      <p id = "explanation">
+        <%- sim.explanation %>
+      </p>
     </div>
-    
+    <script src="/javascripts/libraries/p5.min.js"></script>
+    <script src="/javascripts/libraries/grafica.min.js"></script>
+    <script src="/javascripts/libraries/dropdownFunctions.js"></script>
+    <script src="/javascripts/libraries/sim-tools.js"></script>
+    <script src="/javascripts/libraries/quicksettings.js"></script>
+    <script src="/javascripts/libraries/p5.gui.js"></script>
+    <script src="/javascripts/<%= sim.jsfile %>.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   </body>
 </html>

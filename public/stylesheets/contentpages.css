@@ -1,0 +1,65 @@
+@import url("https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css");
+html, body{
+    background-color: #222222 !important;
+}
+.header{
+    font-family: 'Rubik', sans-serif;
+    font-size: 32px;
+    font-weight: 600;
+    color: #fff;
+    margin-top: 60px;
+    margin-left: 5em;
+    margin-bottom: 1em;
+    line-height: 1;
+}
+
+
+.container{
+    padding-left: 40px;
+}
+
+.textpassage{
+    font-size: 16px;
+    line-height: 25px;
+    color: #e9e9e9;
+    font-weight: 400;
+    margin-left: 5em;
+    padding-left: 5em;
+    padding-right: 5em;
+}
+
+.social-links{
+    margin-top: 2em;
+    margin-left: 5em;
+    align: center;
+    padding-left: 5em;
+}
+
+.social-links a{
+    height: 3em;
+    width: 3em;
+    display: inline-block;
+    text-align: center;
+    line-height: 35px;
+    color: #ffffff;
+    margin: 0 4px;
+    border-radius: 50%;
+    text-decoration: none;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+
+}
+
+.social-links a:hover{
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+    
+}
+
+.social-links a img{
+    display: block;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+

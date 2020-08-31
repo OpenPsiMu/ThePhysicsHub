@@ -2,31 +2,16 @@
 <html>
   <head>
     <link rel="stylesheet" href="stylesheets/style.css" type="text/css">
+    <link rel="stylesheet" href="stylesheets/contentpages.css" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg">
-      <a class="navbar-brand" href="/">ThePhysicsHub</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/simulations">Simulations</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/about">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link " href="/contribute">Contribute</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-    <h1>About</h1>
-    <p>We are a team of physics enthusiasts that got together through Reddit. We intend to create physics simulations that are easy to understand and free for everyone.</p>
-    <p>You can reach out to us through "physhub@protonmail.com" for your suggestions and questions. You can send us an email if you want to join the team as well!</p>
+    <%- navbar %>
+    <div class="container">
+    <h1 class="header">About</h1>
+    <p class="textpassage">We are a team of physics enthusiasts that got together through Reddit, and we aim to host interactive physics simulations that are free, easily accessible, and open-source. The idea behind open-sourcing the project is to provide an opportunity for students who have recently started coding to contribute to a project helping create an ever-growing repository of learning tools. Moreover, we hope that other physics enthusiasts/students/educators can help us figure out the best ways to present the simulation to make harder concepts easily visualized, with full control given to the user to play around with the simulated system. </p>
+
+    <p class="textpassage">As of now, the simulations are written in JavaScript, using the p5.js library. In the future, however, as the complexity of simulations to be implemented increases, we will have to discuss the possibility of integrating other languages. You can reach out to us through "physhub@protonmail.com" for your suggestions and questions. </p>
+  </div>
   </body>
 </html>
