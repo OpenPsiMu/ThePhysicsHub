@@ -1,8 +1,11 @@
 html, body{
-      background-color: #222222 !important;
+      background-color: #270042 !important;
+      background-blend-mode: hard-light;
 }
 .simulations{
-    margin: 60px;
+    padding: 60px;
+    background-image: url(/images/background.png);
+    background-size: 100%;
 }
 .simulations h1{
     font-family: 'Rubik', sans-serif;
@@ -87,4 +90,8 @@ html, body{
     color: #e9e9e9;
     font-weight: 400;
 
+}
+
+.sim-item{
+    background: #270042;
 }
