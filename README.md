@@ -7,7 +7,7 @@ Everybody is welcome to contribute, no matter whether you're a beginner or an ex
 
 
 1. Add your simulation js-file code to /public/javascripts/
-**Contact**: physhub@protonmail.com.  **Website**: [physicshub.herokuapp.com](https://physicshub.herokuapp.com) **Discord**: [Invitation](https://discord.gg/B2M9p4y)
+**Contact**: physhub@protonmail.com.  **Website**: [physicshub.herokuapp.com](https://physicshub.herokuapp.com) **Discord**: [Invitation](https://discord.gg/z4pPVKd)
 
 
 ### Project Setup
