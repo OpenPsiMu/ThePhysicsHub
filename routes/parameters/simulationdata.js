@@ -44,6 +44,16 @@ const simulations = [{
   "jsfile": "nBody",
   "image": "nBody.png",
   "explanation": getFile("nBodyExplanation.ejs")
+<<<<<<< HEAD
+},{
+  "name": "Double pendulum 2D",
+  "description": "A pendulum with another pendulum attached to its end.",
+  "urlName": "doublePendulum2D",
+  "jsfile": "doublePendulum2D",
+  "image": "doublePendulum2D.png",
+  "explanation": "-"
+=======
+>>>>>>> 46c5225577a08fce8d9f20f6b7275739f9ad9d32
 }];
 
 
