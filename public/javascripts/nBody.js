@@ -19,16 +19,18 @@ function setup() {
   canvas.secretY = canvas.transY;
   let mouseWheelOriginal = mouseWheel;
   canvas.elt.onmouseenter = () => {
+    canvas.isMouseOver = true;
     document.body.style.overflow = "hidden";
     mouseWheel = mouseWheelOriginal;
   };
   canvas.elt.onmouseleave = () => {
     document.body.style.overflow = "auto";
+    canvas.isMouseOver = false;
     mouseWheel = () => {
       null
     };
   };
-  canvas.isMouseOver = true;
+  canvas.isMouseOver = false;
   canvas.parent("simwrapper");
   trailRenderer = createGraphics(H, H);
   trailContext = trailRenderer.elt.getContext("2d");
@@ -370,7 +372,6 @@ function setup() {
   axes.style.height = String(H*.75)+"px";
   axes.style.width = String(H*.75)+"px";
   axes.style.background = "#000";
-
 };
 
 function setLimits(canvas, x0, y0, x1, y1){
@@ -466,6 +467,7 @@ function draw() {
 };
 
 function mouseWheel(event) {
+  if (!canvas.isMouseOver){return null;};
   let previousScalingFactor = scalingFactor;
   if ((scalingFactor >= .3)&&(scalingFactor <= 4)) {
     scalingFactor += event.delta / 1000;

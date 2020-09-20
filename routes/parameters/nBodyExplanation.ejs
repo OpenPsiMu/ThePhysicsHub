@@ -1,77 +1,16 @@
 <DOCTYPE! html>
 <head>
+  <script src="node_modules/mathjax/es5/tex-chtml.js" id="MathJax-script" async></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        processEscapes: true
+      }
+    });
+  </script>
   <!-- <link href="style.css" type="text/css" rel="stylesheet"></link> -->
   <style>
-  /* Note!!!
-  Most of this file was taken from PhysicsHub!!!
-  I have only created some of the css. */
-
-  @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,600;0,700;1,400&display=swap');
-  @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@500;700;900&display=swap');
-  html, body {
-    background-color: #222222;
-    margin: 0;
-    font-family: 'Montserrat', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  .content{
-      background-color: #222222;
-      position: fixed;
-      display: block;
-      min-height: 100vh;
-      margin-top: 3.5em;
-      padding: 100px;
-      top: 0;
-      left: 0;
-      right: 0px;
-      overflow-x: hidden;
-
-  }
-
-  .content h1{
-      font-family: 'Rubik', sans-serif;
-      position: relative;
-      color: #ffffff;
-      font-size: 44px;
-      line-height: 1;
-      font-weight: 600;
-      margin-top: 10%;
-      margin-bottom: 3%;
-      text-align: center;
-  }
-
-  .content p{
-      position: relative;
-      color: #e9e9e9;
-      margin-bottom: 5%;
-      text-align: center;
-      font-size: 20px;
-      line-height: 1.5;
-  }
-
-
-  .navbar{
-      background-color: #151515;
-  }
-
-  .navbar a{
-      color: #fff;
-  }
-
-  .navbar a:hover{
-      -webkit-transform: scale(1.05);
-      transform: scale(1.05);
-      color: #f2f2fc;
-  }
-
-  .explanation{
-    display: flex;
-    flex-direction: column;
-    padding-left: 14em;
-    padding-right: 14em;
-  }
   svg{
     margin: 1em;
   }
@@ -429,14 +368,8 @@
     100%{opacity: 1;}
   }
 
-  #simwrapper{
-      background-color: #151515;
-      position: relative;
-      display: inline-block;
-      border: 4px solid #151515;
-      border-radius: 12px;
+  .explanation{
   }
-
   .sim_explanation{
       margin-top: 2.5em;
       font-size: 20px;
@@ -444,69 +377,12 @@
       text-align: justify;
       font-family: 'Montserrat', sans-serif;
       color: #e9e9e9;
+      width: 45em;
+      margin-right: auto;
+      margin-left: auto;
   }
 
-  .qs_main {
-      background-color: #000000;
-      text-align: left;
-      position: absolute;
-      width: 200px;
-      font: 12px sans-serif;
-      box-shadow: none;
-      user-select: none;
-      -webkit-user-select: none;
-      color: #bbbbbb;
-      border: 1px solid #666666;
-    }
-    .qs_content {
-      background-color: #000000;
-      overflow-y: auto;
-    }
-    .qs_title_bar {
-      background-color: #000000;
-      user-select: none;
-      -webkit-user-select: none;
-      cursor: pointer;
-      padding: 5px;
-      font-weight: bold;
-      border: none;
-      color: #bbbbbb;
-    }
-    .qs_container {
-      margin: 5px;
-      padding: 5px;
-      background-color: #000000;
-      border: 1px solid #666666;
-      position: relative;
-    }
-    .qs_container_selected {
-      border: 1px solid #cccccc;
-      background-color: #000000;
-    }
-    /*========== range ==========*/
-    .qs_range {
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      width: 100%;
-      height: 17px;
-      padding: 0px;
-      margin: 0px;
-      background-color: transparent;
-      border: none;
-      -webkit-box-sizing: border-box;
-      -moz-box-sizing: border-box;
-      box-sizing: border-box;
-    }
 </style>
-<script src="node_modules/mathjax/es5/tex-chtml.js" id="MathJax-script" async></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      processEscapes: true
-    }
-  });
-</script>
 <script type="text/javascript"
     src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
@@ -1035,7 +911,7 @@
         $$\vec{F_{A}}=|F|\frac{\vec{B}-\vec{A}}{\sqrt{(x_b-x_a)^2+(y_b-y_a)^2}}$$
         Where the $\vec{B}$ and $\vec{A}$ are the coordinates of B and A respectively.
       </p>
-      <p class="sim_explanation">Thank you for reading. That is all for gravitation. If you wish to read about collisions, since they are also part of the simulation, see this_link</p>
+      <p class="sim_explanation">Thank you for reading. That is all for gravitation. If you wish to read about collisions, since they are also part of the simulation, see <a onclick="alert('Comming soon!')">this_link</a></p>
   </div>
   </div>
 </body>
