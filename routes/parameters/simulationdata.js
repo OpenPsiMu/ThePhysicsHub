@@ -57,7 +57,7 @@ const simulations = [{
   "jsfile": "doublePendulum2D",
   "image": "doublePendulum2D.png",
   "explanation": "-",
-  "labels":["mechanics", "pendulum"],
+  "labels":["mechanics", "pendulum", "WIP"],
 }];
 
 

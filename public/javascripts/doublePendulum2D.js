@@ -291,6 +291,7 @@ function randomRGB(){
   
 function defaultWindow(){
   bgCanvas = createCanvas(W, H)
+  bgCanvas.parent("simwrapper")
   bgCanvas.clear()
   simCanvas = createGraphics(Wsim, Hsim)
   simCanvas.clear()
