@@ -44,6 +44,4 @@ app.use('/simulations/doublePendulum2D', doublePendulum2D);
 
 // Stylesheets
 app.use(express.static(__dirname + '/public'));
-app.listen("3000")
-console.log("go")
 module.exports = app;
