@@ -1,15 +1,5 @@
 <DOCTYPE! html>
 <head>
-  <script src="node_modules/mathjax/es5/tex-chtml.js" id="MathJax-script" async></script>
-  <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-        processEscapes: true
-      }
-    });
-  </script>
-  <!-- <link href="style.css" type="text/css" rel="stylesheet"></link> -->
   <style>
   svg{
     margin: 1em;
@@ -383,13 +373,10 @@
   }
 
 </style>
-<script type="text/javascript"
-    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
 </head>
 <body>
   <div class = "explanation">
-  <h1 class = "sim_explanation" style="font-size:35px">Explanation</h1>
+  <h1 class = "sim_explanation" style="font-size:35px;">Explanation</h1>
   <p class="sim_explanation">This is an N-body simulation where all bodies occupy
   part of the 2dimensional space available in the simulation. To make numerical inputs
   less intimidating, some values were scaled up and down. This simulation is still under
@@ -453,7 +440,7 @@
    $$m1m2k$$
   </p>
   <p class="sim_explanation">Furthermore, doubling the distance between the bodies causes the pull to become a fourth of what it was before, therefore it makes sense that part of this relationship comes in the form: $${1\over r^2}km1m2$$</p>
-  <p class="sim_explanation">Lastly, measurements show that the absolute value of the force is obtained when we take k to be 6.674 30 x 10-11 m3 kg-1 s-2. This value is usually written in textbooks using capital G. Maybe it was meant to represent "gravity" but I honestly don't know.$$|F| = Gm1m2\over r^2$$</p>
+  <p class="sim_explanation">Lastly, measurements show that the absolute value of the force is obtained when we take \(k\) to be \(6.674*10^{-11} m^{3} kg^{-1} s^{-2}\). This value is usually written in textbooks using capital G. Maybe it was meant to represent "gravity" but I honestly don't know.$$|F| = Gm1m2\over r^2$$</p>
   <p class="sim_explanation">So, now you have a formula to compute the strength of gravitational attraction, given that you have the absolute distance between the objects. But what happens when all you are give is a set of points and the objects' masses?</p>
   <p class="sim_explanation">The "best" way to approach this is to first set up and understand the frame of reference which defines the positions of the objects. In other words, to better understand the coordinate system that describes the positions and velocities of the objects relative to an origin, which could be another object. Follows an example of what it would "look like" for masses to be in a coordinate system. (mouse over to visualize)</p>
 
@@ -537,7 +524,7 @@
         This means that if you have two planets, A and B, all you the force exerted on A is in the direction of A to B, and vice versa for the force of A on B. This terminology should remind you of vectors, which are the key to numerically describing direction and magnetude (which we need to get the net gravitational pull). Which is what we will do now.
       </p>
       <p class="sim_explanation">
-        Lets start digging into the math with another visualization encompassing everything you have read so far and setting up the problem in a mathematical way. We are given two masses $A$ and $B$ of masses  and positions $(Ax, Ay)$ and $A_m$, and $(Bx, By)$ and $B_m$ respectively.
+        Lets start digging into the math with another visualization encompassing everything you have read so far and setting up the problem in a mathematical way. We are given two masses \(A\) and \(B\) of masses  and positions \((Ax, Ay)\) and \(A_m\), and \((Bx, By)\) and \(B_m\) respectively.
         This is what the problem would look like:
       </p>
       <div style="display: flex; align-items:center; flex-direction: column;">
@@ -898,8 +885,8 @@
         the right of A (we are working on the coordinate system of the picutes you have seen so far, where positive x and y are torwards right and top respectively), the sine and cosine we calculated above will come out with positive signs for this angle a!!!
         Which when multiplied by the net gravitational pull, will still be positive, which is correct for this coordinate system. Furthermore, we could end here since we know that the components that pull A and B are the same but with inverse direction. But I want to show you something first.</p>
         <p class="sim_explanation">
-        One could try and use this same argument for mass B, calculating the sine as $sin(b)=(By-Ay)/r$ with b being the angle that lies at object B. But there is an issue. The result will also come out positive!
-        The reason is that order of subtraction matters!!! Therefore in the case of angle b, $sin(b)=(Ay-By)/r$!!! Which in this case, will indeed output the correct sign. So, how do you know which coordinate subtract from which? The best way is to test it out
+        One could try and use this same argument for mass B, calculating the sine as \(sin(b)=(By-Ay)/r\) with b being the angle that lies at object B. But there is an issue. The result will also come out positive!
+        The reason is that order of subtraction matters!!! Therefore in the case of angle b, \(sin(b)=(Ay-By)/r\)!!! Which in this case, will indeed output the correct sign. So, how do you know which coordinate subtract from which? The best way is to test it out
         when working out a solution. But you could also keep in mind that the point where your mass is located will be subtracted from the other point. This is valied for both sine, cosine, and for both axis. Therefore, a generalization for forces on A and B is:
         $$F_Ax=|F|\frac{x_b-x_a}{\sqrt{(x_b-x_a)^2+(y_b-y_a)^2}}$$
         $$F_Ay=|F|\frac{y_b-y_a}{\sqrt{(x_b-x_a)^2+(y_b-y_a)^2}}$$
@@ -909,7 +896,7 @@
       <p class="sim_explanation">
         Note how the equations are similar, very little changes and there are easily detectable patterns. Therefore, this can be represented in vector notation.
         $$\vec{F_{A}}=|F|\frac{\vec{B}-\vec{A}}{\sqrt{(x_b-x_a)^2+(y_b-y_a)^2}}$$
-        Where the $\vec{B}$ and $\vec{A}$ are the coordinates of B and A respectively.
+        Where the \(\vec{B}\) and \(\vec{A}\) are the coordinates of B and A respectively.
       </p>
       <p class="sim_explanation">Thank you for reading. That is all for gravitation. If you wish to read about collisions, since they are also part of the simulation, see <a onclick="alert('Comming soon!')">this_link</a></p>
   </div>

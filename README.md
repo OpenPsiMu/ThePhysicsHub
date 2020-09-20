@@ -34,6 +34,17 @@ In order to simplify the process of adding simulations, we wrote a python script
 
 **Naming convention**: the urlName should match the name of your simulation file (e.g. single_pendulum)! The routerName must be written in camelCase (e.g. singlePendulumRouter)!
 
+
+### Adding a simulation's theory section
+
+In order to give those who are interested in the simulations on this webpage further insight about the physics and mathematics involved in the observed phenomena, we're aiming to add a theory section to each simulation.
+
+In order to add a theory section for a simulation, open a new .ejs file in /routes/parameters and write the html displaying your explanations in there. For displaying maths formulas, make use of the package [mathjax](https://www.mathjax.org/).
+
+When your theory section is finished, reference it in /routes/parameters by adding a new attribute to the corresponding simulation JSON object using the getFile() method ("explanation": getFile("<yourTheorySectionsName.ejs>") ).
+
+
+
 ### Design template for simulations
  
 >This portion provides a general template for the UI to be followed with some flexibility based on the specifics of the simulation.

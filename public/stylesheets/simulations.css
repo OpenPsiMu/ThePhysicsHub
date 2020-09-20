@@ -3,7 +3,7 @@ html, body{
       background-blend-mode: hard-light;
 }
 .simulations{
-    padding: 60px;
+    padding: 2.5%;
     background-image: url(/images/background.png);
     background-size: 100%;
 }
@@ -15,13 +15,59 @@ html, body{
     font-weight: 600;
 }
 
+
 .simulations .page-title{
-    padding-left: 40px;
+    padding-left: 7.5%;
+}
+
+.simulations .flex-container{
+    display: flex;
+}
+
+.flex-child{
+    flex: 1;
+}
+
+.simulations .sidebar{
+    height: 50%;
+    width: 25%;
+}
+
+.simulations .sidebar .sim-label{
+    padding: 5%;
+
+}
+
+.simulations .sidebar .sim-label h3{
+    font-family: 'Rubik', sans-serif;
+    color: #ffffff;
+    font-size: 24px;
+    line-height: 1;
+    font-weight: 400;
+    margin-top: 5%;
+}
+
+.simulations .sidebar .sim-label span{
+    display: inline-block;
+    padding: 2.5%;
+    background-color: #ff0060;
+    font-family: 'Rubik', sans-serif;
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 1;
+    font-weight: 400;
+    border-radius: 10px;
+    margin-right: 5%;
+    margin-top: 5%;
+
+    
 }
 
 .simulations .sim-items{
-    margin-top: 60px;
-    margin-right: 60px;
+    margin-left: 5%;
+    padding: 2.5%;
+    width: 66%;
+    flex: 2;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
@@ -31,12 +77,11 @@ html, body{
 .simulations .sim-items .sim-item{
     -webkit-box-shadow: 0 0 20px rgba(48, 46, 77, 0.15);
     box-shadow: 0 0 20px rgba(48, 46, 77, 0.15);
-    -ms-flex: 0 0 20%;
-    flex: 0 0 20%;
-    max-width: 20%;
-    margin-bottom: 80px;
-    margin-right: 40px;
-    margin-left: 40px;
+    -ms-flex: 0 0 30%;
+    flex: 0 0 30%;
+    max-width: 33%;
+    margin-bottom: 2.5%;
+    margin-right: 2.5%;
     border-radius: 10px;
     overflow: hidden;
     border: 1px solid #d4d4e3;
@@ -45,6 +90,25 @@ html, body{
 .simulations .sim-item .sim-img{
     position: relative;
     overflow: hidden;
+}
+
+.simulations .sim-item .sim-labels{
+    padding: 5%;
+    margin: 5%;
+}
+
+.simulations .sim-item .sim-labels span{
+    padding: 2.5%;
+    background-color: #ff0060;
+    font-family: 'Rubik', sans-serif;
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 1;
+    font-weight: 400;
+    border-radius: 10px;
+    margin-right: 5%;
+
+    
 }
 
 .simulations .sim-item .sim-img img{
