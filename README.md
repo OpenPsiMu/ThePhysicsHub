@@ -6,10 +6,6 @@ The simulations are currently written using the javascript library [p5.js](https
 Everybody is welcome to contribute, no matter whether you're a beginner or an expert.
 
 
-1. Add your simulation js-file code to /public/javascripts/
-**Contact**: physhub@protonmail.com.  **Website**: [physicshub.herokuapp.com](https://physicshub.herokuapp.com) **Discord**: [Invitation](https://discord.gg/z4pPVKd)
-
-
 ### Project Setup
 
 The website is based on ExpressJS. The Node Package Manager [(npm)](https://www.npmjs.com/) will thus install most of the dependencies for you.
