@@ -47,6 +47,10 @@ html, body{
     margin-top: 5%;
 }
 
+.simulations .sidebar .sim-label button .active{
+    background-color: #ec1839;
+}
+
 .simulations .sidebar .sim-label button{
     display: inline-block;
     padding: 2.5%;

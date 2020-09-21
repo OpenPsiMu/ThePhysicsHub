@@ -22,23 +22,20 @@ for(let i = 0; i < sims.length; i++){
 
 /* Filter the sims with respect to the labels */
 const filter_items=document.getElementsByClassName("[object HTMLButtonElement]");
-console.log(filter_items);
+
 for(let i = 0; i < filter_items.length; i++){
     //console.log(filter_items[i]);
     filter_items[i].addEventListener("click", function(){
         
         //console.log(filter_items[i].innerHTML);
         const sim=document.getElementsByClassName("sim-item");
-        console.log(sim[i].classList);
-        this.classList.add("active");
+        this.classList.toggle("active");
 
         for(let j = 0; j < sim.length; j++){
             const label_values=sim[j].getElementsByClassName("label-item");
-            //console.log(label_values[0].innerHTML);
             
             for(let k = 0; k < label_values.length; k++){
                 if(filter_items[i].innerHTML === label_values[k].innerHTML){
-                    console.log(filter_items[i].innerHTML, sim[j])
                     sim[j].classList.remove("hide");
                     sim[j].classList.add("show");
                     break;
