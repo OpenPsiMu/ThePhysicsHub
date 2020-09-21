@@ -47,7 +47,7 @@ html, body{
     margin-top: 5%;
 }
 
-.simulations .sidebar .sim-label span{
+.simulations .sidebar .sim-label button{
     display: inline-block;
     padding: 2.5%;
     background-color: #ff0060;
@@ -74,6 +74,10 @@ html, body{
     flex-wrap: wrap;
 }
 
+.simulations .hide{
+    display: none;
+}
+
 .simulations .sim-items .sim-item{
     -webkit-box-shadow: 0 0 20px rgba(48, 46, 77, 0.15);
     box-shadow: 0 0 20px rgba(48, 46, 77, 0.15);
@@ -97,7 +101,7 @@ html, body{
     margin: 5%;
 }
 
-.simulations .sim-item .sim-labels span{
+.simulations .sim-item .sim-labels button{
     padding: 2.5%;
     background-color: #ff0060;
     font-family: 'Rubik', sans-serif;
