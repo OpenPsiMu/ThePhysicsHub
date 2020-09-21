@@ -41,6 +41,7 @@ for(let i = 0; i < filter_items.length; i++){
                     console.log(filter_items[i].innerHTML, sim[j])
                     sim[j].classList.remove("hide");
                     sim[j].classList.add("show");
+                    break;
                 }
                 else{
                     sim[j].classList.remove("show");
