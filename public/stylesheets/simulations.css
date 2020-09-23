@@ -63,8 +63,16 @@ html, body{
     border-radius: 10px;
     margin-right: 5%;
     margin-top: 5%;
+    cursor: pointer;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    whitespace: nowrap;
+    outline: none;
+}
 
-    
+.simulations .sidebar .sim-label button:hover{
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
 }
 
 .simulations .sim-items{
@@ -115,8 +123,17 @@ html, body{
     font-weight: 400;
     border-radius: 10px;
     margin-right: 5%;
+    margin-top: 5%;
+    cursor: pointer;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    whitespace: nowrap;
+    outline: none;
+}
 
-    
+.simulations .sim-item .sim-labels button:hover{
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
 }
 
 .simulations .sim-item .sim-img img{
@@ -166,4 +183,34 @@ html, body{
 
 .sim-item{
     background: #270042;
+}
+
+.simulations .sim-item.show{
+    animation: showSimItem 1s ease;
+}
+
+@keyframes showSimItem{
+    0%{
+        -webkit-transform: scale(0.8);
+        transform: scale(0.8);
+        opacity
+    }
+    100%{
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        
+    }    
+}
+
+@-webkit-keyframes showSimItem{
+    0%{
+        -webkit-transform: scale(0.8);
+        transform: scale(0.8);
+        opacity
+    }
+    100%{
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        
+    }    
 }

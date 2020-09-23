@@ -21,7 +21,36 @@ for(let i = 0; i < sims.length; i++){
 }
 
 /* Filter the sims with respect to the labels */
-const filter_items=document.getElementsByClassName("[object HTMLButtonElement]");
+const filter_items=document.getElementsByClassName("[object HTMLButtonElement]")
+const individual_sim_labels=document.getElementsByClassName("label-item");
+
+for(let i = 0; i < individual_sim_labels.length; i++){
+    //console.log(filter_items[i]);
+    individual_sim_labels[i].addEventListener("click", function(){
+        
+        //console.log(individual_sim_labels[i].innerHTML);
+        const sim=document.getElementsByClassName("sim-item");
+        this.classList.toggle("active");
+
+        for(let j = 0; j < sim.length; j++){
+            const label_values=sim[j].getElementsByClassName("label-item");
+            
+            for(let k = 0; k < label_values.length; k++){
+                if(individual_sim_labels[i].innerHTML === label_values[k].innerHTML){
+                    sim[j].classList.remove("hide");
+                    sim[j].classList.add("show");
+                    break;
+                }
+                else{
+                    sim[j].classList.remove("show");
+                    sim[j].classList.add("hide");
+                }
+                
+            }
+        }
+
+    })
+}
 
 for(let i = 0; i < filter_items.length; i++){
     //console.log(filter_items[i]);
