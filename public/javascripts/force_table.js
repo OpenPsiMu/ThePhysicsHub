@@ -130,6 +130,17 @@ function draw() {
         stroke(155);
         fRes = createVector(0, 0);
         forces.forEach(force => fRes.add(force)); // adding up all forces to resulting force
+        console.log('fres '+fRes.mag());
+        console.log(biggestForce().mag()*0.015);
+
+        if(fRes.mag() < biggestForce().mag()*0.017){
+            fRes = createVector(0,0);
+            for(i=0; i < forces.length; i++){
+                forces[i] = createVector(0,0);
+
+            }
+        }
+
         forces.push(fRes);
 
         drawForces();

@@ -6,10 +6,6 @@ The simulations are currently written using the javascript library [p5.js](https
 Everybody is welcome to contribute, no matter whether you're a beginner or an expert.
 
 
-1. Add your simulation js-file code to /public/javascripts/
-**Contact**: physhub@protonmail.com.  **Website**: [physicshub.herokuapp.com](https://physicshub.herokuapp.com) **Discord**: [Invitation](https://discord.gg/z4pPVKd)
-
-
 ### Project Setup
 
 The website is based on ExpressJS. The Node Package Manager [(npm)](https://www.npmjs.com/) will thus install most of the dependencies for you.
@@ -33,6 +29,17 @@ In order to simplify the process of adding simulations, we wrote a python script
 4. Run `python addSimulation.py` in terminal, type in a urlName and a routerName
 
 **Naming convention**: the urlName should match the name of your simulation file (e.g. single_pendulum)! The routerName must be written in camelCase (e.g. singlePendulumRouter)!
+
+
+### Adding a simulation's theory section
+
+In order to give those who are interested in the simulations on this webpage further insight about the physics and mathematics involved in the observed phenomena, we're aiming to add a theory section to each simulation.
+
+In order to add a theory section for a simulation, open a new .ejs file in /routes/parameters and write the html displaying your explanations in there. For displaying maths formulas, make use of the package [mathjax](https://www.mathjax.org/).
+
+When your theory section is finished, reference it in /routes/parameters by adding a new attribute to the corresponding simulation JSON object using the getFile() method ("explanation": getFile("<yourTheorySectionsName.ejs>") ).
+
+
 
 ### Design template for simulations
  
