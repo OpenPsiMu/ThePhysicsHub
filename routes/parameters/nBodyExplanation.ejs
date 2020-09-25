@@ -1,0 +1,904 @@
+<DOCTYPE! html>
+<head>
+  <style>
+  svg{
+    margin: 1em;
+  }
+
+  svg:hover>.circles>.purpleCircle:nth-child(1){
+    animation-name: circleAnimationLeft;
+    animation-fill-mode: forwards;
+    animation-duration: 9s;
+    transform: translate(25%, 50%);
+  }
+  svg:hover>.circles>.purpleCircle:nth-child(2){
+    animation-name: circleAnimationRight;
+    animation-fill-mode: forwards;
+    animation-duration: 9s;
+    transform: translate(75%, 50%);
+  }
+  svg:hover>.rotatingCircles>.purpleCircle:nth-child(1){
+    animation-name: rotatingCircleAnimationLeft;
+    animation-fill-mode: forwards;
+    animation-duration: 10s;
+    transform: translate(25%, 50%);
+  }
+  svg:hover>.rotatingCircles>.purpleCircle:nth-child(2){
+    animation-name: rotatingCircleAnimationRight;
+    animation-fill-mode: forwards;
+    animation-duration: 10s;
+    transform: translate(75%, 50%);
+  }
+  svg:hover>.lines>.horizontalLine{
+    animation-name: horizontalLineAnimation;
+    animation-duration: 4s;
+    animation-fill-mode: repeat;
+    stroke-width: 1;
+    cursor: context-menu;
+    stroke: "none";
+  }
+  svg:hover>.lines>.verticalLine{
+    animation-name: verticalLineAnimation;
+    animation-duration: 4s;
+    animation-fill-mode: repeat;
+    stroke-width: 1;
+    stroke: "gray";
+    cursor: context-menu;
+  }
+
+  svg:hover>.arrows>.leftArrowHead, svg:hover>.arrows>.leftArrowTail{
+    animation-name: leftArrowAnimation;
+    animation-duration: 4s;
+    animation-delay: 4s;
+    animation-fill-mode: repeat;
+    animation-timing-function: linear;
+  }
+
+  svg:hover>.arrows>.rightArrowHead, svg:hover>.arrows>.rightArrowTail{
+    animation-name: rightArrowAnimation;
+    animation-duration: 4s;
+    animation-delay: 4s;
+    animation-fill-mode: repeat;
+    animation-timing-function: linear;
+  }
+
+  svg:hover>.rotatingArrows>.leftArrowHead, svg:hover>.rotatingArrows>.leftArrowTail{
+    animation-name: rotatingLeftArrowAnimation;
+    animation-duration: 10s;
+    animation-delay: 0s;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+  }
+
+  svg:hover>.rotatingArrows>.rightArrowHead, svg:hover>.rotatingArrows>.rightArrowTail{
+    animation-name: rotatingRightArrowAnimation;
+    animation-duration: 10s;
+    animation-delay: 0s;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+  }
+
+  svg:hover>.mathText{
+    animation-name: mathTextAnimation;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+    animation-delay: 5s;
+    cursor: context-menu;
+  }
+
+  svg:hover>.rotatingArrows>.mathText{
+    animation-name: rotatingMathTextAnimation;
+    animation-duration: 5s;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+    animation-delay: 3s;
+    cursor: context-menu;
+  }
+
+  svg:hover>.staticMathText>.mathText{
+    animation-name: staticMathTextAnimation;
+    animation-duration: 5s;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+    animation-delay: 3s;
+    cursor: context-menu;
+  }
+
+  .purpleCircle:nth-child(1){
+    transform: translate(25%, 50%);
+    fill: cornflowerblue;
+    stroke: lightblue;
+  }
+  .purpleCircle:nth-child(2){
+    transform: translate(75%,50%);
+    fill: cornflowerblue;
+    stroke: lightblue;
+  }
+  .rotatingCircles .purpleCircle{
+    transform-origin: 50% 50%;
+  }
+
+
+  .movableCircles>circle:hover{
+    cursor: grab;
+    fill: lightblue;
+  }
+  .movableCircles>circle:active{
+    cursor: grabbing;
+    fill: blue;
+  }
+  .lines>.horizontalLine:nth-child(1) { animation-delay: .2s }
+  .lines>.horizontalLine:nth-child(2) { animation-delay: .4s }
+  .lines>.horizontalLine:nth-child(3) { animation-delay: .6s }
+  .lines>.horizontalLine:nth-child(4) { animation-delay: .8s }
+  .lines>.horizontalLine:nth-child(5) { animation-delay: 1s }
+  .lines>.verticalLine:nth-child(6) { animation-delay: .1s }
+  .lines>.verticalLine:nth-child(7) { animation-delay: .2s }
+  .lines>.verticalLine:nth-child(8) { animation-delay: .3s }
+  .lines>.verticalLine:nth-child(9) { animation-delay: .4s }
+  .lines>.verticalLine:nth-child(10) { animation-delay: .5s }
+  .lines>.verticalLine:nth-child(11) { animation-delay: .6s }
+  .lines>.verticalLine:nth-child(12) { animation-delay: .7s }
+  .lines>.verticalLine:nth-child(13) { animation-delay: .8s }
+  .lines>.verticalLine:nth-child(14) { animation-delay: .9s }
+  .lines>.verticalLine:nth-child(15) { animation-delay: 1s }
+
+  .verticalLine, .horizontalLine, .rotatingHorizontalLine, .rotatingVerticalLine{
+    stroke: gray;
+  }
+  .leftArrowHead, .rightArrowHead, .leftArrowTail, .rightArrowTail{
+    fill: black;
+    stroke: white;
+    opacity: 0;
+  }
+
+  .rotatingArrows>.leftArrowHead, .rotatingArrows>.rightArrowHead,
+  .rotatingArrows>.leftArrowTail, .rotatingArrows>.rightArrowTail,
+  .rotatingArrows>.mathText{
+    transform-origin: 50% 50%;
+  }
+
+  .mathText{
+    fill: white;
+    font: 15px Consolas;
+    transform: translate(48.5%, 50%);
+    opacity: 0;
+    cursor: context-menu;
+  }
+  .staticMathText .mathText{
+    transform: none;
+  }
+
+  #coolsvg .distanceArrowSVG{
+    transform: translate(50%, 50%) scale(0.1, 1) translate(-50px,-10px);
+    opacity: 0;
+    transition: 2s;
+    transition-delay: 0s;
+  }
+  #coolsvg:hover .distanceArrowSVG{
+    opacity: 1;
+    transform: translate(50%, 50%) scale(2, 2) translate(-50px,-10px);
+    transition-delay: 5s;
+  }
+
+
+  #pythagoreanCanvas{
+    background-color: black;
+    broder: .1em solid gray;
+    height: 200px;
+    width: 400px;
+  }
+  #trigonometricSVG:hover>.forceArrows>polygon:nth-child(1){
+    transform: translate(250px, 150px) rotate(-90deg) scale(.45, 1) translate(-50px,-150px);
+  }
+  #trigonometricSVG:hover>.forceArrows>polygon:nth-child(2){
+    transform: translate(50px, 150px) scale(1, 1) translate(-50px,-150px);
+  }
+
+  #trigonometricSVG:hover>.forceArrows>polygon:nth-child(3){
+    transform: translate(120px, 140px) rotate(-60.5deg) scale(0.5, 0.5) translate(-50px,-150px);
+    opacity: 0;
+  }
+
+
+  #forceText>#fade{
+    opacity: 1;
+  }
+  #forceText>#unfade{
+    opacity: 0;
+  }
+  #forceText>*{
+    transform: translate(10px,20px);
+    transition: opacity 1s;
+  }
+  #forceText>.mathText:nth-child(3),#forceText>.mathText:nth-child(4){
+    transform: translate(20px,120px) rotate(-25deg) translate(10px,0px);
+    transition: opacity 1s;
+  }
+  #trigonometricSVG:hover>#forceText>#fade{
+    opacity: 0 !important;
+  }
+  #trigonometricSVG:hover>#forceText>#unfade{
+    opacity: 1;
+  }
+
+  #massThatDisapears{
+    opacity: 1;
+    transition: 2s;
+    transform: translate(12%, 30%) !important;
+  }
+  svg:hover>.staticMathText>#massThatDisapears{
+    opacity: 0;
+  }
+
+
+  .movableCirclesText>.mathText{
+    opacity: 1;
+    fill: white;
+    transform: none;
+    animation-name: none;
+  }
+  .forceArrows>polygon:nth-child(1){
+    transform: translate(250px, 150px) rotate(-90deg) scale(.45, 0) translate(-50px,-150px);
+    stroke-width: 1.5;
+    transition: 1s;
+  }
+  .forceArrows>polygon:nth-child(2){
+    transform: translate(50px, 150px) scale(0, 1) translate(-50px,-150px);
+    stroke-width: 1.5;
+    transition: 1s;
+  }
+  .forceArrows>polygon:nth-child(3){
+    transform: translate(50px, 150px) rotate(-26.5deg) scale(1.05, 1) translate(-50px,-150px);
+    stroke-width: 1.5;
+    opacity: 1;
+    transition: 1s;
+  }
+
+  @keyframes circleAnimationLeft {
+    0% {fill: cornflowerblue}
+    15% {transform: translate(25%, 50%); fill: cornflowerblue}
+    20% {transform: translate(25%, 50%); fill: cornflowerblue}
+    30% {stroke: lightblue;fill: white;transform: translate(25%, 50%);}
+    50% {stroke: lightblue ;fill: white ;transform: translate(25%, 50%) scale(.2);opacity: 1}
+    90% {stroke: lightblue;fill: white ;transform: translate(25%, 50%) scale(.2); opacity: .2;}
+    100% {stroke: lightblue;fill: white ;transform: translate(25%, 50%) scale(1); opacity: 0;}
+  }
+
+  @keyframes circleAnimationRight {
+    0% {fill: cornflowerblue}
+    15% {transform:translate(75%, 50%); fill: cornflowerblue}
+    20% {transform:translate(75%, 50%); fill: cornflowerblue}
+    30% {stroke: lightblue;fill: white; transform: translate(75%, 50%);}
+    50% {stroke: lightblue;fill: white ;transform: translate(75%, 50%) scale(.2);opacity: 1}
+    90% {stroke: lightblue;fill: white ;transform: translate(75%, 50%) scale(.2); opacity: 0.2;}
+    100% {stroke: lightblue;fill: white ;transform: translate(75%, 50%) scale(1); opacity: 0;}
+  }
+
+  @keyframes rotatingCircleAnimationLeft{
+    0%{transform: translate(25%, 50%)}
+    10%{transform: rotate(0deg) translate(-25%, 0%) scale(.1) translate(50%, 50%); fill: white;}
+    30%{transform: rotate(-45deg) translate(-25%, 0%) scale(.1) translate(50%, 50%); fill: white;}
+    60%{transform: rotate(-45deg) translate(-25%, 0%) scale(.1) translate(50%, 50%); fill: white;}
+    100%{transform: rotate(0deg) translate(-25%, 0%) scale(1) translate(50%, 50%); fill: cornflowerblue;}
+  }
+
+  @keyframes rotatingCircleAnimationRight{
+    0%{transform: translate(25%, 0%) scale(1) translate(50%, 50%)}
+    10%{transform: rotate(0deg) translate(25%, 0%) scale(.1) translate(50%, 50%); fill: white;}
+    30%{transform: rotate(-45deg) translate(25%, 0%) scale(.1) translate(50%, 50%); fill: white;}
+    60%{transform: rotate(-45deg) translate(25%, 0%) scale(.1) translate(50%, 50%); fill: white;}
+    100%{transform: rotate(0deg) translate(25%, 0%) scale(1) translate(50%, 50%); fill: cornflowerblue;}
+  }
+
+  @keyframes horizontalLineAnimation {
+    0% {transform: translateX(0%) rotateZ(180deg); stroke: rgba(255, 255, 255, 0);}
+    25% {transform: translateX(100%) ; stroke: rgba(255, 255, 255, .5);}
+    65% {transform: translateX(100%); stroke: rgba(255, 255, 255, 1);}
+    100% {transform: translateX(0%); stroke: rgba(255, 255, 255, 1);}
+  }
+  @keyframes verticalLineAnimation {
+    0% {transform: translateY(0%) rotateZ(180deg); stroke: rgba(255, 255, 255, 0);}
+    25% {transform: translateY(100%); stroke: rgba(255, 255, 255, .5);}
+    75% {transform: translateY(100%); stroke: rgba(255, 255, 255, 1);}
+    100% {transform: translateY(0%); stroke: rgba(255, 255, 255, 1);}
+  }
+
+  @keyframes leftArrowAnimation {
+    0% {transform: translate(47.5%, 50%) scale(-.1, 1);opacity:0;}
+    25% {transform: translate(37.5%, 50%) scale(-.5, 1);opacity:1;}
+    50% {transform: translate(27.5%, 50%) scale(-1, 1); opacity:1;}
+    70% {transform: translate(27.5%, 50%) scale(-1, 1);opacity:1;}
+    100% {transform: translate(27.5%, 50%) scale(-1, 1); opacity:0;}
+  }
+  @keyframes rightArrowAnimation {
+    0% {transform: translate(52.5%, 50%) scale(.1, 1); opacity:0;}
+    25% {transform: translate(62.5%, 50%) scale(.5, 1); opacity:1;}
+    50% {transform: translate(72.5%, 50%) scale(1, 1); opacity:1;}
+    70% {transform: translate(72.5%, 50%) scale(1, 1); opacity:1;}
+    100% {transform: translate(72.5%, 50%) scale(1, 1); opacity:0;}
+  }
+
+  @keyframes rotatingLeftArrowAnimation {
+    0% {transform: translate(-2.5%, 0%) scale(0, 1) translate(50%, 50%);opacity:0;}
+    10% {transform: rotate(0deg) translate(-12.5%, 0%) scale(0, 1) translate(50%, 50%);opacity:1;}
+    30% {transform: rotate(-45deg) translate(-22.5%, 0%) scale(-0, 1) translate(50%, 50%);opacity:1;}
+    40% {transform: rotate(-45deg) translate(-22.5%, 0%) scale(-1, 1) translate(50%, 50%);opacity:1;}
+    60% {transform: rotate(-45deg) translate(-22.5%, 0%) scale(-1, 1) translate(50%, 50%); opacity:1;}
+    70% {transform: rotate(0deg) translate(-22.5%, 0%) scale(0, 1) translate(50%, 50%); opacity:0;}
+    100% {transform: translate(-22.5%, 0%) scale(0, 1) translate(50%, 50%); opacity:0;}
+  }
+
+  @keyframes rotatingRightArrowAnimation {
+    0% {transform: translate(2.5%, 0%) scale(0, 1) translate(50%, 50%);opacity:0;}
+    10% {transform: rotate(0deg) translate(12.5%, 0%) scale(0, 1) translate(50%, 50%);opacity:1;}
+    30% {transform: rotate(-45deg) translate(22.5%, 0%) scale(0, 1) translate(50%, 50%);opacity:1;}
+    40% {transform: rotate(-45deg) translate(22.5%, 0%) scale(1, 1) translate(50%, 50%);opacity:1;}
+    60% {transform: rotate(-45deg) translate(22.5%, 0%) scale(1, 1) translate(50%, 50%); opacity:1;}
+    70% {transform: rotate(0deg) translate(22.5%, 0%) scale(0, 1) translate(50%, 50%); opacity:0;}
+    100% {transform: translate(22.5%, 0%) scale(0, 1) translate(50%, 50%); opacity:0;}
+  }
+
+  @keyframes mathTextAnimation{
+    0%{transform: translate(48.5%, 50%); opacity: 0}
+    50%{transform: translate(48.5%, 50%); opacity: 1}
+    100%{transform: translate(48.5%, 50%); opacity: 1}
+  }
+
+  @keyframes rotatingMathTextAnimation{
+    0%{transform: translate(-1.5%, 0%) rotate(-45deg) translate(50%, 50%); opacity: 0}
+    50%{transform: translate(-1.5%, 0%) rotate(-45deg) translate(50%, 50%); opacity: 1}
+    100%{transform: translate(-1.5%, 0%) rotate(0deg) translate(50%, 50%); opacity: 1}
+  }
+
+  @keyframes staticMathTextAnimation{
+    0%{}
+    50%{opacity: 1;}
+    100%{opacity: 1;}
+  }
+
+  .explanation{
+  }
+  .sim_explanation{
+      margin-top: 2.5em;
+      font-size: 20px;
+      font-weight: 150;
+      text-align: justify;
+      font-family: 'Montserrat', sans-serif;
+      color: #e9e9e9;
+      width: 45em;
+      margin-right: auto;
+      margin-left: auto;
+  }
+
+</style>
+</head>
+<body>
+  <div class = "explanation">
+  <h1 class = "sim_explanation" style="font-size:35px;">Explanation</h1>
+  <p class="sim_explanation">This is an N-body simulation where all bodies occupy
+  part of the 2dimensional space available in the simulation. To make numerical inputs
+  less intimidating, some values were scaled up and down. This simulation is still under
+  development. But it is meant to give you a visual intuition as to how forces add
+  in a setting where gravitation dominates. In this relative scale, the distance between
+  gridlines is 50m. This text is not final, it is only meant as a test!</p>
+  <p class="sim_explanation">The law of gravitation was delveloped by newton a couple hundred years ago.
+    It describes attraction between masses in terms of the masses and
+    their absolute distance.</p>
+  <p class="sim_explanation">But before showing you the math, it is better to visualize the phenomenon.
+    Below you can find an image of masses whose attraction the law of gravitation
+    attempts to describe</p>
+  <div style = "display: flex; justify-content: center;">
+    <svg height = "200px" width="400px">
+      <rect height="100%" width="100%" fill="black"/>
+      <g class="staticCircles">
+        <circle class="purpleCircle" cx="0" cy="0" r="45" fill="cornflowerblue" />
+        <circle class="purpleCircle" cx="0" cy="0" r="45" fill="cornflowerblue" />
+      </g>
+      <g x="0" y="0" style= "transform: translate(9%, 14%);">
+      <svg xmlns="http://www.w3.org/2000/svg" width="37.192px" height="24.712px" viewBox="0 -442 1281.6 592" xmlns:xlink="http://www.w3.org/1999/xlink"
+        style="color:white;">
+          <defs><path style="stroke:black;stroke-width:6; fill:white;" id="MJX-5-TEX-I-6D" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path><path id="MJX-5-TEX-N-31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></defs><g stroke="black" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><use xlink:href="#MJX-5-TEX-I-6D"></use></g><g data-mml-node="mn" transform="translate(878, -150) scale(0.507)"><use xlink:href="#MJX-5-TEX-N-31"></use></g></g></g></g>
+        </svg>
+      </g>
+      <g x="0" y="0" style="transform: translate(58%, 14%)">
+        <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<svg xmlns="http://www.w3.org/2000/svg" width="37.192px" height="24.712px" viewBox="0 -442 1281.6 592" xmlns:xlink="http://www.w3.org/1999/xlink" style="stroke:black;stroke-width:6; fill:white;"><defs><path id="MJX-6-TEX-I-6D" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path><path id="MJX-6-TEX-N-32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></defs><g stroke="black" fill="white" stroke-width="5" transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><use xlink:href="#MJX-6-TEX-I-6D"></use></g><g data-mml-node="mn" transform="translate(878, -150) scale(0.507)"><use xlink:href="#MJX-6-TEX-N-32"></use></g></g></g></g></svg>
+      </g>
+    </svg>
+  </div>
+  <p class="sim_explanation">Observation of the solar system shows that masses like these are in fact constantly attracting one another as shown through arrows in the image below.</p>
+  <div style = "display: flex; justify-content: center;">
+    <svg height = "200px" width="400px">
+      <rect height="100%" width="100%" fill="black"/>
+      <g class="staticCircles">
+        <circle class="purpleCircle" cx="0" cy="0" r="45" fill="cornflowerblue" />
+        <circle class="purpleCircle" cx="0" cy="0" r="45" fill="cornflowerblue" />
+      </g>
+      <polygon points="100,75 100,85 150,85 150,95 170,80 150,65 150,75"
+               stroke="black" stroke-width="3" fill="rgb(121,0,121)"
+               style="transform: translateY(20px);stroke-linejoin: round;"></polygon>
+       <polygon points="300,75 300,85 250,85 250,95 230,80 250,65 250,75"
+               stroke="black" stroke-width="3" fill="rgb(121,0,121)"
+               style="transform: translateY(20px);stroke-linejoin: round;"></polygon>
+      <g x="0" y="0" style= "transform: translate(9%, 14%);">
+      <svg xmlns="http://www.w3.org/2000/svg" width="37.192px" height="24.712px" viewBox="0 -442 1281.6 592" xmlns:xlink="http://www.w3.org/1999/xlink"
+        style="color:white;">
+          <defs><path style="stroke:black;stroke-width:6; fill:white;" id="MJX-5-TEX-I-6D" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path><path id="MJX-5-TEX-N-31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></defs><g stroke="black" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><use xlink:href="#MJX-5-TEX-I-6D"></use></g><g data-mml-node="mn" transform="translate(878, -150) scale(0.507)"><use xlink:href="#MJX-5-TEX-N-31"></use></g></g></g></g>
+        </svg>
+      </g>
+      <g x="0" y="0" style="transform: translate(58%, 14%)">
+        <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<svg xmlns="http://www.w3.org/2000/svg" width="37.192px" height="24.712px" viewBox="0 -442 1281.6 592" xmlns:xlink="http://www.w3.org/1999/xlink" style="stroke:black;stroke-width:6; fill:white;"><defs><path id="MJX-6-TEX-I-6D" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path><path id="MJX-6-TEX-N-32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></defs><g stroke="black" fill="white" stroke-width="5" transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><use xlink:href="#MJX-6-TEX-I-6D"></use></g><g data-mml-node="mn" transform="translate(878, -150) scale(0.507)"><use xlink:href="#MJX-6-TEX-N-32"></use></g></g></g></g></svg>
+      </g>
+    </svg>
+  </div>
+  <p class="sim_explanation">These forces are always directed torwards the centers of mass of the masses. This is because of the symetry of the sphere. For every atom above the middle point of each mass, there is one below pulling in the exact opposite direction. Therefore what is left for the net force is the pulling directly torwards the center of mass.</p>
+  <p class="sim_explanation">Another property of gravity is that the force that one the masses involved feel is the same (of course only valid for the simple geometry of two sphere and some other specific scenarios.) But lets focus on the simple case with two masses. In this case it has been shown that doubling either mass causes the gravitational pull to double. Doubling both masses causes the attraction to become four times greater!!! Therefore it makes sense that a formula that describes the gravitational pull as a function of the masses and distance would contain a term that results from multiplying to the masses involved!
+    Something in the form:
+   $$m1m2k$$
+  </p>
+  <p class="sim_explanation">Furthermore, doubling the distance between the bodies causes the pull to become a fourth of what it was before, therefore it makes sense that part of this relationship comes in the form: $${1\over r^2}km1m2$$</p>
+  <p class="sim_explanation">Lastly, measurements show that the absolute value of the force is obtained when we take \(k\) to be \(6.674*10^{-11} m^{3} kg^{-1} s^{-2}\). This value is usually written in textbooks using capital G. Maybe it was meant to represent "gravity" but I honestly don't know.$$|F| = \frac{Gm1m2}{r^2}$$</p>
+  <p class="sim_explanation">So, now you have a formula to compute the strength of gravitational attraction, given that you have the absolute distance between the objects. But what happens when all you are give is a set of points and the objects' masses?</p>
+  <p class="sim_explanation">The "best" way to approach this is to first set up and understand the frame of reference which defines the positions of the objects. In other words, to better understand the coordinate system that describes the positions and velocities of the objects relative to an origin, which could be another object. Follows an example of what it would "look like" for masses to be in a coordinate system. (mouse over to visualize)</p>
+
+          <div style="display: flex; align-items:center; flex-direction: column;">
+            <svg height = "200px" width="400px" id="coolsvg">
+              <rect height="100%" width="100%" fill="black"/>
+              <g class="lines">
+                <line class="horizontalLine" x1="0%" y1="80%" x2="-150%" y2="80%"/>
+                <line class="horizontalLine" x1="0%" y1="60%" x2="-150%" y2="60%"/>
+                <line class="horizontalLine" x1="0%" y1="40%" x2="-150%" y2="40%"/>
+                <line class="horizontalLine" x1="0%" y1="20%" x2="-150%" y2="20%"/>
+
+                <line class="verticalLine" x1="90%" y1="0%" x2="90%" y2="-150%"/>
+                <line class="verticalLine" x1="80%" y1="0%" x2="80%" y2="-150%"/>
+                <line class="verticalLine" x1="70%" y1="0%" x2="70%" y2="-150%"/>
+                <line class="verticalLine" x1="60%" y1="0%" x2="60%" y2="-150%"/>
+                <line class="verticalLine" x1="50%" y1="0%" x2="50%" y2="-150%"/>
+                <line class="verticalLine" x1="40%" y1="0%" x2="40%" y2="-150%"/>
+                <line class="verticalLine" x1="30%" y1="0%" x2="30%" y2="-150%"/>
+                <line class="verticalLine" x1="20%" y1="0%" x2="20%" y2="-150%"/>
+                <line class="verticalLine" x1="10%" y1="0%" x2="10%" y2="-150%"/>
+              </g>
+              <g class="circles">
+                <circle class="purpleCircle" cx="0" cy="0" r="25"/>
+                <circle class="purpleCircle" cx="0" cy="0" r="25"/>
+              </g>
+              <!-- <image class="distanceArrowSVG" x="0%" y="0%" width="100" height="20" href="distanceArrows.svg"/> -->
+              <g  x="0%" y="0%" width="100" height="20" class="distanceArrowSVG">
+                <svg xmlns="http://www.w3.org/2000/svg" class="distanceArrowSVG" x="0%" y="0%" width="100" height="20" viewBox="0 -511 4253.6 522" xmlns:xlink="http://www.w3.org/1999/xlink" style="color:white">
+                  <defs><path id="MJX-20-TEX-N-27F5" d="M165 270H1510Q1525 262 1525 250T1510 230H165Q167 228 182 216T211 189T244 152T277 96T303 25Q308 7 308 0Q308 -11 288 -11Q281 -11 278 -11T272 -7T267 2T263 21Q245 94 195 151T73 236Q58 242 55 247Q55 254 59 257T73 264Q121 283 158 314T215 375T247 434T264 480L267 497Q269 503 270 505T275 509T288 511Q308 511 308 500Q308 493 303 475Q293 438 278 406T246 352T215 315T185 287T165 270Z"></path><path id="MJX-20-TEX-I-72" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path><path id="MJX-20-TEX-N-27F6" d="M84 237T84 250T98 270H1444Q1328 357 1301 493Q1301 494 1301 496T1300 499Q1300 511 1317 511H1320Q1329 511 1332 510T1338 506T1341 497T1344 481T1352 456Q1374 389 1425 336T1544 261Q1553 258 1553 250Q1553 244 1548 241T1524 231T1486 212Q1445 186 1415 152T1370 85T1349 35T1341 4Q1339 -6 1336 -8T1320 -11Q1300 -11 1300 0Q1300 7 1305 25Q1337 151 1444 230H98Q84 237 84 250Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="math"><g data-mml-node="mo"><use xlink:href="#MJX-20-TEX-N-27F5"></use></g><g data-mml-node="mi" transform="translate(1886.8, 0)"><use xlink:href="#MJX-20-TEX-I-72"></use></g><g data-mml-node="mo" transform="translate(2615.6, 0)"><use xlink:href="#MJX-20-TEX-N-27F6"></use></g></g></g>
+                </svg>
+              </g>
+              <!-- <text class="mathText" x="0" y="0">r</text> -->
+            </svg>
+        </div>
+      <p class="sim_explanation">In this case, all we mean when we say the objects are in a coordinate system is that they have known positions. The gridlines for instance could represent some known space in between them.</p>
+      <p class="sim_explanation">Now, if we want to calculate the force of gravity between two objects, we need to know their absolute distance. One of the properties of the most common coordinate system (cartesian, which is most likely what you are using) is that the distance between the objects within this coordinate system does not necessarely depend on the origin, but on the relationship between the coordinates of the objects. Just something I want to throw out there is that many students get confused when they see crazy things like inverted or rotated coordinate systems. But before moving on I just want to enphasize that changing the orientation of a cartesian coordinate system will not change the distance between the two objects or the direction of pull relative to one another. You can visualize a simple example by hovering the animation below:</p>
+      <div style="display: flex; align-items:center; flex-direction: column;">
+        <svg height = "200px" width="400px">
+          <rect height="100%" width="100%" fill="black"/>
+
+          <g class = "rotatingLines">
+            <line class="horizontalLine" x1="0%" y1="80%" x2="100%" y2="80%"/>
+            <line class="horizontalLine" x1="0%" y1="60%" x2="100%" y2="60%"/>
+            <line class="horizontalLine" x1="0%" y1="40%" x2="100%" y2="40%"/>
+            <line class="horizontalLine" x1="0%" y1="20%" x2="100%" y2="20%"/>
+
+            <line class="verticalLine" x1="90%" y1="-25%" x2="90%" y2="125%"/>
+            <line class="verticalLine" x1="80%" y1="-25%" x2="80%" y2="125%"/>
+            <line class="verticalLine" x1="70%" y1="-25%" x2="70%" y2="125%"/>
+            <line class="verticalLine" x1="60%" y1="-25%" x2="60%" y2="125%"/>
+            <line class="verticalLine" x1="50%" y1="-25%" x2="50%" y2="125%"/>
+            <line class="verticalLine" x1="40%" y1="-25%" x2="40%" y2="125%"/>
+            <line class="verticalLine" x1="30%" y1="-25%" x2="30%" y2="125%"/>
+            <line class="verticalLine" x1="20%" y1="-25%" x2="20%" y2="125%"/>
+            <line class="verticalLine" x1="10%" y1="-25%" x2="10%" y2="125%"/>
+          </g>
+
+          <g class="rotatingCircles">
+            <circle class="purpleCircle" cx="0" cy="0" r="25" fill="purple" />
+            <circle class="purpleCircle" cx="0" cy="0" r="25" fill="purple" />
+          </g class="rotatingCircles">
+
+          <g class = "rotatingArrows">
+            <line class='leftArrowHead' x1="0%" y1="2.5%" x2="2.5%" y2="0%"/>
+            <line class='leftArrowHead' x1="0%" y1="-2.5%" x2="2.5%" y2="0%"/>
+            <line class='leftArrowHead' x1="0%" y1="-2.5%" x2="0%" y2="2.5%"/>
+
+            <line class='rightArrowHead' x1="0%" y1="2.5%" x2="2.5%" y2="0%"/>
+            <line class='rightArrowHead' x1="0%" y1="-2.5%" x2="2.5%" y2="0%"/>
+            <line class='rightArrowHead' x1="0%" y1="-2.5%" x2="0%" y2="2.5%"/>
+
+            <line class="leftArrowTail" x1="0%" y1="0%" x2="-15%" y2="0%"/>
+            <line class="rightArrowTail" x1="0%" y1="0%" x2="-15%" y2="0%"/>
+            <text class="mathText" x="0" y="0">r</text>
+          </g>
+        </svg>
+      </div>
+      <p class="sim_explanation">
+        Furthermore whenever a gravitational pull is calculated for two objects, the net pull on each object should point torwards the other. And the force each planet experiences is the same!!! Their accelerations may depend on their masses, but they experience a net force with equal magnetude.
+        This means that if you have two planets, A and B, all you the force exerted on A is in the direction of A to B, and vice versa for the force of A on B. This terminology should remind you of vectors, which are the key to numerically describing direction and magnetude (which we need to get the net gravitational pull). Which is what we will do now.
+      </p>
+      <p class="sim_explanation">
+        Lets start digging into the math with another visualization encompassing everything you have read so far and setting up the problem in a mathematical way. We are given two masses \(A\) and \(B\) of masses  and positions \((Ax, Ay)\) and \(A_m\), and \((Bx, By)\) and \(B_m\) respectively.
+        This is what the problem would look like:
+      </p>
+      <div style="display: flex; align-items:center; flex-direction: column;">
+        <svg height = "200px" width="400px">
+          <rect height="100%" width="100%" fill="black"/>
+
+          <g class = "rotatingLines">
+            <line class="horizontalLine" x1="0%" y1="80%" x2="100%" y2="80%"/>
+            <line class="horizontalLine" x1="0%" y1="60%" x2="100%" y2="60%"/>
+            <line class="horizontalLine" x1="0%" y1="40%" x2="100%" y2="40%"/>
+            <line class="horizontalLine" x1="0%" y1="20%" x2="100%" y2="20%"/>
+
+            <line class="verticalLine" x1="90%" y1="-25%" x2="90%" y2="125%"/>
+            <line class="verticalLine" x1="80%" y1="-25%" x2="80%" y2="125%"/>
+            <line class="verticalLine" x1="70%" y1="-25%" x2="70%" y2="125%"/>
+            <line class="verticalLine" x1="60%" y1="-25%" x2="60%" y2="125%"/>
+            <line class="verticalLine" x1="50%" y1="-25%" x2="50%" y2="125%"/>
+            <line class="verticalLine" x1="40%" y1="-25%" x2="40%" y2="125%"/>
+            <line class="verticalLine" x1="30%" y1="-25%" x2="30%" y2="125%"/>
+            <line class="verticalLine" x1="20%" y1="-25%" x2="20%" y2="125%"/>
+            <line class="verticalLine" x1="10%" y1="-25%" x2="10%" y2="125%"/>
+          </g>
+          <g class="arrows">
+            <line class='leftArrowHead' x1="0%" y1="2.5%" x2="2.5%" y2="0%"/>
+            <line class='leftArrowHead' x1="0%" y1="-2.5%" x2="2.5%" y2="0%"/>
+            <line class='leftArrowHead' x1="0%" y1="-2.5%" x2="0%" y2="2.5%"/>
+
+            <line class='rightArrowHead' x1="0%" y1="2.5%" x2="2.5%" y2="0%"/>
+            <line class='rightArrowHead' x1="0%" y1="-2.5%" x2="2.5%" y2="0%"/>
+            <line class='rightArrowHead' x1="0%" y1="-2.5%" x2="0%" y2="2.5%"/>
+
+            <line class="leftArrowTail" x1="0%" y1="0%" x2="-15%" y2="0%"/>
+            <line class="rightArrowTail" x1="0%" y1="0%" x2="-15%" y2="0%"/>
+          </g>
+          <g class="circles">
+            <circle class="purpleCircle" cx="0" cy="0" r="25" fill="purple" />
+            <circle class="purpleCircle" cx="0" cy="0" r="25" fill="purple" />
+          </g>
+          <g class="staticMathText">
+            <!-- <text class="mathText" x="10%" y="40%">(Ax, Ay)</text> -->
+            <!-- <image class="mathText" x="5%" y="30%" width="100" height="18" href="pointA.svg"/> -->
+            <!-- <text class="mathText" x="60%" y="40%">(Bx, By)</text> -->
+            <!-- <image class="mathText" x="55%" y="30%" width="100" height="18" href="pointB.svg"/> -->
+            <!-- PointA -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="mathText" x="5%" y="30%" width="100" height="18" viewBox="0 -750 3573.6 1045" xmlns:xlink="http://www.w3.org/1999/xlink" style="color:white;">
+              <defs><path id="MJX-45-TEX-N-28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path><path id="MJX-45-TEX-I-41" d="M208 74Q208 50 254 46Q272 46 272 35Q272 34 270 22Q267 8 264 4T251 0Q249 0 239 0T205 1T141 2Q70 2 50 0H42Q35 7 35 11Q37 38 48 46H62Q132 49 164 96Q170 102 345 401T523 704Q530 716 547 716H555H572Q578 707 578 706L606 383Q634 60 636 57Q641 46 701 46Q726 46 726 36Q726 34 723 22Q720 7 718 4T704 0Q701 0 690 0T651 1T578 2Q484 2 455 0H443Q437 6 437 9T439 27Q443 40 445 43L449 46H469Q523 49 533 63L521 213H283L249 155Q208 86 208 74ZM516 260Q516 271 504 416T490 562L463 519Q447 492 400 412L310 260L413 259Q516 259 516 260Z"></path><path id="MJX-45-TEX-I-78" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path><path id="MJX-45-TEX-N-2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"></path><path id="MJX-45-TEX-I-79" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path><path id="MJX-45-TEX-N-29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="math"><g data-mml-node="mo"><use xlink:href="#MJX-45-TEX-N-28"></use></g><g data-mml-node="msub" transform="translate(389, 0)"><g data-mml-node="mi"><use xlink:href="#MJX-45-TEX-I-41"></use></g><g data-mml-node="mi" transform="translate(750, -150) scale(0.707)"><use xlink:href="#MJX-45-TEX-I-78"></use></g></g><g data-mml-node="mo" transform="translate(1593.5, 0)"><use xlink:href="#MJX-45-TEX-N-2C"></use></g><g data-mml-node="msub" transform="translate(2038.1, 0)"><g data-mml-node="mi"><use xlink:href="#MJX-45-TEX-I-41"></use></g><g data-mml-node="mi" transform="translate(750, -150) scale(0.707)"><use xlink:href="#MJX-45-TEX-I-79"></use></g></g><g data-mml-node="mo" transform="translate(3184.6, 0)"><use xlink:href="#MJX-45-TEX-N-29"></use></g></g></g>
+            </svg>
+            <!-- PointB -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="mathText" x="55%" y="30%" width="100" height="18" viewBox="0 -750 3591.6 1045" xmlns:xlink="http://www.w3.org/1999/xlink" style="color:white">
+              <defs><path id="MJX-47-TEX-N-28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path><path id="MJX-47-TEX-I-42" d="M231 637Q204 637 199 638T194 649Q194 676 205 682Q206 683 335 683Q594 683 608 681Q671 671 713 636T756 544Q756 480 698 429T565 360L555 357Q619 348 660 311T702 219Q702 146 630 78T453 1Q446 0 242 0Q42 0 39 2Q35 5 35 10Q35 17 37 24Q42 43 47 45Q51 46 62 46H68Q95 46 128 49Q142 52 147 61Q150 65 219 339T288 628Q288 635 231 637ZM649 544Q649 574 634 600T585 634Q578 636 493 637Q473 637 451 637T416 636H403Q388 635 384 626Q382 622 352 506Q352 503 351 500L320 374H401Q482 374 494 376Q554 386 601 434T649 544ZM595 229Q595 273 572 302T512 336Q506 337 429 337Q311 337 310 336Q310 334 293 263T258 122L240 52Q240 48 252 48T333 46Q422 46 429 47Q491 54 543 105T595 229Z"></path><path id="MJX-47-TEX-I-78" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path><path id="MJX-47-TEX-N-2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"></path><path id="MJX-47-TEX-I-79" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path><path id="MJX-47-TEX-N-29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="math"><g data-mml-node="mo"><use xlink:href="#MJX-47-TEX-N-28"></use></g><g data-mml-node="msub" transform="translate(389, 0)"><g data-mml-node="mi"><use xlink:href="#MJX-47-TEX-I-42"></use></g><g data-mml-node="mi" transform="translate(759, -150) scale(0.707)"><use xlink:href="#MJX-47-TEX-I-78"></use></g></g><g data-mml-node="mo" transform="translate(1602.5, 0)"><use xlink:href="#MJX-47-TEX-N-2C"></use></g><g data-mml-node="msub" transform="translate(2047.1, 0)"><g data-mml-node="mi"><use xlink:href="#MJX-47-TEX-I-42"></use></g><g data-mml-node="mi" transform="translate(759, -150) scale(0.707)"><use xlink:href="#MJX-47-TEX-I-79"></use></g></g><g data-mml-node="mo" transform="translate(3202.6, 0)"><use xlink:href="#MJX-47-TEX-N-29"></use></g></g></g>
+            </svg>
+            <text class="mathText" x="48.5%" y="50%" style="animation-delay:5s">r</text>
+            <g x="9%" y="14%" id="massThatDisapears">
+            <svg xmlns="http://www.w3.org/2000/svg" x="9%" y="14%" width="37.192px" height="24.712px" viewBox="0 -442 1281.6 592" xmlns:xlink="http://www.w3.org/1999/xlink"
+              style="color:white;">
+                <defs><path style="stroke:black;stroke-width:6; fill:white;" id="MJX-5-TEX-I-6D" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path><path id="MJX-5-TEX-N-31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></defs><g stroke="black" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><use xlink:href="#MJX-5-TEX-I-6D"></use></g><g data-mml-node="mn" transform="translate(878, -150) scale(0.507)"><use xlink:href="#MJX-5-TEX-N-31"></use></g></g></g></g>
+              </svg>
+            </g>
+            <g x="58%" y="14%" id="massThatDisapears">
+      <svg xmlns="http://www.w3.org/2000/svg" x="59%" y="14%" width="37.192px" height="24.712px" viewBox="0 -442 1281.6 592" xmlns:xlink="http://www.w3.org/1999/xlink" style="stroke:black;stroke-width:6; fill:white;"><defs><path id="MJX-6-TEX-I-6D" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path><path id="MJX-6-TEX-N-32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></defs><g stroke="black" fill="white" stroke-width="5" transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><use xlink:href="#MJX-6-TEX-I-6D"></use></g><g data-mml-node="mn" transform="translate(878, -150) scale(0.507)"><use xlink:href="#MJX-6-TEX-N-32"></use></g></g></g></g></svg>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <p class="sim_explanation">
+        So, if you are fresh on vectors you can skip this paragraph, else, keep your attention right here. So, to obtain the force we must first get the absolute distance between the objects. This can be done by use of the pythagorean theorem. Using this formula we can know: $$r=\sqrt{(Bx-Ax)^2+(By-Ay)^2}$$
+      </p>
+      <p class="sim_explanation">If you do not know where this comes from, play look at the image below and do research on the pythagorean theorem:</p>
+      <div style="display: flex; align-items:center; flex-direction: column;">
+        <svg height = "200px" width="400px" id="pythagoreanSVG">
+          <rect height="100%" width="100%" fill="black"></rect>
+
+          <g class = "rotatingLines">
+            <line class="horizontalLine" x1="0%" y1="80%" x2="100%" y2="80%"/>
+            <line class="horizontalLine" x1="0%" y1="60%" x2="100%" y2="60%"/>
+            <line class="horizontalLine" x1="0%" y1="40%" x2="100%" y2="40%"/>
+            <line class="horizontalLine" x1="0%" y1="20%" x2="100%" y2="20%"/>
+
+            <line class="verticalLine" x1="90%" y1="-25%" x2="90%" y2="125%"/>
+            <line class="verticalLine" x1="80%" y1="-25%" x2="80%" y2="125%"/>
+            <line class="verticalLine" x1="70%" y1="-25%" x2="70%" y2="125%"/>
+            <line class="verticalLine" x1="60%" y1="-25%" x2="60%" y2="125%"/>
+            <line class="verticalLine" x1="50%" y1="-25%" x2="50%" y2="125%"/>
+            <line class="verticalLine" x1="40%" y1="-25%" x2="40%" y2="125%"/>
+            <line class="verticalLine" x1="30%" y1="-25%" x2="30%" y2="125%"/>
+            <line class="verticalLine" x1="20%" y1="-25%" x2="20%" y2="125%"/>
+            <line class="verticalLine" x1="10%" y1="-25%" x2="10%" y2="125%"/>
+          </g>
+
+          <g class="dashedLines" stroke-dasharray="4" stroke="white">
+            <line x1="50" x2="250" y1="150" y2="50"/>
+            <line x1="250" x2="250" y1="50" y2="150"/>
+            <line x1="50" x2="250" y1="150" y2="150"/>
+          </g>
+
+          <g class="movableCircles">
+            <circle cx="50" cy="150" r="15" fill="cornflowerblue"/>
+            <circle cx="250" cy="50" r="15" fill="cornflowerblue"/>
+          </g>
+
+          <g class="movableCirclesText" style="opacity:0">
+            <!-- <text class="mathText" x="50" y="150">(Ax, Ay)</text>
+            <text class="mathText" x="250" y="50">(Bx, By)</text> -->
+            <!-- <text class="mathText" x="0" y="0">r=(Δx^2+Δy^2)^1/2</text> -->
+            <!-- PointA -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="mathText" x="50" y="150" width="100" height="18" viewBox="0 -750 3573.6 1045" xmlns:xlink="http://www.w3.org/1999/xlink" style="color:white;">
+              <defs><path id="MJX-45-TEX-N-28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path><path id="MJX-45-TEX-I-41" d="M208 74Q208 50 254 46Q272 46 272 35Q272 34 270 22Q267 8 264 4T251 0Q249 0 239 0T205 1T141 2Q70 2 50 0H42Q35 7 35 11Q37 38 48 46H62Q132 49 164 96Q170 102 345 401T523 704Q530 716 547 716H555H572Q578 707 578 706L606 383Q634 60 636 57Q641 46 701 46Q726 46 726 36Q726 34 723 22Q720 7 718 4T704 0Q701 0 690 0T651 1T578 2Q484 2 455 0H443Q437 6 437 9T439 27Q443 40 445 43L449 46H469Q523 49 533 63L521 213H283L249 155Q208 86 208 74ZM516 260Q516 271 504 416T490 562L463 519Q447 492 400 412L310 260L413 259Q516 259 516 260Z"></path><path id="MJX-45-TEX-I-78" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path><path id="MJX-45-TEX-N-2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"></path><path id="MJX-45-TEX-I-79" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path><path id="MJX-45-TEX-N-29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="math"><g data-mml-node="mo"><use xlink:href="#MJX-45-TEX-N-28"></use></g><g data-mml-node="msub" transform="translate(389, 0)"><g data-mml-node="mi"><use xlink:href="#MJX-45-TEX-I-41"></use></g><g data-mml-node="mi" transform="translate(750, -150) scale(0.707)"><use xlink:href="#MJX-45-TEX-I-78"></use></g></g><g data-mml-node="mo" transform="translate(1593.5, 0)"><use xlink:href="#MJX-45-TEX-N-2C"></use></g><g data-mml-node="msub" transform="translate(2038.1, 0)"><g data-mml-node="mi"><use xlink:href="#MJX-45-TEX-I-41"></use></g><g data-mml-node="mi" transform="translate(750, -150) scale(0.707)"><use xlink:href="#MJX-45-TEX-I-79"></use></g></g><g data-mml-node="mo" transform="translate(3184.6, 0)"><use xlink:href="#MJX-45-TEX-N-29"></use></g></g></g>
+            </svg>
+            <!-- PointB -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="mathText" x="250" y="50" width="100" height="18" viewBox="0 -750 3591.6 1045" xmlns:xlink="http://www.w3.org/1999/xlink" style="color:white">
+              <defs><path id="MJX-47-TEX-N-28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path><path id="MJX-47-TEX-I-42" d="M231 637Q204 637 199 638T194 649Q194 676 205 682Q206 683 335 683Q594 683 608 681Q671 671 713 636T756 544Q756 480 698 429T565 360L555 357Q619 348 660 311T702 219Q702 146 630 78T453 1Q446 0 242 0Q42 0 39 2Q35 5 35 10Q35 17 37 24Q42 43 47 45Q51 46 62 46H68Q95 46 128 49Q142 52 147 61Q150 65 219 339T288 628Q288 635 231 637ZM649 544Q649 574 634 600T585 634Q578 636 493 637Q473 637 451 637T416 636H403Q388 635 384 626Q382 622 352 506Q352 503 351 500L320 374H401Q482 374 494 376Q554 386 601 434T649 544ZM595 229Q595 273 572 302T512 336Q506 337 429 337Q311 337 310 336Q310 334 293 263T258 122L240 52Q240 48 252 48T333 46Q422 46 429 47Q491 54 543 105T595 229Z"></path><path id="MJX-47-TEX-I-78" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path><path id="MJX-47-TEX-N-2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"></path><path id="MJX-47-TEX-I-79" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path><path id="MJX-47-TEX-N-29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="math"><g data-mml-node="mo"><use xlink:href="#MJX-47-TEX-N-28"></use></g><g data-mml-node="msub" transform="translate(389, 0)"><g data-mml-node="mi"><use xlink:href="#MJX-47-TEX-I-42"></use></g><g data-mml-node="mi" transform="translate(759, -150) scale(0.707)"><use xlink:href="#MJX-47-TEX-I-78"></use></g></g><g data-mml-node="mo" transform="translate(1602.5, 0)"><use xlink:href="#MJX-47-TEX-N-2C"></use></g><g data-mml-node="msub" transform="translate(2047.1, 0)"><g data-mml-node="mi"><use xlink:href="#MJX-47-TEX-I-42"></use></g><g data-mml-node="mi" transform="translate(759, -150) scale(0.707)"><use xlink:href="#MJX-47-TEX-I-79"></use></g></g><g data-mml-node="mo" transform="translate(3202.6, 0)"><use xlink:href="#MJX-47-TEX-N-29"></use></g></g></g>
+            </svg>
+            <g>
+              <svg xmlns="http://www.w3.org/2000/svg" width="76.984px" height="9.448px" viewBox="0 -511 4253.6 522" xmlns:xlink="http://www.w3.org/1999/xlink" style="color:white">
+                <defs><path id="MJX-20-TEX-N-27F5" d="M165 270H1510Q1525 262 1525 250T1510 230H165Q167 228 182 216T211 189T244 152T277 96T303 25Q308 7 308 0Q308 -11 288 -11Q281 -11 278 -11T272 -7T267 2T263 21Q245 94 195 151T73 236Q58 242 55 247Q55 254 59 257T73 264Q121 283 158 314T215 375T247 434T264 480L267 497Q269 503 270 505T275 509T288 511Q308 511 308 500Q308 493 303 475Q293 438 278 406T246 352T215 315T185 287T165 270Z"></path><path id="MJX-20-TEX-I-72" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path><path id="MJX-20-TEX-N-27F6" d="M84 237T84 250T98 270H1444Q1328 357 1301 493Q1301 494 1301 496T1300 499Q1300 511 1317 511H1320Q1329 511 1332 510T1338 506T1341 497T1344 481T1352 456Q1374 389 1425 336T1544 261Q1553 258 1553 250Q1553 244 1548 241T1524 231T1486 212Q1445 186 1415 152T1370 85T1349 35T1341 4Q1339 -6 1336 -8T1320 -11Q1300 -11 1300 0Q1300 7 1305 25Q1337 151 1444 230H98Q84 237 84 250Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="math"><g data-mml-node="mo"><use xlink:href="#MJX-20-TEX-N-27F5"></use></g><g data-mml-node="mi" transform="translate(1886.8, 0)"><use xlink:href="#MJX-20-TEX-I-72"></use></g><g data-mml-node="mo" transform="translate(2615.6, 0)"><use xlink:href="#MJX-20-TEX-N-27F6"></use></g></g></g>
+              </svg>
+            </g>
+            <!-- <text class="mathText" x="135" y="170">Δx</text>
+            <text class="mathText" x="255" y="100">Δy</text> -->
+            <!-- x -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="mathText" x="135" y="170" width="25" height="20" viewBox="0 -716 1405 727" xmlns:xlink="http://www.w3.org/1999/xlink" style="color: white;">
+              <defs><path id="MJX-20-TEX-N-394" d="M51 0Q46 4 46 7Q46 9 215 357T388 709Q391 716 416 716Q439 716 444 709Q447 705 616 357T786 7Q786 4 781 0H51ZM507 344L384 596L137 92L383 91H630Q630 93 507 344Z"></path><path id="MJX-20-TEX-I-78" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="math"><g data-mml-node="TeXAtom"><g data-mml-node="mo"><use xlink:href="#MJX-20-TEX-N-394"></use></g></g><g data-mml-node="mi" transform="translate(833, 0)"><use xlink:href="#MJX-20-TEX-I-78"></use></g></g></g>
+            </svg>
+            <!-- y -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="mathText" x="255" y="100" width="25" height="20" viewBox="0 -716 1323 921" xmlns:xlink="http://www.w3.org/1999/xlink" style="color: white;">
+              <defs><path id="MJX-23-TEX-N-394" d="M51 0Q46 4 46 7Q46 9 215 357T388 709Q391 716 416 716Q439 716 444 709Q447 705 616 357T786 7Q786 4 781 0H51ZM507 344L384 596L137 92L383 91H630Q630 93 507 344Z"></path><path id="MJX-23-TEX-I-79" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="math"><g data-mml-node="TeXAtom"><g data-mml-node="mo"><use xlink:href="#MJX-23-TEX-N-394"></use></g></g><g data-mml-node="mi" transform="translate(833, 0)"><use xlink:href="#MJX-23-TEX-I-79"></use></g></g></g>
+            </svg>
+          </g>
+          <g x="0" y="130" width="180" height="120">
+            <svg xmlns="http://www.w3.org/2000/svg" x="10" y="-40" width="180" height="120" viewBox="0 -1251.7 8876.1 1860" xmlns:xlink="http://www.w3.org/1999/xlink" style="color:white">
+              <defs><path id="MJX-32-TEX-N-7C" d="M139 -249H137Q125 -249 119 -235V251L120 737Q130 750 139 750Q152 750 159 735V-235Q151 -249 141 -249H139Z"></path><path id="MJX-32-TEX-I-72" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path><path id="MJX-32-TEX-N-3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path><path id="MJX-32-TEX-LO-221A" d="M1001 1150Q1017 1150 1020 1132Q1020 1127 741 244L460 -643Q453 -650 436 -650H424Q423 -647 423 -645T421 -640T419 -631T415 -617T408 -594T399 -560T385 -512T367 -448T343 -364T312 -259L203 119L138 41L111 67L212 188L264 248L472 -474L983 1140Q988 1150 1001 1150Z"></path><path id="MJX-32-TEX-N-28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path><path id="MJX-32-TEX-N-394" d="M51 0Q46 4 46 7Q46 9 215 357T388 709Q391 716 416 716Q439 716 444 709Q447 705 616 357T786 7Q786 4 781 0H51ZM507 344L384 596L137 92L383 91H630Q630 93 507 344Z"></path><path id="MJX-32-TEX-I-78" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path><path id="MJX-32-TEX-N-32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path><path id="MJX-32-TEX-N-2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path><path id="MJX-32-TEX-I-79" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path><path id="MJX-32-TEX-N-29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="math"><g data-mml-node="mo"><use xlink:href="#MJX-32-TEX-N-7C"></use></g><g data-mml-node="mi" transform="translate(278, 0)"><use xlink:href="#MJX-32-TEX-I-72"></use></g><g data-mml-node="TeXAtom" transform="translate(729, 0)"><g data-mml-node="mo"><use xlink:href="#MJX-32-TEX-N-7C"></use></g></g><g data-mml-node="mo" transform="translate(1284.8, 0)"><use xlink:href="#MJX-32-TEX-N-3D"></use></g><g data-mml-node="msqrt" transform="translate(2340.6, 0)"><g transform="translate(1000, 0)"><g data-mml-node="mo"><use xlink:href="#MJX-32-TEX-N-28"></use></g><g data-mml-node="TeXAtom" transform="translate(389, 0)"><g data-mml-node="mo"><use xlink:href="#MJX-32-TEX-N-394"></use></g></g><g data-mml-node="msup" transform="translate(1222, 0)"><g data-mml-node="mi"><use xlink:href="#MJX-32-TEX-I-78"></use></g><g data-mml-node="mn" transform="translate(572, 413) scale(0.707)"><use xlink:href="#MJX-32-TEX-N-32"></use></g></g><g data-mml-node="mo" transform="translate(2419.8, 0)"><use xlink:href="#MJX-32-TEX-N-2B"></use></g><g data-mml-node="TeXAtom" transform="translate(3420, 0)"><g data-mml-node="mo"><use xlink:href="#MJX-32-TEX-N-394"></use></g></g><g data-mml-node="msup" transform="translate(4253, 0)"><g data-mml-node="mi"><use xlink:href="#MJX-32-TEX-I-79"></use></g><g data-mml-node="mn" transform="translate(490, 413) scale(0.707)"><use xlink:href="#MJX-32-TEX-N-32"></use></g></g><g data-mml-node="mo" transform="translate(5146.6, 0)"><use xlink:href="#MJX-32-TEX-N-29"></use></g></g><g data-mml-node="mo" transform="translate(0, 41.7)"><use xlink:href="#MJX-32-TEX-LO-221A"></use></g><rect width="5535.6" height="60" x="1000" y="1131.7"></rect></g></g></g>
+            </svg>
+          </g>
+        </svg>
+        <script type="text/javascript">
+        {//Brackets to avoig conflicting scopes
+          let canvas = document.getElementById("pythagoreanSVG");
+          let rect = canvas.children[0];
+          let lines = document.getElementsByClassName("dashedLines")[0].children;
+          let circles = document.getElementsByClassName("movableCircles")[0].children;
+          let texts = document.getElementsByClassName("movableCirclesText")[0].children;
+          let b1Text = texts[0];
+          let b2Text = texts[1];
+          let line_Text = texts[2];
+          let textΔx = texts[3];
+          let textΔy = texts[4];
+          let line_ = lines[0];
+          let linex = lines[1];
+          let liney = lines[2];
+          let b1 = circles[0];
+          let b2 = circles[1];
+          line_.style.transition = "opacity 1.5s";
+          b1.style.cursor = b2.style.cursor = "grab";
+          b1.style.transition = b2.style.transition= "cursor .2s";
+          let selectedBall = false;
+          function moveBall(event){
+            if (!selectedBall){return null;};
+            b1.style.cursor = b2.style.cursor= "grabbing";
+
+            selectedBall.setAttribute("cx", event.offsetX);
+            selectedBall.setAttribute("cy", event.offsetY);
+
+            let b1x = b1.cx.animVal.value;
+            let b1y = b1.cy.animVal.value;
+            let b2x = b2.cx.animVal.value;
+            let b2y = b2.cy.animVal.value;
+
+            line_.setAttribute("x1", b1x);
+            line_.setAttribute("x2", b2x);
+            line_.setAttribute("y1", b1y);
+            line_.setAttribute("y2", b2y);
+            line_.style.opacity = "0";
+
+            linex.setAttribute("x1", b1x);
+            linex.setAttribute("x2", b2x);
+            linex.setAttribute("y1", b1y);
+            linex.setAttribute("y2", b1y);
+
+            liney.setAttribute("x1", b2x);
+            liney.setAttribute("x2", b2x);
+            liney.setAttribute("y1", b1y);
+            liney.setAttribute("y2", b2y);
+
+            b1Text.setAttribute("x", b1x);
+            b1Text.setAttribute("y", b1y+10);
+            b2Text.setAttribute("x", b2x);
+            b2Text.setAttribute("y", b2y+10);
+
+            let r_ = Math.sqrt((b2x-b1x)**2+(b2y-b1y)**2);
+            let cosine = (b2x-b1x)/r_;
+            let sine = (b2y-b1y)/r_;
+            line_Text.setAttribute("x", 0);
+            line_Text.setAttribute("y", 0);
+            let sc = r_/90
+            line_Text.style.transform = `matrix(${cosine}, ${sine}, ${-sine}, ${cosine}, ${(b1x+b2x)/2}, ${(b1y+b2y)/2}) scale(${sc, sc}) translate(-38px,-5px)`;
+
+            textΔx.setAttribute("x", (b1x+b2x)/2);
+            textΔx.setAttribute("y", b1y+15);
+            textΔy.setAttribute("x", b2x+15);
+            textΔy.setAttribute("y", (b1y+b2y)/2);
+          };
+          function checkIntersection(event){
+            let x = event.offsetX;
+            let y = event.offsetY;
+            let b1x = b1.cx.animVal.value;
+            let b1y = b1.cy.animVal.value;
+            let b2x = b2.cx.animVal.value;
+            let b2y = b2.cy.animVal.value;
+            let b1r = b1.r.animVal.value;
+            let b2r = b2.r.animVal.value;
+            let sqrt = Math.sqrt
+            if (sqrt((b1x-x)**2+(b1y-y)**2)<=b1r){
+              selectedBall = b1;
+            } else  if (sqrt((b2x-x)**2+(b2y-y)**2)<=b2r){
+              selectedBall = b2;
+            } else {
+              selectedBall = false;
+              b1.style.stroke = b2.style.stroke = "lightblue";
+              return null;
+            };
+            line_.style.opacity = "0";
+            b1.style.stroke = b2.style.stroke = "lightblue";
+            selectedBall.style.stroke = "white";
+            let element = document.getElementsByClassName("movableCirclesText")[0];
+            console.log(element.style.opacity);
+            if (element.style.opacity == "0"){
+              element.style.transition = "opacity 2s";
+              element.style.opacity = "1";
+            };
+          };
+          function endMovement(){
+            selectedBall = false;
+            let element = document.getElementsByClassName("movableCirclesText")[0];
+            if (element.style.opacity == "1"){
+              element.style.transition = "opacity 2s";
+              element.style.opacity = "0";
+            };
+            b1.style.cursor = b2.style.cursor= "grab";
+            line_.style.opacity = "1";
+          };
+
+          canvas.addEventListener("mousemove", moveBall);
+          canvas.addEventListener("mousedown", checkIntersection);
+          canvas.addEventListener("mouseup", endMovement)
+        };
+        </script>
+      </div>
+      <p class="sim_explanation">
+        Just with the radius, we can now calculate the net force between the planets by simply plugging in r in the equation presented earlier!
+      $$|F|=\frac{GA_m B_m}{\sqrt{(Bx-Ax)^2+(By-Ay)^2}}$$</p>
+      <p class="sim_explanation">
+        Now finally the direction, which involves some trigonometry. The idea here is that we are about to represent the net forces on each planet as vectors that when added give the resultant net force.
+        This can be done because when it comes to forces, it is impossible to tell the number of forces that add up to the net force from the perspective of the center of mass. Thing about this with the
+        following thought experiment: You are playing tag of war blindfolded. Would you be able to tell how many people are pulling against you? Probably not. The same can be said to any force. They
+        can be represented as sums of other other forces. Luckily for us. Forces add just like sidelengths on a triangle, which essencially means that if you represent your net force as a sum of two
+        perpendicular forces (because then you will have a right angled triangle) you can safely find out which part of the force goes in a direction of your choice. Of course, that includes the directions along
+        the x and y axis.</p>
+      <p class="sim_explanation">
+        So, all you need to do is to separate the net force on each object into two perpendicular forces(components). One parallel to the x direction and another parallel to the y direction. Which again, requires pythagoras or
+        basic geometry. In which case the lengths of the components will represent the direction along each axis and the sign the specific direction (specifics depending on the coordinate system you are working with).
+        In any case, below you can find an image that may help visualize this.
+      </p>
+      <div style="display: flex; align-items:center; flex-direction: column;">
+        <svg height = "200px" width="400px" id="trigonometricSVG">
+          <rect height="100%" width="100%" fill="black"></rect>
+
+          <g class = "rotatingLines">
+            <line class="horizontalLine" x1="0%" y1="80%" x2="100%" y2="80%"/>
+            <line class="horizontalLine" x1="0%" y1="60%" x2="100%" y2="60%"/>
+            <line class="horizontalLine" x1="0%" y1="40%" x2="100%" y2="40%"/>
+            <line class="horizontalLine" x1="0%" y1="20%" x2="100%" y2="20%"/>
+
+            <line class="verticalLine" x1="90%" y1="-25%" x2="90%" y2="125%"/>
+            <line class="verticalLine" x1="80%" y1="-25%" x2="80%" y2="125%"/>
+            <line class="verticalLine" x1="70%" y1="-25%" x2="70%" y2="125%"/>
+            <line class="verticalLine" x1="60%" y1="-25%" x2="60%" y2="125%"/>
+            <line class="verticalLine" x1="50%" y1="-25%" x2="50%" y2="125%"/>
+            <line class="verticalLine" x1="40%" y1="-25%" x2="40%" y2="125%"/>
+            <line class="verticalLine" x1="30%" y1="-25%" x2="30%" y2="125%"/>
+            <line class="verticalLine" x1="20%" y1="-25%" x2="20%" y2="125%"/>
+            <line class="verticalLine" x1="10%" y1="-25%" x2="10%" y2="125%"/>
+          </g>
+
+          <g class="dashedLines" stroke-dasharray="4" stroke="white">
+            <line x1="50" x2="250" y1="150" y2="50"/>
+            <line x1="250" x2="250" y1="50" y2="150"/>
+            <line x1="50" x2="250" y1="150" y2="150"/>
+          </g>
+
+          <g class="forceArrows" stroke="white">
+            <polygon points="50,147.5 50,152.5 230,152.5 230,160 250,150 230,140 230,147.5"/>
+            <polygon points="50,147.5 50,152.5 230,152.5 230,160 250,150 230,140 230,147.5"/>
+            <polygon points="50,147.5 50,152.5 230,152.5 230,160 250,150 230,140 230,147.5"/>
+          </g>
+
+          <g>
+            <circle cx="50" cy="150" r="10" fill="cornflowerblue" stroke="lightblue"/>
+            <circle cx="250" cy="50" r="10" fill="cornflowerblue" stroke="lightblue"/>
+          </g>
+
+          <g class="movableCirclesText" id="forceText">
+            <!-- <text class="mathText" x="50" y="150">(Ax, Ay)</text> -->
+            <!-- <image class="mathText" x="30" y="145" width="100" height="18" href="pointA.svg"/> -->
+            <svg xmlns="http://www.w3.org/2000/svg" x="25" y="165" width="100" height="18" viewBox="0 -750 3573.6 1045" xmlns:xlink="http://www.w3.org/1999/xlink" style="color:white;">
+              <defs><path id="MJX-45-TEX-N-28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path><path id="MJX-45-TEX-I-41" d="M208 74Q208 50 254 46Q272 46 272 35Q272 34 270 22Q267 8 264 4T251 0Q249 0 239 0T205 1T141 2Q70 2 50 0H42Q35 7 35 11Q37 38 48 46H62Q132 49 164 96Q170 102 345 401T523 704Q530 716 547 716H555H572Q578 707 578 706L606 383Q634 60 636 57Q641 46 701 46Q726 46 726 36Q726 34 723 22Q720 7 718 4T704 0Q701 0 690 0T651 1T578 2Q484 2 455 0H443Q437 6 437 9T439 27Q443 40 445 43L449 46H469Q523 49 533 63L521 213H283L249 155Q208 86 208 74ZM516 260Q516 271 504 416T490 562L463 519Q447 492 400 412L310 260L413 259Q516 259 516 260Z"></path><path id="MJX-45-TEX-I-78" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path><path id="MJX-45-TEX-N-2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"></path><path id="MJX-45-TEX-I-79" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path><path id="MJX-45-TEX-N-29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="math"><g data-mml-node="mo"><use xlink:href="#MJX-45-TEX-N-28"></use></g><g data-mml-node="msub" transform="translate(389, 0)"><g data-mml-node="mi"><use xlink:href="#MJX-45-TEX-I-41"></use></g><g data-mml-node="mi" transform="translate(750, -150) scale(0.707)"><use xlink:href="#MJX-45-TEX-I-78"></use></g></g><g data-mml-node="mo" transform="translate(1593.5, 0)"><use xlink:href="#MJX-45-TEX-N-2C"></use></g><g data-mml-node="msub" transform="translate(2038.1, 0)"><g data-mml-node="mi"><use xlink:href="#MJX-45-TEX-I-41"></use></g><g data-mml-node="mi" transform="translate(750, -150) scale(0.707)"><use xlink:href="#MJX-45-TEX-I-79"></use></g></g><g data-mml-node="mo" transform="translate(3184.6, 0)"><use xlink:href="#MJX-45-TEX-N-29"></use></g></g></g>
+            </svg>
+            <!-- <text class="mathText" x="250" y="50">(Bx, By)</text> -->
+            <!-- <image class="mathText" x="230" y="40" width="100" height="18" href="pointB.svg"/> -->
+            <svg xmlns="http://www.w3.org/2000/svg" x="245" y="45" width="100" height="18" viewBox="0 -750 3591.6 1045" xmlns:xlink="http://www.w3.org/1999/xlink" style="color:white">
+              <defs><path id="MJX-47-TEX-N-28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path><path id="MJX-47-TEX-I-42" d="M231 637Q204 637 199 638T194 649Q194 676 205 682Q206 683 335 683Q594 683 608 681Q671 671 713 636T756 544Q756 480 698 429T565 360L555 357Q619 348 660 311T702 219Q702 146 630 78T453 1Q446 0 242 0Q42 0 39 2Q35 5 35 10Q35 17 37 24Q42 43 47 45Q51 46 62 46H68Q95 46 128 49Q142 52 147 61Q150 65 219 339T288 628Q288 635 231 637ZM649 544Q649 574 634 600T585 634Q578 636 493 637Q473 637 451 637T416 636H403Q388 635 384 626Q382 622 352 506Q352 503 351 500L320 374H401Q482 374 494 376Q554 386 601 434T649 544ZM595 229Q595 273 572 302T512 336Q506 337 429 337Q311 337 310 336Q310 334 293 263T258 122L240 52Q240 48 252 48T333 46Q422 46 429 47Q491 54 543 105T595 229Z"></path><path id="MJX-47-TEX-I-78" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path><path id="MJX-47-TEX-N-2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"></path><path id="MJX-47-TEX-I-79" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path><path id="MJX-47-TEX-N-29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="math"><g data-mml-node="mo"><use xlink:href="#MJX-47-TEX-N-28"></use></g><g data-mml-node="msub" transform="translate(389, 0)"><g data-mml-node="mi"><use xlink:href="#MJX-47-TEX-I-42"></use></g><g data-mml-node="mi" transform="translate(759, -150) scale(0.707)"><use xlink:href="#MJX-47-TEX-I-78"></use></g></g><g data-mml-node="mo" transform="translate(1602.5, 0)"><use xlink:href="#MJX-47-TEX-N-2C"></use></g><g data-mml-node="msub" transform="translate(2047.1, 0)"><g data-mml-node="mi"><use xlink:href="#MJX-47-TEX-I-42"></use></g><g data-mml-node="mi" transform="translate(759, -150) scale(0.707)"><use xlink:href="#MJX-47-TEX-I-79"></use></g></g><g data-mml-node="mo" transform="translate(3202.6, 0)"><use xlink:href="#MJX-47-TEX-N-29"></use></g></g></g>
+            </svg>
+            <!-- <text class="mathText" id="fade" x="0" y="0">r=(Δx^2+Δy^2)^1/2</text> -->
+            <!-- <image class="mathText" id="fade" x="0" y="-60" width="180" height="120" href="rEquation.svg"/> -->
+            <g class="mathText" id="fade" x="0" y="-60" width="180" height="120">
+              <svg xmlns="http://www.w3.org/2000/svg" x="0" y="-60" width="180" height="120" viewBox="0 -1251.7 8876.1 1860" xmlns:xlink="http://www.w3.org/1999/xlink" style="color:white">
+                <defs><path id="MJX-32-TEX-N-7C" d="M139 -249H137Q125 -249 119 -235V251L120 737Q130 750 139 750Q152 750 159 735V-235Q151 -249 141 -249H139Z"></path><path id="MJX-32-TEX-I-72" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path><path id="MJX-32-TEX-N-3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path><path id="MJX-32-TEX-LO-221A" d="M1001 1150Q1017 1150 1020 1132Q1020 1127 741 244L460 -643Q453 -650 436 -650H424Q423 -647 423 -645T421 -640T419 -631T415 -617T408 -594T399 -560T385 -512T367 -448T343 -364T312 -259L203 119L138 41L111 67L212 188L264 248L472 -474L983 1140Q988 1150 1001 1150Z"></path><path id="MJX-32-TEX-N-28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path><path id="MJX-32-TEX-N-394" d="M51 0Q46 4 46 7Q46 9 215 357T388 709Q391 716 416 716Q439 716 444 709Q447 705 616 357T786 7Q786 4 781 0H51ZM507 344L384 596L137 92L383 91H630Q630 93 507 344Z"></path><path id="MJX-32-TEX-I-78" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path><path id="MJX-32-TEX-N-32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path><path id="MJX-32-TEX-N-2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path><path id="MJX-32-TEX-I-79" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path><path id="MJX-32-TEX-N-29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="math"><g data-mml-node="mo"><use xlink:href="#MJX-32-TEX-N-7C"></use></g><g data-mml-node="mi" transform="translate(278, 0)"><use xlink:href="#MJX-32-TEX-I-72"></use></g><g data-mml-node="TeXAtom" transform="translate(729, 0)"><g data-mml-node="mo"><use xlink:href="#MJX-32-TEX-N-7C"></use></g></g><g data-mml-node="mo" transform="translate(1284.8, 0)"><use xlink:href="#MJX-32-TEX-N-3D"></use></g><g data-mml-node="msqrt" transform="translate(2340.6, 0)"><g transform="translate(1000, 0)"><g data-mml-node="mo"><use xlink:href="#MJX-32-TEX-N-28"></use></g><g data-mml-node="TeXAtom" transform="translate(389, 0)"><g data-mml-node="mo"><use xlink:href="#MJX-32-TEX-N-394"></use></g></g><g data-mml-node="msup" transform="translate(1222, 0)"><g data-mml-node="mi"><use xlink:href="#MJX-32-TEX-I-78"></use></g><g data-mml-node="mn" transform="translate(572, 413) scale(0.707)"><use xlink:href="#MJX-32-TEX-N-32"></use></g></g><g data-mml-node="mo" transform="translate(2419.8, 0)"><use xlink:href="#MJX-32-TEX-N-2B"></use></g><g data-mml-node="TeXAtom" transform="translate(3420, 0)"><g data-mml-node="mo"><use xlink:href="#MJX-32-TEX-N-394"></use></g></g><g data-mml-node="msup" transform="translate(4253, 0)"><g data-mml-node="mi"><use xlink:href="#MJX-32-TEX-I-79"></use></g><g data-mml-node="mn" transform="translate(490, 413) scale(0.707)"><use xlink:href="#MJX-32-TEX-N-32"></use></g></g><g data-mml-node="mo" transform="translate(5146.6, 0)"><use xlink:href="#MJX-32-TEX-N-29"></use></g></g><g data-mml-node="mo" transform="translate(0, 41.7)"><use xlink:href="#MJX-32-TEX-LO-221A"></use></g><rect width="5535.6" height="60" x="1000" y="1131.7"></rect></g></g></g>
+              </svg>
+            </g>
+            <!-- <text class="mathText" id="unfade" x="0" y="0">F=(Fx^2+Fy^2)^1/2</text> -->
+            <!-- <image class="mathText" id="unfade" x="0" y="-60" width="180" height="120" href="fEquation.svg"/> -->
+            <g class="mathText" id="unfade" x="0" y="-60" width="180" height="120">
+              <svg xmlns="http://www.w3.org/2000/svg" x="0" y="-60" width="180" height="120" viewBox="0 -1251.7 9006.1 1860" xmlns:xlink="http://www.w3.org/1999/xlink" style="color:white">
+                <defs><path id="MJX-36-TEX-N-7C" d="M139 -249H137Q125 -249 119 -235V251L120 737Q130 750 139 750Q152 750 159 735V-235Q151 -249 141 -249H139Z"></path><path id="MJX-36-TEX-I-46" d="M48 1Q31 1 31 11Q31 13 34 25Q38 41 42 43T65 46Q92 46 125 49Q139 52 144 61Q146 66 215 342T285 622Q285 629 281 629Q273 632 228 634H197Q191 640 191 642T193 659Q197 676 203 680H742Q749 676 749 669Q749 664 736 557T722 447Q720 440 702 440H690Q683 445 683 453Q683 454 686 477T689 530Q689 560 682 579T663 610T626 626T575 633T503 634H480Q398 633 393 631Q388 629 386 623Q385 622 352 492L320 363H375Q378 363 398 363T426 364T448 367T472 374T489 386Q502 398 511 419T524 457T529 475Q532 480 548 480H560Q567 475 567 470Q567 467 536 339T502 207Q500 200 482 200H470Q463 206 463 212Q463 215 468 234T473 274Q473 303 453 310T364 317H309L277 190Q245 66 245 60Q245 46 334 46H359Q365 40 365 39T363 19Q359 6 353 0H336Q295 2 185 2Q120 2 86 2T48 1Z"></path><path id="MJX-36-TEX-N-3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path><path id="MJX-36-TEX-LO-221A" d="M1001 1150Q1017 1150 1020 1132Q1020 1127 741 244L460 -643Q453 -650 436 -650H424Q423 -647 423 -645T421 -640T419 -631T415 -617T408 -594T399 -560T385 -512T367 -448T343 -364T312 -259L203 119L138 41L111 67L212 188L264 248L472 -474L983 1140Q988 1150 1001 1150Z"></path><path id="MJX-36-TEX-N-28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path><path id="MJX-36-TEX-I-78" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path><path id="MJX-36-TEX-N-32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path><path id="MJX-36-TEX-N-2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path><path id="MJX-36-TEX-I-79" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path><path id="MJX-36-TEX-N-29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="math"><g data-mml-node="mo"><use xlink:href="#MJX-36-TEX-N-7C"></use></g><g data-mml-node="mi" transform="translate(278, 0)"><use xlink:href="#MJX-36-TEX-I-46"></use></g><g data-mml-node="TeXAtom" transform="translate(1027, 0)"><g data-mml-node="mo"><use xlink:href="#MJX-36-TEX-N-7C"></use></g></g><g data-mml-node="mo" transform="translate(1582.8, 0)"><use xlink:href="#MJX-36-TEX-N-3D"></use></g><g data-mml-node="msqrt" transform="translate(2638.6, 0)"><g transform="translate(1000, 0)"><g data-mml-node="mo"><use xlink:href="#MJX-36-TEX-N-28"></use></g><g data-mml-node="mi" transform="translate(389, 0)"><use xlink:href="#MJX-36-TEX-I-46"></use></g><g data-mml-node="msup" transform="translate(1138, 0)"><g data-mml-node="mi"><use xlink:href="#MJX-36-TEX-I-78"></use></g><g data-mml-node="mn" transform="translate(572, 413) scale(0.707)"><use xlink:href="#MJX-36-TEX-N-32"></use></g></g><g data-mml-node="mo" transform="translate(2335.8, 0)"><use xlink:href="#MJX-36-TEX-N-2B"></use></g><g data-mml-node="mi" transform="translate(3336, 0)"><use xlink:href="#MJX-36-TEX-I-46"></use></g><g data-mml-node="msup" transform="translate(4085, 0)"><g data-mml-node="mi"><use xlink:href="#MJX-36-TEX-I-79"></use></g><g data-mml-node="mn" transform="translate(490, 413) scale(0.707)"><use xlink:href="#MJX-36-TEX-N-32"></use></g></g><g data-mml-node="mo" transform="translate(4978.6, 0)"><use xlink:href="#MJX-36-TEX-N-29"></use></g></g><g data-mml-node="mo" transform="translate(0, 41.7)"><use xlink:href="#MJX-36-TEX-LO-221A"></use></g><rect width="5367.6" height="60" x="1000" y="1131.7"></rect></g></g></g>
+              </svg>
+            </g>
+            <!-- <text class="mathText" id="fade" x="135" y="170" style="opacity:1">Δx</text> -->
+            <!-- <image class="mathText" id="fade" x="155" y="140" width="25" height="20" href="Δx.svg" style="opacity:1;"/> -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="mathText" id="fade" x="158" y="160" width="25" height="20" viewBox="0 -716 1405 727" xmlns:xlink="http://www.w3.org/1999/xlink" style="color: white;">
+              <defs><path id="MJX-20-TEX-N-394" d="M51 0Q46 4 46 7Q46 9 215 357T388 709Q391 716 416 716Q439 716 444 709Q447 705 616 357T786 7Q786 4 781 0H51ZM507 344L384 596L137 92L383 91H630Q630 93 507 344Z"></path><path id="MJX-20-TEX-I-78" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="math"><g data-mml-node="TeXAtom"><g data-mml-node="mo"><use xlink:href="#MJX-20-TEX-N-394"></use></g></g><g data-mml-node="mi" transform="translate(833, 0)"><use xlink:href="#MJX-20-TEX-I-78"></use></g></g></g>
+            </svg>
+            <!-- <text class="mathText" id="fade" x="255" y="100" style="opacity:1">Δy</text> -->
+            <!-- <image class="mathText" id="fade" x="247" y="75" width="25" height="20" href="Δy.svg" style="opacity:1;"/> -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="mathText" id="fade" x="258" y="95" width="25" height="20" viewBox="0 -716 1323 921" xmlns:xlink="http://www.w3.org/1999/xlink" style="color: white;">
+              <defs><path id="MJX-23-TEX-N-394" d="M51 0Q46 4 46 7Q46 9 215 357T388 709Q391 716 416 716Q439 716 444 709Q447 705 616 357T786 7Q786 4 781 0H51ZM507 344L384 596L137 92L383 91H630Q630 93 507 344Z"></path><path id="MJX-23-TEX-I-79" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="math"><g data-mml-node="TeXAtom"><g data-mml-node="mo"><use xlink:href="#MJX-23-TEX-N-394"></use></g></g><g data-mml-node="mi" transform="translate(833, 0)"><use xlink:href="#MJX-23-TEX-I-79"></use></g></g></g>
+            </svg>
+            <!-- <text class="mathText" id="unfade" x="135" y="170">Fx</text> -->
+            <!-- <image class="mathText" id="unfade" x="155" y="140" width="25" height="20" href="fx.svg"/> -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="mathText" id="unfade" x="160" y="160" width="25" height="20" viewBox="0 -680 1321 691" xmlns:xlink="http://www.w3.org/1999/xlink" style="color: white;">
+              <defs><path id="MJX-26-TEX-I-46" d="M48 1Q31 1 31 11Q31 13 34 25Q38 41 42 43T65 46Q92 46 125 49Q139 52 144 61Q146 66 215 342T285 622Q285 629 281 629Q273 632 228 634H197Q191 640 191 642T193 659Q197 676 203 680H742Q749 676 749 669Q749 664 736 557T722 447Q720 440 702 440H690Q683 445 683 453Q683 454 686 477T689 530Q689 560 682 579T663 610T626 626T575 633T503 634H480Q398 633 393 631Q388 629 386 623Q385 622 352 492L320 363H375Q378 363 398 363T426 364T448 367T472 374T489 386Q502 398 511 419T524 457T529 475Q532 480 548 480H560Q567 475 567 470Q567 467 536 339T502 207Q500 200 482 200H470Q463 206 463 212Q463 215 468 234T473 274Q473 303 453 310T364 317H309L277 190Q245 66 245 60Q245 46 334 46H359Q365 40 365 39T363 19Q359 6 353 0H336Q295 2 185 2Q120 2 86 2T48 1Z"></path><path id="MJX-26-TEX-I-78" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="math"><g data-mml-node="mi"><use xlink:href="#MJX-26-TEX-I-46"></use></g><g data-mml-node="mi" transform="translate(749, 0)"><use xlink:href="#MJX-26-TEX-I-78"></use></g></g></g>
+            </svg>
+            <!-- <text class="mathText" id="unfade" x="255" y="100">Fy</text> -->
+            <!-- <image class="mathText" id="unfade" x="247" y="75" width="25" height="20" href="fy.svg"/> -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="mathText" id="unfade" x="257" y="95" width="25" height="20" viewBox="0 -680 1239 885" xmlns:xlink="http://www.w3.org/1999/xlink" style="color:white;">
+              <defs><path id="MJX-27-TEX-I-46" d="M48 1Q31 1 31 11Q31 13 34 25Q38 41 42 43T65 46Q92 46 125 49Q139 52 144 61Q146 66 215 342T285 622Q285 629 281 629Q273 632 228 634H197Q191 640 191 642T193 659Q197 676 203 680H742Q749 676 749 669Q749 664 736 557T722 447Q720 440 702 440H690Q683 445 683 453Q683 454 686 477T689 530Q689 560 682 579T663 610T626 626T575 633T503 634H480Q398 633 393 631Q388 629 386 623Q385 622 352 492L320 363H375Q378 363 398 363T426 364T448 367T472 374T489 386Q502 398 511 419T524 457T529 475Q532 480 548 480H560Q567 475 567 470Q567 467 536 339T502 207Q500 200 482 200H470Q463 206 463 212Q463 215 468 234T473 274Q473 303 453 310T364 317H309L277 190Q245 66 245 60Q245 46 334 46H359Q365 40 365 39T363 19Q359 6 353 0H336Q295 2 185 2Q120 2 86 2T48 1Z"></path><path id="MJX-27-TEX-I-79" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="math"><g data-mml-node="mi"><use xlink:href="#MJX-27-TEX-I-46"></use></g><g data-mml-node="mi" transform="translate(749, 0)"><use xlink:href="#MJX-27-TEX-I-79"></use></g></g></g>
+            </svg>
+          </g>
+        </svg>
+      </div>
+      <p class="sim_explanation">
+        With that out of the way things are about to get interesting. When finding out the components, people usually try to get an angle inside the triangle, compute its sine and cosine and then multiply it by the net gravitational pull to get each component.
+        Which is not wrong by any means, but it can get complicated because in doing so, one may have to make a decision about which sign to give each component, which can only be done by checking how the coordnates relate. In doing so, signs can get switched.
+        Therefore, I personally prefer to skip the step where a the angle is obtained and skip directly to the step where the sine and cosine are obtained. If done properly, you also get the correct signs every time. The idea is simple:
+        the sine of an angle is defined as being the length of the opposite side(relative to the angle) of the triangle devided by the length of the hypothenuse. So the sine of the angle that lies at the point where object A is is simply the
+        difference in it's y-coordinate and the y-coordinate of B. Furthermore, the same argument can be applied to the x-coordinates to obtain the cosine of this angle. $$sin(a)=\frac{(By-Ay)}{\sqrt{(Bx-Ax)^2+(By-Ay)^2}}$$ $$cos(a)=\frac{(Bx-Ax)}{\sqrt{(Bx-Ax)^2+(By-Ay)^2}}$$
+      </p>
+      <p class="sim_explanation">
+        Now, remember one thing, the force of gravity we calculated using newton's equation was calculated using absolute values, therefore it has a positive result. Which in this case just means it has not been attributed direction. So if mass B is above and to
+        the right of A (we are working on the coordinate system of the picutes you have seen so far, where positive x and y are torwards right and top respectively), the sine and cosine we calculated above will come out with positive signs for this angle a!!!
+        Which when multiplied by the net gravitational pull, will still be positive, which is correct for this coordinate system. Furthermore, we could end here since we know that the components that pull A and B are the same but with inverse direction. But I want to show you something first.</p>
+        <p class="sim_explanation">
+        One could try and use this same argument for mass B, calculating the sine as \(sin(b)=(By-Ay)/r\) with b being the angle that lies at object B. But there is an issue. The result will also come out positive!
+        The reason is that order of subtraction matters!!! Therefore in the case of angle b, \(sin(b)=(Ay-By)/r\)!!! Which in this case, will indeed output the correct sign. So, how do you know which coordinate subtract from which? The best way is to test it out
+        when working out a solution. But you could also keep in mind that the point where your mass is located will be subtracted from the other point. This is valied for both sine, cosine, and for both axis. Therefore, a generalization for forces on A and B is:
+        $$F_Ax=|F|\frac{x_b-x_a}{\sqrt{(x_b-x_a)^2+(y_b-y_a)^2}}$$
+        $$F_Ay=|F|\frac{y_b-y_a}{\sqrt{(x_b-x_a)^2+(y_b-y_a)^2}}$$
+        $$F_Bx=|F|\frac{x_a-x_b}{\sqrt{(x_b-x_a)^2+(y_b-y_a)^2}}$$
+        $$F_By=|F|\frac{y_a-y_b}{\sqrt{(x_b-x_a)^2+(y_b-y_a)^2}}$$
+      </p>
+      <p class="sim_explanation">
+        Note how the equations are similar, very little changes and there are easily detectable patterns. Therefore, this can be represented in vector notation.
+        $$\vec{F_{A}}=|F|\frac{\vec{B}-\vec{A}}{\sqrt{(x_b-x_a)^2+(y_b-y_a)^2}}$$
+        Where the \(\vec{B}\) and \(\vec{A}\) are the coordinates of B and A respectively.
+      </p>
+      <p class="sim_explanation">Thank you for reading. That is all for gravitation. If you wish to read about collisions, since they are also part of the simulation, see <a onclick="alert('Comming soon!')">this_link</a></p>
+  </div>
+  </div>
+</body>

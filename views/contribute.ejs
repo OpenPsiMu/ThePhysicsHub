@@ -1,30 +1,26 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel="stylesheet" href="stylesheets/style.css" type="text/css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg">
-      <a class="navbar-brand" href="/">ThePhysicsHub</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/simulations">Simulations</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/about">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/contribute">Contribute</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-    <h1>Contribute</h1>
-  </body>
+ <head>
+   <link rel="stylesheet" href="stylesheets/stylePurple.css" type="text/css">
+   <link rel="stylesheet" href="stylesheets/contentpages.css" type="text/css">
+   <link rel="stylesheet" href="stylesheets/nav.css">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+ </head>
+ <body>
+   <%- navbar %>
+   <div class="container">
+   <h1 class="header">Contribute</h1>
+   <p class="textpassage">We are always looking for people who want to contribute to this project via developing simulations, helping with web development, writing theory sections, designing or just giving conceptual advice. It doesn't matter whether you're an experienced
+    programmer or a total newbie as the necessary javascript skills are easy to pick up and as p5.js is a very beginner-friendly library.<p>
+      <p class="textpassage">Feel free to check out our <a style="color: #fff; text-decoration: underline;" href="https://github.com/ThePhysHub/ThePhysicsHub" target="_blank">github page</a> 
+        or joining our <a style="color: #fff; text-decoration: underline;" href="https://discord.gg/usfPKrg" target="_blank">discord server</a> to get to know us! If you want to support The Physics Hub monetarily,
+         you can do so via <a style="color: #fff; text-decoration: underline;" href="https://www.patreon.com/physhub" target="_blank">patreon</a></p>
+   <div class="social-links">
+       <a href="https://github.com/ThePhysHub/ThePhysicsHub" target="_blank"><img src = "images/logo_images/github_logo.png" alt="github link"></a>
+       <a href="https://www.patreon.com/physhub" target="_blank"><img src = "images/logo_images/patreon_logo.png" alt="patreon link"></a>
+       <a href="https://discord.gg/usfPKrg" target="_blank"><img src = "images/logo_images/discord_logo.png" alt="discord link"></a>
+       
+   </div>
+ </div>
+ </body>
 </html>

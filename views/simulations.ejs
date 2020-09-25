@@ -3,51 +3,52 @@
   <head>
     <link rel="stylesheet" href="stylesheets/nav.css" type="text/css">
     <link rel="stylesheet" href="stylesheets/simulations.css" type="text/css">
+    <link rel="stylesheet" href="stylesheets/stylePurple.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg">
-      <a class="navbar-brand" href="/">ThePhysicsHub</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="/simulations">Simulations</a>
-              </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/about">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/contribute">Contribute</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-
+    <%- navbar %>
     <div class="simulations">
         <div class="page-title">
             <h1>Simulations</h1>
         </div>
-        <div class="sim-items">
-            <% for (var i = 0; i < simulations.length; i++){ %>
-            <div class="sim-item" onclick="window.open('/simulations/<%= simulations[i].urlName %>', '_blank')" style="cursor: pointer;">
-                <div class="sim-img">
-                    <img src="images/test.png" alt="img">
+        <div class="flex-container">
+            <div class="flex-child sim-items">
+                <% for (var i = 0; i < simulations.length; i++){ %>
+                <div class="sim-item" >
+                    <div class="sim-img"onclick="window.open('/simulations/<%= simulations[i].urlName %>', '_blank')" style="cursor: pointer;">
+                      <% if(simulations[i].image){ %>
+                        <img src="images/<%= simulations[i].image %>" alt="img">
+                        <% } else{ %>
+                        <img src="images/default.png">
+                        <% } %>
+                    </div>
+                    <div class="sim-title"onclick="window.open('/simulations/<%= simulations[i].urlName %>', '_blank')" style="cursor: pointer;">
+                        <h4><%= simulations[i].name %></h4>
+                    </div>
+                    <div class="sim-description"onclick="window.open('/simulations/<%= simulations[i].urlName %>', '_blank')" style="cursor: pointer;">
+                        <p></i><%= simulations[i].description %></i></p>
+                    </div>
+                    <div class="sim-labels">
+                        <% for (var j = 0; j < simulations[i].labels.length; j++){ %>
+                        <button class="label-item"><%= simulations[i].labels[j] %></button>
+                        <% }
+                        %>
+
+                    </div>
                 </div>
-                <div class="sim-title">
-                    <h4><%= simulations[i].name %></h4>
-                </div>
-                <div class="sim-description">
-                    <p></i><%= simulations[i].description %></i></p>
+                <% } %>
+            </div>
+
+            <div class="flex-child sidebar">
+                <div class="sim-label">
+                    <h3>Labels</h3>
                 </div>
             </div>
-            <% } %>
         </div>
 
     </div>
+    <script src="javascripts/utilities.js"></script>
 
     
 

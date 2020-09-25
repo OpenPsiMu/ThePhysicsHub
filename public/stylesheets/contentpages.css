@@ -1,0 +1,83 @@
+@import url("https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css");
+html, body{
+    background-color: #270042 !important;
+    background-blend-mode: hard-light;
+    height: 100%;
+    width: 100%;
+}
+.header{
+    text-align: left;
+    font-family: 'Rubik', sans-serif;
+    font-size: 32px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1;
+    margin-left: 25%;
+    margin-right: 25%;
+    background-color: #270042;
+    padding: 1%;
+    opacity: 90%;
+}
+
+
+.container{
+    background-image: url(/images/background.png);
+    background-size: 100%;
+    min-height: 100%;
+    min-width: 100%;
+    padding-top: 5%;
+    padding-left: 30%;
+    padding-right: 30%;
+}
+
+.textpassage{
+    background-color: #270042;
+    font-size: 18px;
+    line-height: 25px;
+    color: #e9e9e9;
+    font-weight: 550;
+    margin-left: 25%;
+    margin-right: 25%;
+    padding: 1%;
+    opacity: 90%;
+}
+
+.social-links{
+    margin-top: 2em;
+    margin-left: 30%;
+    align: center;
+}
+
+.social-links a{
+    height: 3em;
+    width: 3em;
+    display: inline-block;
+    text-align: center;
+    line-height: 35px;
+    color: #ffffff;
+    margin: 0 4px;
+    border-radius: 50%;
+    text-decoration: none;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+
+}
+
+.social-links a:hover{
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+    
+}
+
+.social-links a img{
+    display: block;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+
+a{
+    color: #fff;
+    text-decoration: underline;
+}
+

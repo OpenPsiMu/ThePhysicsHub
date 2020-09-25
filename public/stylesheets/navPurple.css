@@ -1,0 +1,33 @@
+.navbar{
+    background-color: #270042;
+    font-family: 'Rubik', sans-serif;
+    padding-left: 10%;
+}
+
+.navbar .navbar-brand{
+    padding-left: 2.5%;
+}
+
+.navbar a{
+    color: #fff;
+}
+
+.navbar a:hover{
+    color: #f2f2fc;
+}
+
+.navbar .navbar-nav{
+    padding-right: 2.5%;
+}
+
+.navbar .navbar-nav .nav-item{
+    margin-right: 2.5%;
+}
+
+.navbar .navbar-nav .nav-item:hover{
+    background-color: #ff0060;
+    border-radius: 40px;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+
+}

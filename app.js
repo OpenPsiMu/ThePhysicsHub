@@ -8,10 +8,14 @@ const indexRouter = require('./routes/index');
 const aboutRouter = require('./routes/about');
 const contributeRouter = require('./routes/contribute');
 const simulationsRouter = require('./routes/simulations');
-const singlePendulumRouter = require('./routes/single_pendulum');
-const spring_pendulum = require('./routes/spring_pendulum');
+const simplePendulum = require('./routes/simplePendulum');
+const elasticPendulum = require('./routes/elasticPendulum');
+const forceTableRouter = require('./routes/force_table');
+const collisionRouter = require('./routes/collision');
+const nBodyRouter = require('./routes/nBody');
+const coupledPendulum = require('./routes/coupledPendulum');
+const doublePendulum2D = require('./routes/doublePendulum2D');
 const projectileMotion2D = require('./routes/projectileMotion2D');
-const pendulumSpringRouter = require('./routes/spring_double_pendulum');
 
 const app = express();
 
@@ -21,7 +25,9 @@ app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({
+  extended: false
+}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -29,29 +35,15 @@ app.use('/', indexRouter);
 app.use('/about', aboutRouter);
 app.use('/contribute', contributeRouter);
 app.use('/simulations', simulationsRouter);
-app.use('/simulations/single_pendulum', singlePendulumRouter);
-app.use('/simulations/spring_pendulum', spring_pendulum);
+app.use('/simulations/simplePendulum', simplePendulum);
+app.use('/simulations/elasticPendulum', elasticPendulum);
+app.use('/simulations/force_table', forceTableRouter);
+app.use('/simulations/collision', collisionRouter);
+app.use('/simulations/nBody', nBodyRouter);
+app.use('/simulations/coupledPendulum', coupledPendulum);
+app.use('/simulations/doublePendulum2D', doublePendulum2D);
 app.use('/simulations/projectileMotion2D', projectileMotion2D);
-app.use('/simulations/spring_double_pendulum', pendulumSpringRouter);
 
 // Stylesheets
 app.use(express.static(__dirname + '/public'));
-//app.use("/styles",express.static(__dirname + "/styles"));
-
-// catch 404 and forward to error handler
-//app.use(function(req, res, next) {
-  //next(createError(404));
-//});
-
-//  error handler
-//app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  //res.locals.message = err.message;
-  //res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  //res.status(err.status || 500);
-  //res.render('error');
-//});
-
 module.exports = app;

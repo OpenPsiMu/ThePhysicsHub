@@ -1,44 +1,144 @@
+html, body{
+      background-color: #270042 !important;
+      background-blend-mode: hard-light;
+}
 .simulations{
-    margin: 60px;
+    padding: 2.5%;
+    background-image: url(/images/background.png);
+    background-size: 100%;
 }
 .simulations h1{
     font-family: 'Rubik', sans-serif;
-    color: #302e4d;
+    color: #ffffff;
     font-size: 32px;
     line-height: 1;
     font-weight: 600;
 }
 
+
 .simulations .page-title{
-    padding-left: 40px;
+    padding-left: 7.5%;
+}
+
+.simulations .flex-container{
+    display: flex;
+}
+
+.flex-child{
+    flex: 1;
+}
+
+.simulations .sidebar{
+    height: 50%;
+    width: 25%;
+}
+
+.simulations .sidebar .sim-label{
+    padding: 5%;
+
+}
+
+.simulations .sidebar .sim-label h3{
+    font-family: 'Rubik', sans-serif;
+    color: #ffffff;
+    font-size: 24px;
+    line-height: 1;
+    font-weight: 400;
+    margin-top: 5%;
+}
+
+.simulations .sidebar .sim-label button .active{
+    background-color: #ec1839;
+}
+
+.simulations .sidebar .sim-label button{
+    display: inline-block;
+    padding: 2.5%;
+    background-color: #ff0060;
+    font-family: 'Rubik', sans-serif;
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 1;
+    font-weight: 400;
+    border-radius: 10px;
+    margin-right: 5%;
+    margin-top: 5%;
+    cursor: pointer;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    whitespace: nowrap;
+    outline: none;
+}
+
+.simulations .sidebar .sim-label button:hover{
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
 }
 
 .simulations .sim-items{
-    margin-top: 60px;
-    margin-right: 60px;
+    margin-left: 5%;
+    padding: 2.5%;
+    width: 66%;
+    flex: 2;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
 }
 
+.simulations .hide{
+    display: none;
+}
+
 .simulations .sim-items .sim-item{
     -webkit-box-shadow: 0 0 20px rgba(48, 46, 77, 0.15);
     box-shadow: 0 0 20px rgba(48, 46, 77, 0.15);
-    -ms-flex: 0 0 20%;
-    flex: 0 0 20%;
-    max-width: 20%;
-    margin-bottom: 80px;
-    margin-right: 40px;
-    margin-left: 40px;
+    -ms-flex: 0 0 30%;
+    flex: 0 0 30%;
+    max-width: 33%;
+    margin-bottom: 2.5%;
+    margin-right: 2.5%;
     border-radius: 10px;
     overflow: hidden;
     border: 1px solid #d4d4e3;
 }
 
+.simulations .sim-items .sim-item:hover{
+    border: 2px solid #ff0060;
+    
+}
+
 .simulations .sim-item .sim-img{
     position: relative;
     overflow: hidden;
+}
+
+.simulations .sim-item .sim-labels{
+    padding: 5%;
+    margin: 5%;
+}
+
+.simulations .sim-item .sim-labels button{
+    padding: 2.5%;
+    background-color: #ff0060;
+    font-family: 'Rubik', sans-serif;
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 1;
+    font-weight: 400;
+    border-radius: 10px;
+    margin-right: 5%;
+    margin-top: 5%;
+    cursor: pointer;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    whitespace: nowrap;
+    outline: none;
+}
+
+.simulations .sim-item .sim-labels button:hover{
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
 }
 
 .simulations .sim-item .sim-img img{
@@ -66,7 +166,7 @@
 .simulations .sim-item .sim-title h4{
     font-size: 18px;
     font-weight: 700;
-    color: #302e4d;
+    color: #fff;
     text-transform: capitalize;
     
 }
@@ -81,7 +181,41 @@
 .simulations .sim-item .sim-description p{
     font-size: 16px;
     line-height: 25px;
-    color: #504e70;
+    color: #e9e9e9;
     font-weight: 400;
 
+}
+
+.sim-item{
+    background: #270042;
+}
+
+.simulations .sim-item.show{
+    animation: showSimItem 1s ease;
+}
+
+@keyframes showSimItem{
+    0%{
+        -webkit-transform: scale(0.8);
+        transform: scale(0.8);
+        opacity
+    }
+    100%{
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        
+    }    
+}
+
+@-webkit-keyframes showSimItem{
+    0%{
+        -webkit-transform: scale(0.8);
+        transform: scale(0.8);
+        opacity
+    }
+    100%{
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        
+    }    
 }
