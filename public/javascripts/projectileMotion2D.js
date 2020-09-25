@@ -86,6 +86,7 @@ function setup() {
 
   //multiple canvases
   outerCanvas = createCanvas(display.W, display.H);
+  outerCanvas.parent("simwrapper");
 
   simCanvas = createGraphics(simDisplay.W, simDisplay.H); //used to display the simulation
   plotCanvas = createGraphics(plotDisplay.W, plotDisplay.H); //for graphing

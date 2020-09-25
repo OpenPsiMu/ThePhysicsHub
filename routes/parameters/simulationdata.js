@@ -8,7 +8,7 @@ const simulations = [{
   "urlName": "simplePendulum",
   "jsfile": "simplePendulum",
   "image": "simplePendulum.png",
-  "explanation": "<b> Yup, this text is bold and now <i>cursive</i></b>",
+  "explanation": "-",
   "labels": ["mechanics", "pendulum"],  
 }, {
   "name": "Elastic pendulum",
@@ -40,7 +40,7 @@ const simulations = [{
   "jsfile": "collision",
   "image": "collision.png",
   "description": "A simple collision engine to explore momentum conservation.",
-  "explanation": "Play around and have fun",
+  "explanation": "-",
   "labels": ["mechanics", "energy"],  
 },{
   "name": "nBody",
@@ -63,9 +63,9 @@ const simulations = [{
   "description": "This is a projectile motion simulation.",
   "urlName": "projectileMotion2D",
   "jsfile": "projectileMotion2D",
-  "image": "-",
+  "image": "projectileMotion2D.png",
   "explanation": "I have a projectile, I have some gravity... shwooosh!",
-  "labels": ["mechanics", "projectile", "motion"],
+  "labels": ["mechanics", "projectile", "motion", "WIP"],
 }];
 
 
