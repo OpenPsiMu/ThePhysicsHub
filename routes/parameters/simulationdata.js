@@ -63,7 +63,9 @@ const simulations = [{
   "description": "This is a projectile motion simulation.",
   "urlName": "projectileMotion2D",
   "jsfile": "projectileMotion2D",
-  "explanation": "I have a projectile, I have some gravity... shwooosh!"
+  "image": "-",
+  "explanation": "I have a projectile, I have some gravity... shwooosh!",
+  "labels": ["mechanics", "projectile", "motion"],
 }];
 
 
