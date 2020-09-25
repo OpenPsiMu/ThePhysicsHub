@@ -63,7 +63,7 @@ const dragCoefficients = {
 
 let points = [];
 let plotTime = 0;
-let moveProjectile = true;
+let moveProjectile = false;
 //Projectile properties
 //t = time of flight
 let projectile = {
@@ -75,6 +75,7 @@ let projectile = {
   θ: params.θ, //angle between speed vector and x axis at speficic time
   t: 0, //time of flight
   dθ: 0, //change of angle -> rotation
+  drag : 0,
   Cx: dragCoefficients[params.shape], //drag coefficient
   trajectory: [], //array containing coordinates of points of the flight trajectory
   trajectoryCount: 0, //number of 'flights'
@@ -104,6 +105,7 @@ function setup() {
 
   textSize(20);
   plotCanvas.textSize(textSize())
+  plotCanvas.textFont('sans-serif')
 
   gridCanvas = createGraphics(simDisplay.W, simDisplay.H)
   let step = 38
@@ -375,6 +377,7 @@ function setup() {
   plot1.setBoxBgColor(20);
   plot1.setBoxLineColor(150)
   plot1.title.fontColor = 255;
+  plot1.title.fontName = 'sans-serif'
   plot1.title.fontSize = 20
   plot1.title.fontStyle = NORMAL
   plot1.title.offset = 2
@@ -533,8 +536,8 @@ function updateParams() {
     if (display.H < projectile.y) {
       plotTime += projectile.t
       resetCanvas(projectileCanvas);
-
       reset()
+      moveProjectile = false;
       if (projectile.trajectoryCount < params.maxTrajectoryCount) {
         projectile.trajectoryCount++;
       }
