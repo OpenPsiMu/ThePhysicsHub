@@ -20,6 +20,13 @@ const simulations = [
         "jsfile": "spring_pendulum",
         "explanation": "We have a cool pendulum."
     },
+    {
+        "name": "Projectile Motion in 2D",
+        "description": "This is a projectile motion simulation.",
+        "urlName": "projectileMotion2D",
+        "jsfile": "projectileMotion2D",
+        "explanation": "I have a projectile, I have some gravity... shwooosh!"
+    },
 ];
 
 module.exports = simulations;
