@@ -103,6 +103,11 @@ html, body{
     border: 1px solid #d4d4e3;
 }
 
+.simulations .sim-items .sim-item:hover{
+    border: 2px solid #ff0060;
+    
+}
+
 .simulations .sim-item .sim-img{
     position: relative;
     overflow: hidden;

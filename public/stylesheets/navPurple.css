@@ -2,6 +2,10 @@
     background-color: #270042;;
 }
 
+.navbar a .navbar-brand{
+    background-color: #ff0060;
+}
+
 .navbar a{
     color: #fff;
 }
