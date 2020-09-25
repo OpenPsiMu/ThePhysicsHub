@@ -102,6 +102,21 @@ INSTRUCTION MANUAL FOR DROPDOWN
       button1.onclick = function (){"do something"};
       button1.style = 'write your own css here';
 
+
+7. Opening and closing tabs:
+  The objects returned by:
+    makeItem(parent);
+    makeDropdown(canvas);
+
+  both have methods `.open()` and `.close()`, which open and
+  close the tabs as a mouseclick would.
+
+  Example:
+    let item = makeItem(parent);
+    item.open(); //Opens the tab
+    item.close(); //Closes the tab 
+
+
 EXAMPLE OF A SIMPLE DROPDOWN:
 	//Creating canvas and dropdown
 	let canvas = createCanvas(500, 400);
