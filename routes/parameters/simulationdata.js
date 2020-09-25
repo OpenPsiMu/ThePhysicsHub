@@ -58,6 +58,12 @@ const simulations = [{
   "image": "doublePendulum2D.png",
   "explanation": "-",
   "labels":["mechanics", "pendulum", "WIP"],
+},{
+  "name": "Projectile Motion in 2D",
+  "description": "This is a projectile motion simulation.",
+  "urlName": "projectileMotion2D",
+  "jsfile": "projectileMotion2D",
+  "explanation": "I have a projectile, I have some gravity... shwooosh!"
 }];
 
 

@@ -15,6 +15,7 @@ const collisionRouter = require('./routes/collision');
 const nBodyRouter = require('./routes/nBody');
 const coupledPendulum = require('./routes/coupledPendulum');
 const doublePendulum2D = require('./routes/doublePendulum2D');
+const projectileMotion2D = require('./routes/projectileMotion2D');
 
 const app = express();
 
@@ -41,6 +42,7 @@ app.use('/simulations/collision', collisionRouter);
 app.use('/simulations/nBody', nBodyRouter);
 app.use('/simulations/coupledPendulum', coupledPendulum);
 app.use('/simulations/doublePendulum2D', doublePendulum2D);
+app.use('/simulations/projectileMotion2D', projectileMotion2D);
 
 // Stylesheets
 app.use(express.static(__dirname + '/public'));
