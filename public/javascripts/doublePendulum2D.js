@@ -138,13 +138,13 @@ class doublePendulum {
 		if (solver === "RK") { 
 	  		for(let s=0;s<this.speed;s++){
 	  			 this.initCond = this.RK();
-                 this.t += this.dt
+                 this.t += this.dt  
 			}
 		} else if (solver === "Euler"){	
 			for(let s=0;s<this.speed;s++){
 	  			 this.initCond = this.Euler();
-                 this.t += this.dt
-			}
+                 this.t += this.dt     
+			}  
 		}	
 	}
     
@@ -272,11 +272,11 @@ let chaosIsPlaying = false;
 
 
 function manyPendulums(numberOfPendulums){
-  pendulums = [];
+  let pendulums = [];
   for (let i=0;i<numberOfPendulums;i++){
     randomcolor = randomRGB();
     initColor = color(randomcolor[0],randomcolor[1],randomcolor[2])
-    pendulums.push(new doublePendulum([0.0,0.0,Math.PI/4,Math.PI+i*0.01],initColor));
+    pendulums.push(new doublePendulum([0.0,0.0,Math.PI/4,Math.PI/1.5+i*0.01],initColor));
   }
   return pendulums;
 }
@@ -338,12 +338,13 @@ function defaultWindow(){
   plotCanvas2_extra.noFill()
 
   dp = new doublePendulum([0,0,Math.PI/3,Math.PI])
-    
+  
 }
 
 
 
 function setup() {
+ 
   defaultWindow();
   let dd = makeDropdown(bgCanvas);
   dd.setLabel("Settings");
@@ -373,7 +374,7 @@ function setup() {
   
   let m1sliderContainer = makeSlider(parametersRow1);
   let m1slider = m1sliderContainer['slider'];
-  m1sliderContainer.setTitleLabel("first mass");//Updates the text on the left hand side of the slider.
+  m1sliderContainer.setTitleLabel("m1");//Updates the text on the left hand side of the slider.
   m1sliderContainer.setParameters(20, 1, 1, 1);
   m1slider.oninput = () => {
     m1sliderContainer["valueLabel"].innerHTML = Number(m1slider.value).toFixed(2);
@@ -381,11 +382,11 @@ function setup() {
     dp.radius1 = 17.5 + 0.5*dp.m1
   }
   
- 
+  let parametersRow2 = makeRow(parameters);
   
-  let m2sliderContainer = makeSlider(parametersRow1);
+  let m2sliderContainer = makeSlider(parametersRow2);
   let m2slider = m2sliderContainer['slider'];
-  m2sliderContainer.setTitleLabel("second mass");//Updates the text on the left hand side of the slider.
+  m2sliderContainer.setTitleLabel("m2");//Updates the text on the left hand side of the slider.
   m2sliderContainer.setParameters(20, 1, 1, 1);
   m2slider.oninput = () => {
     m2sliderContainer["valueLabel"].innerHTML = Number(m2slider.value).toFixed(2)
@@ -394,17 +395,17 @@ function setup() {
   }
   
   
-  let parametersRow2 = makeRow(parameters);
+  let parametersRow3 = makeRow(parameters);
   
-  let gsliderContainer = makeSlider(parametersRow2);
+  let gsliderContainer = makeSlider(parametersRow3);
   let gslider = gsliderContainer['slider'];
-  gsliderContainer.setTitleLabel("gravitational acceleration");//Updates the text on the left hand side of the slider.
+  gsliderContainer.setTitleLabel("g");//Updates the text on the left hand side of the slider.
   gsliderContainer.setParameters(20, 1, 1, 10);
   gslider.oninput = () => {
     gsliderContainer["valueLabel"].innerHTML = Number(gslider.value).toFixed(2)
     dp.g = gslider.value
   }
-  
+ 
   
   let solvers = makeItem(dd);
   solvers.setLabel("Solvers");
@@ -440,8 +441,8 @@ function setup() {
   let chaosCheckbox = chaosCheckboxContainer['checkbox'];
   
   chaosCheckbox.onclick = () => {
-    
     pendulums = manyPendulums(5); //init multiple pends
+    
     // init the canvases associated with them
     chaosCanvas = createGraphics(Wsim, Hsim)
     chaosCanvas.clear()
@@ -458,8 +459,7 @@ function setup() {
     chaosPlotCanvas_extra.stroke(255)
     chaosPlotCanvas_extra.strokeWeight(1)
     chaosPlotCanvas_extra.noFill();
-    
-  }
+   }
   
   let chaosRow2 = makeRow(chaos);
   
@@ -479,8 +479,6 @@ function setup() {
   ppCheckboxContainer1.setLabel("Phase portrait 1");
   ppCheckboxContainer2.setLabel("Phase portrait 2");
   
-  
-
 }
 
 function resetFunc(){ //resets the pend to 0
@@ -497,7 +495,6 @@ function mouseDragged(){
 
 
 function draw() {
- 
   //border of simCanvas
   simCanvas.clear()
   bgCanvas.background(20);
@@ -518,7 +515,7 @@ function draw() {
     if (EulerCheckbox.checked === true) {
       dp.move("Euler");
     }
-    else if (EulerCheckbox.checked === false){
+    else {
       dp.move("RK");  
     }
   }
@@ -546,13 +543,12 @@ function draw() {
   //drawing the timeseries
   dp.plotTimeSeries(plotCanvas3_extra);
     
-  
-
 
   dp.drawTrace(simCanvas,300) //draw the second balls trace
   
   let chaosCheckbox = chaosCheckboxContainer['checkbox'];
   if (chaosCheckbox.checked === true){
+   
     chaosCanvas.clear();
     chaosPlotCanvas_extra.clear();
     
@@ -583,6 +579,6 @@ function draw() {
   image(plotCanvas3, 30, Hplot + 75)
   image(plotCanvas3_extra,30,Hplot+75)
   
-  
+
 }
 
