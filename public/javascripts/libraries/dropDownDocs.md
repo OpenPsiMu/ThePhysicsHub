@@ -8,18 +8,23 @@ INSTRUCTION MANUAL FOR DROPDOWN
 ---------------
 
 ### 1. Creating the dropdown:
-**Synthax**:
+**Syntax**:
 `makeDropdown()`;
+
 **Description:**
 Creates dropdown and places it in the same container as the p5.canvas that gets passed in as an argument.				
-	**Arguments:**
-	p5.canvas
+	
+**Arguments:**
+p5.canvas
+
 **Returns:**
-	html `<div>` element with special internal functionality for addition of items to the dropdown.
-	**Observations:**
-	- This function relies on the placement of the p5 canvas relative to the body of the document. MAKE SURE TO ONLY USE IT AFTER THE CANVAS IS IN ITS FINAL CONTAINER.
-	- The returned object has the methods `.open()`, `.close()`, and `.setLabel("Text")`. Which open, close or set a label to the dropdown respectively.
-	- After creating the dropdown it will look horrendous. Use the function `setPedroStyle()` to make it look pretty.
+html `<div>` element with special internal functionality for addition of items to the dropdown.
+
+**Observations:**
+- This function relies on the placement of the p5 canvas relative to the body of the document. MAKE SURE TO ONLY USE IT AFTER THE CANVAS IS IN ITS FINAL CONTAINER.
+- The returned object has the methods `.open()`, `.close()`, and `.setLabel("Text")`. Which open, close or set a label to the dropdown respectively.
+- After creating the dropdown it will look horrendous. Use the function `setPedroStyle()` to make it look pretty.
+
 **Example:**
 ```javascript
 //Note that this uses p5 library!
@@ -36,10 +41,13 @@ function setup(){
 ### 2. Adding items to the dropdown
 **Description:**
 To add items to the dropdown, you must make use of the function `makeItem()`;
+
 **Arguments:**
 html div returned by `makeDropdown()`;
+
 **Returns:**
 html `<ul>` element with the added functionality for the dropdown and special methods `.setLabel()`, `.open()` and `.close()`. You can find more information about these methods in section 1.
+
 **Example:**
 ```javascript
 //Note that this uses p5 library!
@@ -58,10 +66,13 @@ function setup(){
 **Description:**
 To add a row to an html `<ul>` item, which is returned by `makeItem()`,
 you must make use of the function `makeRow()`.
+
 **Arguments:**
 html `<ul>` item returned by `makeRow()`.
+
 **Returns:**
 html `<li>` row element with the method `.setLabel()` attached. This method is used to change the text inside this row.
+
 **Example:**
 ```javascript
 //Note that this uses the library p5
@@ -82,6 +93,7 @@ function setup(){
 ### 4. Adding sliders
 **Description:**
 To add a dropdown inside a row element. Simply use the function `makeDropdown()` and pass in the row where you want it to reside as an argument.
+
 **Arguments:**
  - html `<li>` row element
  - Maximum value of slider of slider
@@ -90,9 +102,10 @@ To add a dropdown inside a row element. Simply use the function `makeDropdown()`
  - Initial value
  - Label/title
 
-**Synthax:**
+**Syntax:**
 `makeSlider(parent, max = 100, min = 0, step = .1, value = 2, title)`
 *Note*: This comes directly from where this function is defined.
+
 **Returns:**
 Typeless object that acts as a container to the html elements that form the slider and the labels around it. This object has the following methods:
  - `.setTitleLabel("txt")` -> Changes the text on the left hand side of the slider
@@ -121,7 +134,8 @@ function setup(){
 ### 5 Adding checkboxes to the dropdown:
 **Description:**
 	The function `makeCheckbox()` returns an object that holds a checkbox with labels. Its use follows the same logic as the dropdown
-  **Example:**
+ 
+ **Example:**
  ```javascript
 //Note that this uses p5
 function setup(){
@@ -136,6 +150,7 @@ function setup(){
 ### 6. Adding buttons:
 **Description:**
   To add a button it is necessary to create a container designed for buttons. To make such a container use `new buttonContainer(row)`. Where row is a row (`<li>`) of an item (`<ul>`) element!
+
 **Example:**
 ```javascript
 //Notice that this uses the p5 library
