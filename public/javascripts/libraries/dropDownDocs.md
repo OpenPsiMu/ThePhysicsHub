@@ -13,8 +13,9 @@ INSTRUCTION MANUAL FOR DROPDOWN
 
 **Description:**
 Creates dropdown and places it in the same container as the p5.canvas that gets passed in as an argument.				
-	**Arguments:**
-	p5.canvas
+	
+**Arguments:**
+p5.canvas
 
 **Returns:**
 html `<div>` element with special internal functionality for addition of items to the dropdown.
