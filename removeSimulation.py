@@ -1,24 +1,22 @@
-import os
+import os # Import os to allow us to delete some files.
 
-urlName = input('What\'s the urlName/filename of the simulation you want to delete? - e.g. single_pendulum (you can find the simulation files under public/javascripts)')
-routerName = input('What\'s the routerName of the simulation? - e.g. singlePendulumRouter (you can find the routerNames in app.js)')
+# Ask the user for some input.
+urlName = input("What's the urlName/filename of the simulation you want to delete? - e.g. single_pendulum (you can find the simulation files under public/javascripts): ")
+routerName = input("What's the routerName of the simulation? - e.g. singlePendulumRouter (you can find the routerNames in app.js): ")
 
-appjs = open('./app.js')
-lines = appjs.readlines()
+# Open app.js and read the lines.
+lines = open('./app.js').readlines()
 
+# Open app.js in write mode to allow us to empty the file and then write.
 newAppjs = open('./app.js', 'w')
+
+# Go through each line in lines, perform a if statement.
 for line in lines:
     if urlName in line:
-        print('deleting ', line, ' in app.js...')
+        print(f"Deleting {line} in app.js...")
     else:
         newAppjs.write(line)
 
-os.remove('./routes/{}.js'.format(urlName))
-os.remove('./public/javascripts/{}.js'.format(urlName))
-print('Done! removed ./routes/{}.js and ./public/javascripts/{}.js. Please delete your simulation data in routes/parameters/simulationdata!'.format(urlName,urlName))
-
-
-
-
-
-        
+os.remove(f".routes/{urlName}")
+os.remove(f"./public/javascript/{urlName}.js")
+print(f"Done! removed ./routes/{urlName}.js and ./public/javascripts/{urlName}.js. Please delete your simulation data in routes/parameters/simulationdata!")
