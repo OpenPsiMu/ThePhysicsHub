@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .sim_explanation{
+      margin-top: 2.5em;
+      font-size: 20px;
+      font-weight: 150;
+      text-align: justify;
+      font-family: 'Montserrat', sans-serif;
+      color: #e9e9e9;
+      width: 45em;
+      margin-right: auto;
+      margin-left: auto;
+    }
+    </style>
+</head>
+<body>
+    <h1 class = "sim_explanation" style="font-size:35px;">Collision Explanation</h1>
+    <p class="sim_explanation">This simulation demonstrates collision of bodies in 2 dimensions.
+        For bodies with less mass, the force of gravitation is almost negligible. For the sake of simplicity we will ignore the force of
+        gravitation between bodies while learning collision. 
+        In actual scenario, when two bodies collide, the collision leads to release of some amount of heat.
+        Such type of collision are inelastic collisions. To simplify things, we'll see elastic collisions first.
+    </p>
+    <p class="sim_explanation">
+        The linear momentum of a particle is defined as the product of it's mass and velocity.
+        $$ \vec{p} = m \vec{v} $$ 
+        According to Newton's first law of motion, the net momentum of a particle or a system of particles
+        doesn't change unless an external unbalanced force is applied on it. 
+        This means p is constant. Thus the linear momentum of a system remains constant if there's no external force
+        acting on the system.
+        You can see this law in action in the animation above.
+        This is known as the principle of <em>conservation of linear momentum</em>.
+    </p>
+    <p class="sim_explanation">
+        If we consider a system of two particles, the total momentum shouldn't change even if the particles collide,
+        in case of elastic collision. 
+    </p>
+    <p class="sim_explanation">
+        Let's analyse collision between two bodies mass are \(m_1\) and \(m_2\) mathematically. <br>
+        Let the velocity of first body before and after collision between \( \vec{u_1} \) and \( \vec{u_1} \) respectively.
+        Let the velocity of second body before and after collision between \( \vec{u_2} \) and \( \vec{u_2} \) respectively.
+    </p>
+    <p class="sim_explanation">
+        Vectors can individually be represented in X and Y direction as, <br>
+        $$ \vec{u_1} = \vec{u_{x1}} + \vec{u_{y1}} $$
+        $$ \vec{u_2} = \vec{u_{x2}} + \vec{u_{y2}} $$
+    </p>
+    <p class = "sim_explanation">
+    According to principle of conservation of linear momentum, 
+    the total momentum of the two bodies in any direction should remain constant.
+    </p>
+    <p class = "sim_explanation">
+        Total momentum in x direction before collision = Total momentum in x direction after collision.
+        $$ m_1 u_{x1} + m_2 u_{x2} = m_1 v_{x1} + m_2 v_{x2} $$
+    </p>
+    <p class = "sim_explanation">
+        Total momentum in y direction before collision = Total momentum in y direction after collision.
+        $$ m_1 u_{y1} + m_2 u_{y2} = m_1 v_{y1} + m_2 v_{y2} $$
+    </p>
+    <p class = "sim_explanation">
+        Since the collision is elastic, there is no loss of Kinetic Energy in the form of heat.
+        Kinetic Energy is conserved too.
+        $$  \frac{1}{2}  m_1 u_1^2 + \frac{1}{2}  m_2 u_2^2 = \frac{1}{2}  m_1 v_1^2 + \frac{1}{2}  m_2 v_2^2 $$ 
+    </p>
+
+    <p class = "sim_explanation">
+        Guess what ?, if some information of the system of particles is already known, we can easily predict the 
+        behaviour of the system after each collision by using these equaitons. <br>
+        Hurray !! 
+    </p>
+</body>
+</html>
