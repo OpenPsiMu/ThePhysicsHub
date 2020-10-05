@@ -32,15 +32,16 @@ To simplify the process of adding simulations, we wrote a python script that aut
 
 ### Forking simulations over a single page
 
-Instead of setting up the whole site, there is an easier way, building over a single HTML page and .js, if one wishes only to build a new simulation forking existing ones.
+Instead of setting up the whole site, there exists an easier way, building over a single HTML page and .js, if one wishes to only build a new simulation forking existing ones.
 
 1. For simplicity, you may download the source HTML directly from, for example, view-source:https://physicshub.herokuapp.com/simulations/projectileMotion2D
 
-2. Download most of the javascript and CSS from this GitHub ThePhysicsHub/public/...
-**Caution: Linking to GitHub directly would not work as it is not a CDN (i.e. protected)
+2. Download most of the javascript and css from this github ThePhysicsHub/public/...
+**Caution: Linking to github directly would not work as it is not a CDN (i.e. protected)
 
-3. If the simulation does not show up locally, you may change the CSS and the js source link from relative to direct. i.e. 
-<script src="file:///X:/[some long path]/public/javascripts/libraries/p5.gui.js"></script>
+3. If the simulation does not show up locally, you may change the css and the js source link from relative to direct. i.e. 
+
+`<script src="file:///X:/[some long path]/public/javascripts/libraries/p5.gui.js"></script>`
 
 ### Adding a simulation's theory section
 

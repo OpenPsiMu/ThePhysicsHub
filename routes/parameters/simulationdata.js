@@ -16,7 +16,7 @@ const simulations = [{
   "urlName": "elasticPendulum",
   "jsfile": "elasticPendulum",
   "image": "ellasticPendulum.png",
-  "explanation": "-",
+  "explanation": getFile("elasticPendulum.ejs"),
   "labels": ["mechanics", "pendulum"],  
 }, {
   "name": "Coupled pendulum",
