@@ -9,7 +9,7 @@ const simulations = [{
   "jsfile": "simplePendulum",
   "image": "simplePendulum.png",
   "explanation": "-",
-  "labels": ["mechanics", "pendulum"],  
+  "labels": ["mechanics", "pendulum"],
 }, {
   "name": "Elastic pendulum",
   "description": "A bob connected to a spring suspended from a hinge.",
@@ -17,7 +17,7 @@ const simulations = [{
   "jsfile": "elasticPendulum",
   "image": "ellasticPendulum.png",
   "explanation": getFile("elasticPendulum.ejs"),
-  "labels": ["mechanics", "pendulum"],  
+  "labels": ["mechanics", "pendulum"],
 }, {
   "name": "Coupled pendulum",
   "description": "Two pendulum coupled by a spring connecting the bobs.",
@@ -25,7 +25,7 @@ const simulations = [{
   "jsfile": "coupledPendulum",
   "image": "coupledPendulum.png",
   "explanation": "-",
-  "labels": ["mechanics", "pendulum"],  
+  "labels": ["mechanics", "pendulum"],
 }, {
   "name": "Force Table",
   "description": "A force table for visualizing vector addition",
@@ -33,7 +33,7 @@ const simulations = [{
   "jsfile": "force_table",
   "image": "forceTable.png",
   "explanation": getFile("force_table_explanation.ejs"),
-  "labels": ["mechanics", "force"],  
+  "labels": ["mechanics", "force"],
 }, {
   "name": "collision",
   "urlName": "collision",
@@ -41,7 +41,7 @@ const simulations = [{
   "image": "collision.png",
   "description": "A simple collision engine to explore momentum conservation.",
   "explanation": getFile("collisionExplanation.ejs"),
-  "labels": ["mechanics", "energy"],  
+  "labels": ["mechanics", "energy"],
 },{
   "name": "nBody",
   "description": "Simulation that demonstrates gravity and collisions with n bodies",
@@ -66,6 +66,14 @@ const simulations = [{
   "image": "projectileMotion2D.png",
   "explanation": "I have a projectile, I have some gravity... shwooosh!",
   "labels": ["mechanics", "projectile", "motion", "WIP"],
+}
+,{
+  "name": "Waves Through Strings",
+  "description": "This is a simulation for waves through strings with variabe mass.",
+  "urlName": "waveThroughString",
+  "jsfile": "waveThroughString",
+  "image": "waveThroughString.png",
+  "labels": ["mechanics",  "WIP"],
 }];
 
 
