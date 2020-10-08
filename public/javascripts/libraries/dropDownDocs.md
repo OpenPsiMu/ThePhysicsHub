@@ -13,7 +13,7 @@ INSTRUCTION MANUAL FOR DROPDOWN
 
 **Description:**
 Creates dropdown and places it in the same container as the p5.canvas that gets passed in as an argument.				
-	
+
 **Arguments:**
 p5.canvas
 
@@ -23,7 +23,7 @@ html `<div>` element with special internal functionality for addition of items t
 **Observations:**
 - This function relies on the placement of the p5 canvas relative to the body of the document. MAKE SURE TO ONLY USE IT AFTER THE CANVAS IS IN ITS FINAL CONTAINER.
 - The returned object has the methods `.open()`, `.close()`, and `.setLabel("Text")`. Which open, close or set a label to the dropdown respectively.
-- After creating the dropdown it will look horrendous. Use the function `setPedroStyle()` to make it look pretty.
+- After creating the dropdown it will look horrendous. Use the function `setDropdownStyle()` to make it look pretty.
 
 **Example:**
 ```javascript
@@ -34,7 +34,7 @@ function setup(){
 	dd.setLabel("Your label");
 	dd.open();//Opens the dropdown
 	dd.close();//Closes the dropdown
-	setPedroStyle();//Implements css
+	setDropdownStyle();//Implements css
 };
 ```
 
@@ -134,7 +134,7 @@ function setup(){
 ### 5 Adding checkboxes to the dropdown:
 **Description:**
 	The function `makeCheckbox()` returns an object that holds a checkbox with labels. Its use follows the same logic as the dropdown
- 
+
  **Example:**
  ```javascript
 //Note that this uses p5
@@ -175,7 +175,7 @@ function setup(){
 	dd.setLabel("LOOK LABEL");
 
 	//Setting style
-	setPedroStyle(canvas);
+	setDropdownStyle(canvas);
 
 	//Further adding to the dropdown
 	let item1 = makeItem(dd);

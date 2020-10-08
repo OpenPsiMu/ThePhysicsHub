@@ -240,7 +240,7 @@ function setup() {
   let dd27 = makeRow(dd2)
   dd27.innerHTML = "Stopped. Change initial angles now."
 
-  setPedroStyle(bgCanvas)
+  setDropdownStyle(bgCanvas)
   simCanvas = createGraphics(Wsim, Hsim)
 
   plotCanvas = createGraphics(Wplot, Hplot)

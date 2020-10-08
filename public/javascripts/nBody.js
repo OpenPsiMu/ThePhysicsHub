@@ -86,7 +86,7 @@ function setup() {
     mouseWheel = mouseWheelOriginal;
   };
   dd.setLabel("Options");
-  setPedroStyle(canvas);
+  setDropdownStyle(canvas);
 
   let i1 = makeItem(dd); //Global Parameters
   let i2 = makeItem(dd); //Obj Parameters

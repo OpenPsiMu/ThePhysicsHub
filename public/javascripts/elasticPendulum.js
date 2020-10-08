@@ -140,7 +140,7 @@ function setup() {
     plot2.getMainLayer().points = [];
   });
 
-  setPedroStyle(bgCanvas) //styling the dropdown elements
+  setDropdownStyle(bgCanvas) //styling the dropdown elements
 
   //--end construction of dropdown menu--
 

@@ -122,7 +122,7 @@ function setup() {
   }
 
 
-  setPedroStyle(bgCanvas) //applies styling to dropdown menu.
+  setDropdownStyle(bgCanvas) //applies styling to dropdown menu.
 
   //--end construction of dropdown menu--
 

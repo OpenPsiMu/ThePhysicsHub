@@ -127,7 +127,7 @@ function setup() {
 
   let dd = makeDropdown(outerCanvas);
   dd.setLabel('Settings');
-  setPedroStyle(outerCanvas);
+  setDropdownStyle(outerCanvas);
 
   let i1 = makeItem(dd);
   i1.setLabel('Controls');

@@ -20,7 +20,7 @@ INSTRUCTION MANUAL FOR DROPDOWN
 		let dd = makeDropdown(canvas);
 		dd.setLabel("Your label");
 
-  After making the dropdown, you can use the function setPedroStyle(canvas);
+  After making the dropdown, you can use the function setDropdownStyle(canvas);
   this makes it look pretty.
 
 
@@ -68,7 +68,7 @@ INSTRUCTION MANUAL FOR DROPDOWN
     sliderContainer.getTitleLabel() returns the text element in the left of the slider;
 
 4. Making the slider look pretty!
-	After making the dropdown, you can use the function setPedroStyle(canvas);
+	After making the dropdown, you can use the function setDropdownStyle(canvas);
 	to add the css styling to the dropdown and make it look and work like a dropdown.
 
 
@@ -114,7 +114,7 @@ INSTRUCTION MANUAL FOR DROPDOWN
   Example:
     let item = makeItem(parent);
     item.open(); //Opens the tab
-    item.close(); //Closes the tab 
+    item.close(); //Closes the tab
 
 
 EXAMPLE OF A SIMPLE DROPDOWN:
@@ -126,7 +126,7 @@ EXAMPLE OF A SIMPLE DROPDOWN:
 	dd.setLabel("LOOK LABEL");
 
 	//Setting style
-	setPedroStyle(canvas);
+	setDropdownStyle(canvas);
 
 	//Further adding to the dropdown
 	let item1 = makeItem(dd);
@@ -463,7 +463,6 @@ function buttonContainer(parent) {
     };
 
 };
-
 
 function setPedroStyle(canvas) {
     //Sets the CSS required for the dropdown
@@ -809,3 +808,4 @@ function setPedroStyle(canvas) {
         `;
     document.head.appendChild(style);
 };
+let setDropdownStyle = setPedroStyle;

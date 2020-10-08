@@ -121,7 +121,7 @@ function setup(){
       }
     }
 
-    setPedroStyle(bgCanvas) //applies styling to dropdown menu.
+    setDropdownStyle(bgCanvas) //applies styling to dropdown menu.
     simCanvas = createGraphics(Wsim, Hsim)
 
     plotCanvas = createGraphics(Wplot, Hplot) //setting up the plotting canvas
