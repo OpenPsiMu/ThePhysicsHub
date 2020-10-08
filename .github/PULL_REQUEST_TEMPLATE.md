@@ -1,25 +1,34 @@
-# Description
+<!--- Provide a general summary of your changes in the Title above -->
 
-A short summary of what is included in your pull request
+## Description
+<!--- Describe your changes in detail -->
 
-Fixes #(issue_no)
+## Related Issue
+<!--- This project only accepts pull requests related to open issues -->
+<!--- If suggesting a new feature or change, please discuss it in an issue first -->
+<!--- If fixing a bug, there should be an issue describing it with steps to reproduce -->
+<!--- Please link to the issue here: -->
 
-Replace `issue_no` in the above line with the issue related to this PR.
+## Motivation and Context
+<!--- Why is this change required? What problem does it solve? -->
 
-## Type of change
+## How Has This Been Tested?
+<!--- Please describe in detail how you tested your changes. -->
+<!--- Include details of your testing environment, and the tests you ran to -->
+<!--- see how your change affects other areas of the code, etc. -->
 
-Choosing one or more options from the following as per the nature of your Pull request.
-
+## Types of changes
+<!--- What types of changes does your code introduce? Put an `x` in all the boxes that apply: -->
 - [ ] Bug fix (non-breaking change which fixes an issue)
 - [ ] New feature (non-breaking change which adds functionality)
-- [ ] Documentation Update
+- [ ] Breaking change (fix or feature that would cause existing functionality to change)
 
-# Checklist:
-
-Please tick all the boxes that are fulfilled by your Pull request.
-
-- [ ] I have named my files and folders accordingly.
-- [ ] I have commented my code, particularly in hard-to-understand areas.
-- [ ] I have created a helpful and easy to understand `README.md`.
-- [ ] My changes dont produce any warnings.
-- [ ] I have added a working sample/screenshot of the script.
+## Checklist:
+<!--- Go over all the following points, and put an `x` in all the boxes that apply. -->
+<!--- If you're unsure about any of these, don't hesitate to ask. We're here to help! -->
+- [ ] My code follows the code style of this project.
+- [ ] My change requires a change to the documentation.
+- [ ] I have updated the documentation accordingly.
+- [ ] I have read the **CONTRIBUTING** document.
+- [ ] I have added tests to cover my changes.
+- [ ] All new and existing tests passed.
