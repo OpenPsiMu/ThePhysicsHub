@@ -1052,7 +1052,7 @@ body.prototype.evolve = function(){
   };
 
   //Here comes the code where we handle kinetic energies
-  if (true/*EKCheckboxContainer.checkbox.checked*/){
+  if (EKCheckboxContainer.checkbox.checked){
     handlePlotting(); //This makes use of dt, which is available from this scope
   };
 };
