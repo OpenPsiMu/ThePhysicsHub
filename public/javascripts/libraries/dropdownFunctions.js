@@ -3,179 +3,7 @@ add a wonderful dropdown to a p5 canvas!!!
 
 follows instructions for use:
 
-INSTRUCTION MANUAL FOR DROPDOWN
--------------------------------
-
-1. Creating the dropdown:
-	To make the dropdown you must make use of the function makeDropdown();
-	This function takes a p5 canvas element as argument.
-
-	makeDropdown(canvas); --> returns html element for placement of items.
-	In case the canvas is placed directly on the body of the document, a
-	new canvas container will be created!!! This is necessary for technical
-	reasons. So MAKE SURE THE CANVAS IS ALREADY IN IT's FINAL CONTAINER before
-	using this function!!!!
-
-	Changing the text inside the main dropdown button:
-		let dd = makeDropdown(canvas);
-		dd.setLabel("Your label");
-
-  After making the dropdown, you can use the function setDropdownStyle(canvas);
-  this makes it look pretty.
-
-
-2. Adding items to the dropdown
-	To add items to the dropdown, you must make use of the function makeItem();
-	This function takes an html dropdown contents container returned by makeDropdown();
-
-	makeItem(makeDropdown(canvas)) --> returns html container for ITEM
-
-	If you wish to change the title inside this item you must do as follows:
-		let dd = makeDropdown(canvas);
-		let item1 = makeItem(dd);
-		item1.setLabel("Your label");
-
-3. Adding rows to dropdown Item
-	To add a row to an html item, which lies inside the dropdown,
-	you must make use of the function makeRow(), which takes it's parent
-	html item as an argument.
-	The flow could be seen like this:
-		let dd = makeDropdown(canvas);
-		let item1 = makeItem(dd);
-		let item1Row1 = makeRow(item1);
-
-	This function returns the html element that represents the row inside item.
-
-	To add text to this element simply write:
-		item1Row1.setLabel("YORU label")
-
-	To add a widget to this element, use one of the functions pedro will provide.
-
-	As of right now there is only one widget available which is the SLIDER!!!
-	To make a slider inside a row element simply use the function makeSlider();
-		exmple:
-			sliderContainer = makeSlider(rowElement);
-	sliderContainer.["label"].innerHTML is the title of your slider
-	sliderContainer.['slider'] is your html slider
-	sliderContainer.['valueLabel'].innerHTML is the place allocated for showing the current value of the slider
-
-  Also, you can change this tewxt using:
-    sliderContainer.setTitleLabel("The text on the left of slider");
-    sliderContainer.setValueLabel("The text on the right of slider");
-    sliderContainer.slider gives the slider HTML slement;
-    sliderContainer.getSlider() also returns the html element;
-    sliderContainer.getValueLabel() returns valueLabel html element"text on the right";
-    sliderContainer.getTitleLabel() returns the text element in the left of the slider;
-
-4. Making the slider look pretty!
-	After making the dropdown, you can use the function setDropdownStyle(canvas);
-	to add the css styling to the dropdown and make it look and work like a dropdown.
-
-
-	+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	NOTE: MAKE SURE TO ONLY USE THIS FUNCTION AFTER makeDropdown(canvas) IS USED!
-	+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-5. Adding checkboxes to the dropdown:
-  it is pretty simple actually, follow the same procedures as the dropdown.
-
-  makeDropdown(row); --> return {"label": label, "checkbox": checkBox};
-  let row = makeRow(item);
-  let checkboxContainer = createCheckbox(row);
-  let checkbox1 = checkboxContainer['checkbox'];
-  Change the label with
-  checkboxContainer.setLabel("My label");
-  Google event's that you can attach to your html checkbox!
-
-6. Adding buttons!!!!
-
-  To add a button it is necessary to create a container designed for buttons!!!!
-  To make such a container use new buttonContainer(row);
-  where row is a row of an item in a dropdown element!
-
-  To make a button inside the container use:
-    let buttonContainer1 = new buttonContainer(row);
-    let button1 = buttonContainer1.makeButton(label, func);
-    where label is the name inside the button and func is the function performed by the button when it is pressed.
-    button1 is an html element so you can do whatever you want with it. Examples below:
-      button1.innerHTML= "my title";
-      button1.onclick = function (){"do something"};
-      button1.style = 'write your own css here';
-
-
-7. Opening and closing tabs:
-  The objects returned by:
-    makeItem(parent);
-    makeDropdown(canvas);
-
-  both have methods `.open()` and `.close()`, which open and
-  close the tabs as a mouseclick would.
-
-  Example:
-    let item = makeItem(parent);
-    item.open(); //Opens the tab
-    item.close(); //Closes the tab
-
-
-EXAMPLE OF A SIMPLE DROPDOWN:
-	//Creating canvas and dropdown
-	let canvas = createCanvas(500, 400);
-	let dd = makeDropdown(canvas);
-
-	//Changing the name of dropdown button
-	dd.setLabel("LOOK LABEL");
-
-	//Setting style
-	setDropdownStyle(canvas);
-
-	//Further adding to the dropdown
-	let item1 = makeItem(dd);
-	let row1 = makeRow(item1);
-	let sliderContainer = makeSlider(row1);
-	let slider = sliderContainer.['slider'];
-
-	//Using slider as we wish:
-	slider.max = 200;
-	slider.min = 100;
-	slider.step = 0.1;
-	slider.value = 150;
-
-    //This step can also be performed using sliderContainer.setParameters(max, min, step, value);
-    sliderContainer.setParameters(200, 100, .1, 150);
-
-	slider.oninput = () => {sliderValue.innerHTML = Number(slider.value).toFixed(0)};
-	sliderContainer.setValueLabel('NAN')//Updates the text to the new slider value
-	sliderContainer.setTitleLabel("TITLE");//Updates the text on the left hand side of the slider.
-
-
-
-Additional information:
-	if you want to add another dropdown inside a row of an item you can simply
-	use makeItem(), and the supply your row as an argument.
-
-	if you wish to delete an element or create an element in run time you can simply
-	do so in run time...
-	To delete elements, use the `.remove()` method, which removes an html element from
-	html. For example:
-		let dd = makeDropdown(canvas);
-		let item = makeItem(dd);
-		let row = makeRow(item);
-		let sliderContainer = makeSlider(row);
-		sliderContainer.remove();//removes the sliderContainer with slider and labels
-		row.remove();//Removes the entire row with its contents;
-		item.remove();//REmoves the entire item with its rows;
-		dd.remove(); //Removes the entire dropdown :)
-
-	If you wish to add a random html element into a row of the dropdown
-	you can follow the same steps I will follow below. In this case
-	I will use an html BUTTON as for the example. But this works for any
-	html element OTHER THAN A CANVAS!
-
-		let button = document.createElement("button");
-		button.innerHTML = "HELLO";
-		row = makeRow(item);
-		row.appendChild(button);
-
+Instructions for use are in the file dropdownDocs.md in the same directory
 */
 function makeCheckbox(parent) {
     /*Takes a row object as an argument and returns this object:
@@ -425,6 +253,10 @@ function makeSlider(parent, max = 100, min = 0, step = .1, value = 2, title) {
     obj.getValue = function getValue() {
         return this.slider.value;
     };
+
+    obj.updateValueLabel = ()=>{
+      sliderValue.innerHTML = String(slider.value);
+    };
     return obj;
 };
 
@@ -463,6 +295,7 @@ function buttonContainer(parent) {
     };
 
 };
+
 
 function setPedroStyle(canvas) {
     //Sets the CSS required for the dropdown
