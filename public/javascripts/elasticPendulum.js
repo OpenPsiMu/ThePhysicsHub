@@ -50,9 +50,9 @@ function setup() {
   let dd11 = makeRow(dd1);
   let mSliderContainer = makeSlider(dd11);
   mSlider = mSliderContainer['slider'];
-  mSliderContainer['valueLabel'].innerHTML = mSlider.value;
   mSliderContainer['label'].innerHTML = "Mass";
   [mSlider.min, mSlider.max, mSlider.step, mSlider.value] = [1, 10, 0.1, 1]
+  mSliderContainer['valueLabel'].innerHTML = mSlider.value;
   mSlider.oninput = () => {
     mSliderContainer["valueLabel"].innerHTML = Number(mSlider.value).toFixed(2)
     par.mass = mSlider.value
@@ -63,9 +63,9 @@ function setup() {
   let dd12 = makeRow(dd1);
   let gSliderContainer = makeSlider(dd12);
   gSlider = gSliderContainer['slider'];
-  gSliderContainer['valueLabel'].innerHTML = gSlider.value;
   gSliderContainer['label'].innerHTML = "g (m/s^2)";
   [gSlider.min, gSlider.max, gSlider.step, gSlider.value] = [0, 20, 0.1, 9.8]
+  gSliderContainer['valueLabel'].innerHTML = gSlider.value;
   gSlider.oninput = () => {
     gSliderContainer["valueLabel"].innerHTML = Number(gSlider.value).toFixed(2)
     par.g = gSlider.value / 100
@@ -75,9 +75,9 @@ function setup() {
   let dd13 = makeRow(dd1);
   let l0SliderContainer = makeSlider(dd13);
   l0Slider = l0SliderContainer['slider'];
-  l0SliderContainer['valueLabel'].innerHTML = l0Slider.value;
   l0SliderContainer['label'].innerHTML = "Spring rest length";
   [l0Slider.min, l0Slider.max, l0Slider.step, l0Slider.value] = [0.1, 2.00, 0.01, 1.0]
+  l0SliderContainer['valueLabel'].innerHTML = l0Slider.value;
   l0Slider.oninput = () => {
     l0SliderContainer["valueLabel"].innerHTML = Number(l0Slider.value).toFixed(2)
     par.l0 = l0Slider.value
@@ -87,9 +87,9 @@ function setup() {
   let dd14 = makeRow(dd1);
   let kSliderContainer = makeSlider(dd14);
   kSlider = kSliderContainer['slider'];
-  kSliderContainer['valueLabel'].innerHTML = kSlider.value;
   kSliderContainer['label'].innerHTML = "Spring constant";
   [kSlider.min, kSlider.max, kSlider.step, kSlider.value] = [10, 100, 1, 9.8]
+  kSliderContainer['valueLabel'].innerHTML = kSlider.value;
   kSlider.oninput = () => {
     kSliderContainer["valueLabel"].innerHTML = Number(kSlider.value).toFixed(2)
     par.k = kSlider.value / 100
@@ -112,9 +112,9 @@ function setup() {
   let dd22 = makeRow(dd2);
   let sSliderContainer = makeSlider(dd22);
   sSlider = sSliderContainer['slider'];
-  sSliderContainer['valueLabel'].innerHTML = sSlider.value;
   sSliderContainer['label'].innerHTML = "Scale";
   [sSlider.min, sSlider.max, sSlider.step, sSlider.value] = [1, 300, 1, 100]
+  sSliderContainer['valueLabel'].innerHTML = sSlider.value;
   sSlider.oninput = () => {
     sSliderContainer["valueLabel"].innerHTML = Number(sSlider.value).toFixed(2)
     scale = sSlider.value
@@ -125,9 +125,9 @@ function setup() {
   let dd23 = makeRow(dd2);
   let fSliderContainer = makeSlider(dd23);
   fSlider = fSliderContainer['slider'];
-  fSliderContainer['valueLabel'].innerHTML = fSlider.value;
   fSliderContainer['label'].innerHTML = "Simulation speed";
   [fSlider.min, fSlider.max, fSlider.step, fSlider.value] = [1, 500, 5, 200]
+  fSliderContainer['valueLabel'].innerHTML = fSlider.value;
   fSlider.oninput = () => {
     fSliderContainer["valueLabel"].innerHTML = Number(fSlider.value).toFixed(2)
   }

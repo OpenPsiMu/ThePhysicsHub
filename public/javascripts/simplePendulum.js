@@ -50,22 +50,23 @@ function setup() {
   let dd11 = makeRow(dd1);
   let mSliderContainer = makeSlider(dd11);
   mSlider = mSliderContainer['slider'];
-  mSliderContainer['valueLabel'].innerHTML = mSlider.value;
   mSliderContainer['label'].innerHTML = "Mass";
   [mSlider.min, mSlider.max, mSlider.step, mSlider.value] = [0.1, 10, 0.1, 1]
+  mSliderContainer['valueLabel'].innerHTML = mSlider.value;  
   mSlider.oninput = () => {
     mSliderContainer["valueLabel"].innerHTML = Number(mSlider.value).toFixed(2)
     par.mass = mSlider.value
     par.radius = 30 * par.mass ** 0.25
   }
+  
 
   //Acceleration due to gravity
   let dd12 = makeRow(dd1);
   let gSliderContainer = makeSlider(dd12);
   gSlider = gSliderContainer['slider'];
-  gSliderContainer['valueLabel'].innerHTML = gSlider.value;
   gSliderContainer['label'].innerHTML = "g (m/s^2)";
   [gSlider.min, gSlider.max, gSlider.step, gSlider.value] = [0, 20, 0.1, 9.8]
+  gSliderContainer['valueLabel'].innerHTML = gSlider.value;
   gSlider.oninput = () => {
     gSliderContainer["valueLabel"].innerHTML = Number(gSlider.value).toFixed(2)
     par.g = gSlider.value / 3600
@@ -75,9 +76,9 @@ function setup() {
   let dd13 = makeRow(dd1);
   let bSliderContainer = makeSlider(dd13);
   bSlider = bSliderContainer['slider'];
-  bSliderContainer['valueLabel'].innerHTML = bSlider.value;
   bSliderContainer['label'].innerHTML = "Drag coefficient";
   [bSlider.min, bSlider.max, bSlider.step, bSlider.value] = [0, 0.005, 0.0005, 0]
+  bSliderContainer['valueLabel'].innerHTML = bSlider.value;
   bSlider.oninput = () => {
     bSliderContainer["valueLabel"].innerHTML = Number(bSlider.value).toFixed(2)
     par.b = bSlider.value
@@ -102,9 +103,9 @@ function setup() {
   let dd22 = makeRow(dd2);
   let sSliderContainer = makeSlider(dd22);
   sSlider = sSliderContainer['slider'];
-  sSliderContainer['valueLabel'].innerHTML = sSlider.value;
   sSliderContainer['label'].innerHTML = "Scale";
   [sSlider.min, sSlider.max, sSlider.step, sSlider.value] = [1, 300, 1, 200]
+  sSliderContainer['valueLabel'].innerHTML = sSlider.value;
   sSlider.oninput = () => {
     sSliderContainer["valueLabel"].innerHTML = Number(sSlider.value).toFixed(2)
     scale = sSlider.value
@@ -114,9 +115,9 @@ function setup() {
   let dd23 = makeRow(dd2);
   let fSliderContainer = makeSlider(dd23);
   fSlider = fSliderContainer['slider'];
-  fSliderContainer['valueLabel'].innerHTML = fSlider.value;
   fSliderContainer['label'].innerHTML = "Speed";
   [fSlider.min, fSlider.max, fSlider.step, fSlider.value] = [1, 5000, 5, 1000]
+  fSliderContainer['valueLabel'].innerHTML = fSlider.value;
   fSlider.oninput = () => {
     fSliderContainer["valueLabel"].innerHTML = Number(fSlider.value).toFixed(2)
   }
