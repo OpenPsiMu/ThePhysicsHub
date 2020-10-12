@@ -34,7 +34,7 @@ To simplify the process of adding simulations, we wrote a python script that aut
 
 Instead of setting up the whole site, there exists an easier way, building over a single HTML page and .js, if one wishes to only build a new simulation forking existing ones.
 
-1. For simplicity, you may download the source HTML directly from, for example, view-source:https://physicshub.herokuapp.com/simulations/projectileMotion2D
+1. For simplicity, you may download the source HTML directly from, for example, view-source:https://physicshub.herokuapp.com/simulations/simplePendulum
 
 2. Download most of the javascript and css from this github ThePhysicsHub/public/...
 **Caution: Linking to github directly would not work as it is not a CDN (i.e. protected)
@@ -42,6 +42,10 @@ Instead of setting up the whole site, there exists an easier way, building over 
 3. If the simulation does not show up locally, you may change the css and the js source link from relative to direct. i.e. 
 
 `<script src="file:///X:/[some long path]/public/javascripts/libraries/p5.gui.js"></script>`
+
+4. You may wish to change the links in sim.css if formats do not show up fully.
+
+5. If you have the physics knowledge but not so much in javascript or programming, one can attempt to fork on the simulation simplePendulum.js. It is well documented and it is possible to start simulating something very simple just by imitating the formats.
 
 ### Adding a simulation's theory section
 
