@@ -36,11 +36,10 @@ function makeCheckbox(parent) {
     };
     obj.getLabel = () => label;
     obj.getCheckbox = () => checkBox;
-    return obj;
-
     obj.remove = () => {
-        cbContainer.parentElement.removeChild(cbContainer);
+      cbContainer.parentElement.removeChild(cbContainer);
     };
+    return obj;
 };
 
 function makeRow(parent) {

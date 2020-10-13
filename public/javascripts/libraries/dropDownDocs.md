@@ -116,6 +116,7 @@ Typeless object that acts as a container to the html elements that form the slid
  - `.remove()`->removes slider from the dropdown
  - `.getValue()`->returns current value of the slider
  - `.setParameters(max, min, step, value)` ->Sets the parameters on to the html slider
+ - `.updateValueLabel() ->Updates the label to the right of the slider`
 
 **Example:**			
 ```javascript
@@ -181,9 +182,9 @@ function setup(){
 	let item1 = makeItem(dd);
 	let row1 = makeRow(item1);
 	let sliderContainer = makeSlider(row1);
-	let slider = sliderContainer.['slider'];
+	let slider = sliderContainer['slider'];
 	//OR
-	let slider = sliderContainer.getSlider();
+	slider = sliderContainer.getSlider();
 
 	//Using slider as we wish:
 	slider.max = 200;
@@ -196,7 +197,8 @@ function setup(){
 
 	//We give a function to the slider
 	slider.oninput = () => {
-		sliderValue.innerHTML = Number(slider.value).toFixed(0);
+		/*Some fun stuff*/
+		slider.updateValueLabel();
 	};
 	//Updates the text to the new slider value
 	sliderContainer.setValueLabel('NAN');
@@ -213,22 +215,25 @@ function setup(){
 	//Giving it a fancy name
 	checkBoxContainer.setLabel("Mybox");
 	//Removing it
-	checkBoxContainer.remove();
+	//checkBoxContainer.remove();
 
 
 	//Now we make a row
 	let buttonRow = makeRow(item1);
 
 	//Now we make a buttonContainer
-	const buttonContainer1 = new buttonContainer(row);
+	const buttonContainer1 = new buttonContainer(buttonRow);
 
 	//Now we make a button
-	const button1 = buttonContainer1.makeButton(label, func);
+  const func = ()=>{/*Do stuff*/};
+	const button1 = buttonContainer1.makeButton("label", func);
+  const button2 = buttonContainer1.makeButton("label", func);
 
 	//This is an html button, you can proceed as you would in pure html
 	button1.innerHTML= "my title";
 	button1.onclick = function (){"do something"};
 	button1.style = 'write your own css here';
+};
 ```
 
 

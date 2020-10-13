@@ -736,6 +736,7 @@ for (var sliderContainer of [redSliderContainer,
 //Now, to make the collisions work properly we give it a function that changes the global damping
 dampingSliderContainer.slider.oninput = function(){
   damping = Number(this.value);
+  dampingSliderContainer.updateValueLabel();
 };
 
 //Now the commands functionality
