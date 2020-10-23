@@ -1,0 +1,445 @@
+let W = 1200 //background canvas width
+let H = 500 //background canvas height
+let Wsim = W * 0.69 //sim canvas width
+let Hsim = H //sim canvas height
+let Wplot = 0.25 * W //plotting canvas width
+let Hplot = 0.875 * H //plotting canvas height
+
+let scale = 200; //scaling factor for display on canvas ( 1 meter = x pixels)
+
+let timestep = 0 //number of timesteps progressed
+let numP = 0 //keeping track of number of points on plot
+let plot1, plot2; //energy plot, phase plot
+let plot2Point; //latest point to be added to phase plot
+
+let play = true; //play button, initially PAUSE = false
+let showVelocityVector = false; //show TANGENTIAL velocity
+let showForceVector = false; //show centripedal force
+
+
+let mSlider, forceSlider, velocitySlider, lengthSlider, checkbox1, playbox1, velocityVectorBox1, forceVectorBox1, sSlider, fSlider; //all elements in dropdown
+//massSlider, checkbox, scaleSlider, frequencySlider
+
+let par = {
+  theta: Math.PI-0.01,
+  omega: 0.01, // Angular velocity
+  alpha: 0, // Angular acceleration
+  dt: 0.001, // Initial time step size
+  mass: 1, // Mass in kg
+  length: 1, // Pendulum length
+  hinge: [350, 250], //center location
+  g: 9.8, // g
+  radius: 30 * 0.25, //radius of bob
+  force: 0.0001, //centripetal force
+  velocity: 0.01, //tangential velocity
+  b: 0
+};
+
+
+function setup() {
+
+  let bgCanvas = createCanvas(W, H)
+  bgCanvas.parent("simwrapper") //wrapping the canvas so elements appear relative to canvas and not the webpage.
+
+  // --constructing the dropdown menu--
+
+
+
+  let dd = makeDropdown(bgCanvas);
+
+  dd.parentElement.children[1].innerHTML = "Options";
+  let dd1 = makeItem(dd);
+  dd1.parentElement.children[1].innerHTML = "Parameters";
+
+    ///////for debugging use, maybe used for live
+  let dd15 = makeRow(dd1)
+  dd15.innerHTML = "Mass = " + Number(par.mass).toFixed(2);
+  let dd16 = makeRow(dd1)
+  dd16.innerHTML = "Force = " + Number(par.force).toFixed(5);
+  //let dd17 = makeRow(dd1)          -----------velocity and omega are not to scale, and hence should not be shown, haha
+  //dd17.innerHTML = "Velocity = " + Number(par.velocity).toFixed(3);
+  let dd18 = makeRow(dd1)
+  dd18.innerHTML = "Radius = " + Number(par.length).toFixed(2);
+  //let dd19 = makeRow(dd1)
+  //dd19.innerHTML = "Angular Velocity = " + 100*Number(par.omega).toFixed(3) + " = " + (100*Number(par.omega)/Math.PI).toFixed(3) + "PI";
+  var dd20 = makeRow(dd1)
+  dd20.innerHTML = "Angular Displacement = " + (Number(par.theta)%(2*Math.PI)-Math.PI).toFixed(3) + " = " + ((Number(par.theta)%(2*Math.PI)-Math.PI)/Math.PI).toFixed(3) + "PI";
+  dd20.id = "showAngularDisplacement"
+
+
+  //Mass
+  let dd11 = makeRow(dd1);
+  let mSliderContainer = makeSlider(dd11);
+  mSlider = mSliderContainer['slider'];
+  mSliderContainer['valueLabel'].innerHTML = par.mass;
+  mSliderContainer['valueLabel'].style.width = "30%"; //special feature for circular motion sim, not enough space
+  mSliderContainer['label'].innerHTML = "Mass";
+  [mSlider.min, mSlider.max, mSlider.step, mSlider.value] = [0.1, 10, 0.1, 1]
+  mSlider.oninput = () => {
+    mSliderContainer["valueLabel"].innerHTML = Number(mSlider.value).toFixed(2)
+    par.mass = mSlider.value //apply mass value from slidebar to the variables
+    par.radius = 30 * par.mass * 0.25 //arbitary numbers. not to scale
+    dd15.innerHTML = "Mass = " + Number(par.mass).toFixed(2);
+
+    par.velocity = Math.sqrt(par.force * par.length / par.mass);
+    //dd17.innerHTML = "Velocity = " + Number(par.velocity).toFixed(3);
+    //velocitySliderContainer["valueLabel"].innerHTML = Number(par.velocity).toFixed(4);
+    par.omega = par.velocity / par.length;
+    //console.log(par.omega);
+    //dd19.innerHTML = "Angular Velocity = " + 1000*Number(par.omega).toFixed(3) + " = " + (1000*Number(par.omega)/Math.PI).toFixed(3) + "PI";
+  }
+
+  //Force
+  let dd12 = makeRow(dd1);
+  let forceSliderContainer = makeSlider(dd12);
+  forceSlider = forceSliderContainer['slider'];
+  forceSliderContainer['valueLabel'].innerHTML = par.force;
+  forceSliderContainer['valueLabel'].style.width = "30%"; //special feature for circular motion sim, not enough space
+  forceSliderContainer['label'].innerHTML = "Force";
+  [forceSlider.min, forceSlider.max, forceSlider.step, forceSlider.value] = [0.00001, 0.01, 0.0001, 0.0001]
+  forceSlider.oninput = () => {
+    forceSliderContainer["valueLabel"].innerHTML = Number(forceSlider.value).toFixed(5)
+    par.force = forceSlider.value
+    dd16.innerHTML = "Force = " + Number(par.force).toFixed(5);
+
+    par.velocity = Math.sqrt(par.force * par.length / par.mass);
+    //dd17.innerHTML = "Velocity = " + Number(par.velocity).toFixed(3);
+    //velocitySliderContainer["valueLabel"].innerHTML = Number(par.velocity).toFixed(4);
+    par.omega = par.velocity / par.length;
+    //console.log(par.omega);
+    //dd19.innerHTML = "Angular Velocity = " + 1000*Number(par.omega).toFixed(3) + " = " + (1000*Number(par.omega)/Math.PI).toFixed(3) + "PI";
+  }
+
+  //tangential velocity
+  //let dd13 = makeRow(dd1);
+  //let velocitySliderContainer = makeSlider(dd13);
+  //velocitySlider = velocitySliderContainer['slider'];
+  //velocitySliderContainer['valueLabel'].innerHTML = par.velocity;
+  //velocitySliderContainer['label'].innerHTML = "Velocity";
+  //[velocitySlider.min, velocitySlider.max, velocitySlider.step, velocitySlider.value] = [0.1, 10, 0.1, 1]
+  //velocitySlider.oninput = () => {
+//    velocitySliderContainer["valueLabel"].innerHTML = Number(velocitySlider.value).toFixed(2)
+    //par.velocity = velocitySlider.value
+    //dd17.innerHTML = "Velocity = " + Number(par.velocity).toFixed(2);
+  //}
+
+  //_length_ of the string, radius of the circle
+  let dd14 = makeRow(dd1);
+  let lengthSliderContainer = makeSlider(dd14);
+  lengthSlider = lengthSliderContainer['slider'];
+  lengthSliderContainer['valueLabel'].innerHTML = par.length;
+  lengthSliderContainer['valueLabel'].style.width = "30%";
+  lengthSliderContainer['label'].innerHTML = "Radius";
+  [lengthSlider.min, lengthSlider.max, lengthSlider.step, lengthSlider.value] = [0.1, 10, 0.1, 1]
+  lengthSlider.oninput = () => {
+    lengthSliderContainer["valueLabel"].innerHTML = Number(lengthSlider.value).toFixed(2)
+    par.length = lengthSlider.value
+    dd18.innerHTML = "Radius = " + Number(par.length).toFixed(2);
+
+    par.velocity = Math.sqrt(par.force * par.length / par.mass);
+    //dd17.innerHTML = "Velocity = " + Number(par.velocity).toFixed(3);
+    //velocitySliderContainer["valueLabel"].innerHTML = Number(par.velocity).toFixed(4);
+    par.omega = par.velocity / par.length;
+    //console.log(par.omega);
+    //dd19.innerHTML = "Angular Velocity = " + 1000*Number(par.omega).toFixed(3) + " = " + (1000*Number(par.omega)/Math.PI).toFixed(3) + "PI";
+  }
+
+
+  //toggle option for showing plots
+  let dd2 = makeItem(dd);
+  dd2.parentElement.children[1].innerHTML = "UI";
+
+  //play simluation trigger
+  let dd24 = makeRow(dd2);
+  let playboxContainer = makeCheckbox(dd24);
+  playbox1 = playboxContainer['checkbox'];
+  playboxContainer['label'].innerHTML = "Play Simulation";
+  playbox1.checked = true //simulation playing on
+  playbox1.onclick = () => {
+    if (play) {play = false}
+    else {play = true}
+  }
+
+  //show velocity vector
+  let dd25 = makeRow(dd2);
+  let velocityVectorContainer = makeCheckbox(dd25);
+  velocityVectorBox1 = velocityVectorContainer['checkbox'];
+  velocityVectorContainer['label'].innerHTML = "Show Velocity Vector";
+  velocityVectorBox1.checked = false //velocity vector showing false
+  velocityVectorBox1.onclick = () => {
+    if (showVelocityVector) {showVelocityVector = false}
+    else {showVelocityVector = true}
+  }
+
+  //show force vector
+  let dd26 = makeRow(dd2);
+  let forceVectorContainer = makeCheckbox(dd26);
+  forceVectorBox1 = forceVectorContainer['checkbox'];
+  forceVectorContainer['label'].innerHTML = "Show Force Vector";
+  forceVectorBox1.checked = false //force vector showing false
+  forceVectorBox1.onclick = () => {
+    if (showForceVector) {showForceVector = false}
+    else {showForceVector = true}
+  }
+  
+
+  //let dd21 = makeRow(dd2);
+  //let checkboxContainer = makeCheckbox(dd21);
+  //checkbox1 = checkboxContainer['checkbox'];
+  //checkboxContainer['label'].innerHTML = "Show plots";
+  //checkbox1.checked = true //plots displayed on startup
+  //checkbox1.onclick = () => {
+    //plot1.getMainLayer().points = [] //wipe all data points
+    //plot2.getMainLayer().points = []
+    //numP = 0; //reset number of points
+    //timestep = 0; //reset timestep
+  //}
+
+  //Scale of display
+  let dd22 = makeRow(dd2);
+  let sSliderContainer = makeSlider(dd22);
+  sSlider = sSliderContainer['slider'];
+  sSliderContainer['valueLabel'].innerHTML = scale;
+  sSliderContainer['label'].innerHTML = "Scale";
+  [sSlider.min, sSlider.max, sSlider.step, sSlider.value] = [1, 300, 1, 200]
+  sSlider.oninput = () => {
+    sSliderContainer["valueLabel"].innerHTML = Number(sSlider.value).toFixed(2)
+    scale = sSlider.value
+  }
+
+  //speed of simulation
+  let dd23 = makeRow(dd2);
+  let fSliderContainer = makeSlider(dd23);
+  fSlider = fSliderContainer['slider'];
+  fSliderContainer['valueLabel'].innerHTML = 1000;
+  fSliderContainer['label'].innerHTML = "Speed";
+  [fSlider.min, fSlider.max, fSlider.step, fSlider.value] = [1, 5000, 5, 1000]
+  fSlider.oninput = () => {
+    fSliderContainer["valueLabel"].innerHTML = Number(fSlider.value).toFixed(2)
+  }
+
+
+  setPedroStyle(bgCanvas) //applies styling to dropdown menu.
+  document.getElementById("SomeCreativeID").style.minWidth="20em";
+  console.log(document.getElementsByClassName("sliderTitle"));
+  //for (let element in document.getElementsByClassName("sliderTitle")){
+//    console.log(element.style.width)
+//  }
+
+  //special adjust to circular motion menu b/c not enough stupid space.
+
+  //--end construction of dropdown menu--
+
+  simCanvas = createGraphics(Wsim, Hsim)
+
+  //plotCanvas = createGraphics(Wplot, Hplot) //setting up the plotting canvas
+  //plotCanvas.background(20)
+  //plotCanvas.stroke(255)
+  //plotCanvas.strokeWeight(3)
+  //plotCanvas.noFill()
+  //plotCanvas.rect(0, 0, Wplot, Hplot)
+
+  //plot1 = new GPlot(plotCanvas); //setting up plotting window (grafica.js)
+  //plot1.setLineColor(255); //Kinetic energy
+  //plot1.setBoxBgColor(20);
+  //plot1.title.fontColor = 255;
+  //plot1.title.fontSize = 15
+  //plot1.title.fontStyle = NORMAL
+  //plot1.title.fontName = "sans-serif"
+  //plot1.title.offset = 2
+
+  //plot1.setPos(0, 0);
+  //plot1.setMar(10, 10, 22, 10);
+  //plot1.setOuterDim(Wplot, Hplot / 2);
+  //plot1.setTitleText("KE vs. time")
+
+  //plot2 = new GPlot(plotCanvas); //setting up plotting window (grafica.js)
+  //plot2.setLineColor(255); //phase space
+  //plot2.setBoxBgColor(20);
+  //plot2.title.fontColor = 255;
+  //plot2.title.fontSize = 15
+  //plot2.title.fontStyle = NORMAL
+  //plot2.title.fontName = "sans-serif"
+  //plot2.title.offset = 2
+  //plot2.setPointColor(255);
+  //plot2.setPointSize(7)
+
+  //plot2.setPos(0, Hplot / 2);
+  //plot2.setMar(10, 10, 22, 10);
+  //plot2.setOuterDim(Wplot, Hplot / 2);
+  //plot2.setTitleText("Phase space (w/Q)")
+
+  //drawing static grid over simCanvas
+  gridCanvas = createGraphics(Wsim, Hsim)
+  let nDiv = 8 // #gridlines
+
+  gridCanvas.clear()
+  gridCanvas.stroke(150)
+  gridCanvas.strokeWeight(1)
+  for (let i = 0; i < nDiv; i++) {
+    gridCanvas.line(10 + i * Wsim / nDiv, 10, 10 + i * Wsim / nDiv, Hsim - 10)
+    gridCanvas.line(10, 10 + i * Hsim / nDiv, Wsim - 10, 10 + i * Hsim / nDiv)
+  }
+}
+
+
+function draw() {
+  background(20)
+  
+  //drawing outer rectangle
+  simCanvas.clear()
+  simCanvas.stroke(255)
+  simCanvas.strokeWeight(2)
+  simCanvas.noFill()
+  simCanvas.rect(10, 10, Wsim - 20, Hsim - 20)
+
+  simCanvas.stroke(255)
+  simCanvas.fill(20)
+  simCanvas.strokeWeight(2)
+  
+
+  simCanvas.push()
+  simCanvas.translate(...par.hinge)
+
+  //drawing vertical normal
+  simCanvas.drawingContext.setLineDash([5]); // set the "dashed line" mode
+  simCanvas.line(0, -5, 0, -0.5 * scale * par.length); // draw the line
+  simCanvas.drawingContext.setLineDash([]); // reset into "solid line" mode
+
+  //drawing pendulum
+  simCanvas.line(0, 0, scale * par.length * Math.sin(par.theta), scale * par.length * Math.cos(par.theta))
+  //line(x-coor first point, y-coor, x-coor end point, y-coor)
+  simCanvas.ellipse(scale * par.length * Math.sin(par.theta), scale * par.length * Math.cos(par.theta), par.radius, par.radius)
+  //ellipse (x, y, w, h, detail)
+  simCanvas.stroke(255,100,150);
+  if(scale*par.length>12){simCanvas.arc(0,0,20,20,-3*Math.PI/2-par.theta-0.01,-Math.PI/2)}; //angular displacement
+  //scale too small, cannot show. the rough border is 12
+  //arc(x, y, w, h, start, stop, mode, detail)
+
+  let xArrow = scale * par.length * Math.sin(par.theta);
+  let yArrow = scale * par.length * Math.cos(par.theta);
+  
+  let xArrowEnd = scale * Math.sqrt(2) * par.length * Math.sin(par.theta + Math.PI/4);
+  let yArrowEnd = scale * Math.sqrt(2) * par.length * Math.cos(par.theta + Math.PI/4);
+  //pyth theorem, angle at 45deg
+
+  if (showForceVector){
+    //draw centripetal force arrow
+    simCanvas.stroke("red");
+    simCanvas.strokeWeight(5);
+    simCanvas.fill("red");
+    simCanvas.line(xArrow*0.95, yArrow*0.95, xArrow*0.15, yArrow*0.15)
+
+
+
+    let vec = createVector(xArrow*0.16, yArrow*0.16);
+    simCanvas.rotate(vec.heading());
+    
+    let arrowSize = 7;
+    simCanvas.translate(vec.mag(), 0);
+    simCanvas.triangle(0, -arrowSize /2, 0, arrowSize/2, -arrowSize, 0);
+
+
+    //reload transform matrix
+    //transform again
+    //do not rotate text
+    //input text
+    simCanvas.resetMatrix();
+    simCanvas.translate(...par.hinge);
+    simCanvas.translate(xArrow*0.25, yArrow*0.25);
+    //i do not understand why you neex textsize fill and stokreweight.
+    //it only works with all those
+    simCanvas.textSize(20);
+    simCanvas.fill('white');
+    simCanvas.strokeWeight(0);
+    //(5,5) is a aribitary number it looks like that with it it does not break
+    simCanvas.text("f", 5, 5);
+
+  }
+
+  simCanvas.resetMatrix();
+  simCanvas.translate(...par.hinge)
+
+  if (showVelocityVector){
+    simCanvas.stroke("green");
+    simCanvas.strokeWeight(5);
+    simCanvas.fill("green");
+    //perpendicular of force
+    simCanvas.line(xArrow, yArrow, xArrowEnd, yArrowEnd);
+    simCanvas.translate(xArrowEnd, yArrowEnd);
+    simCanvas.rotate(-par.theta+PI);
+    let vec = createVector(0, 0);
+    simCanvas.rotate(vec.heading());
+    let arrowSize = 7;
+    simCanvas.translate(vec.mag(), 0);
+    simCanvas.noFill();
+    simCanvas.triangle(0, -arrowSize /2, 0, arrowSize/2, -arrowSize, 0);
+
+
+    //reload transform matrix
+    //transform again
+    //do not rotate text
+    //input text
+    simCanvas.resetMatrix();
+    simCanvas.translate(...par.hinge);
+    simCanvas.translate(xArrowEnd*0.9, yArrowEnd*0.9);
+    //i do not understand why you neex textsize fill and stokreweight.
+    //it only works with all those
+    simCanvas.textSize(20);
+    simCanvas.fill('white');
+    simCanvas.strokeWeight(0);
+    //(5,5) is a aribitary number it looks like that with it it does not break
+    simCanvas.text("v", 5, 5);
+
+  }
+
+
+  simCanvas.pop()
+  //i do not dare touching this thing. i do not know what array it is popping.
+
+
+  //grid lines
+  image(gridCanvas, 0, 0)
+  //sim canvas
+  image(simCanvas, 0, 0);
+
+
+  //plotting Updates
+  //plot1.addPoint(new GPoint(timestep, 0.5 * par.mass * par.omega ** 2 * par.length ** 2));
+
+  //plot1.beginDraw();
+  //plot1.drawBox();
+  //plot1.drawTitle();
+  //plot1.drawLines();
+  //plot1.endDraw();
+
+  //plot2Point = new GPoint(par.theta, par.omega)
+  //plot2.addPoint(plot2Point);
+
+  //plot2.beginDraw();
+  //plot2.drawBox();
+  //plot2.drawTitle();
+  //plot2.drawPoint(plot2Point);
+  //plot2.drawLines();
+  //plot2.endDraw();
+
+  numP++; //counting number of points on plot. (can also be accessed by plot1.getMainLayer().points.length)
+
+  //if (numP > 200) {
+  //    plot1.removePoint(0) //max 200 points on the graph
+  //}
+
+  //plotting window toggle
+  //if (checkbox1.checked) {
+  //    image(plotCanvas, Wsim - Wplot - 30, 30)
+  //}
+
+  //Euler scheme to solve differential equation, aka, the driving physics of the simulation.
+  for (let i = 0; i < fSlider.value; i++) {
+    if (play){ //run button for simluation
+      par.theta += par.omega * par.dt;
+      timestep++; //tracking number of timesteps
+      document.getElementById("showAngularDisplacement").innerHTML = "Angular Displacement = " + (Number(par.theta)%(2*Math.PI)-Math.PI).toFixed(3) + " = " + ((Number(par.theta)%(2*Math.PI)-Math.PI)/Math.PI).toFixed(3) + "PI";
+    }
+  }
+}
