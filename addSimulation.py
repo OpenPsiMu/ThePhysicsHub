@@ -36,14 +36,14 @@ def editAppjs(routerName, urlName):
     # Go through each element or line in our lines list, run two quick if statements and write something if either of them are valid. Once out of the if statements write the line from the lines list into app.js.
     for line in lines:
         if "./routes" in line and lines[lines.index(line) + 1] == '\n':
-            newAppjs.write(f"const {routerName} = require('.routes/{urlName}');\n")
+            newAppjs.write(f"const {routerName} = require('./routes/{urlName}');\n")
         if "app.use(\'/simulations" in line and lines[lines.index(line)+1] == '\n':
-            newAppjs.write(f"app.use('simulations/{urlName}', {routerName});\n")
+            newAppjs.write(f"app.use('/simulations/{urlName}', {routerName});\n")
         newAppjs.write(line)
 
 # Ask the user for some input.
-urlInput = input("urlName: ")
-routerInput = input("routerName: ")
+urlInput = input("urlName: \n")
+routerInput = input("routerName: \n")
 check = input(f"\nStart adding simulations? Type: run \n Press another key to stop:\nurlName:{urlInput}\nrouterName:{routerInput}\n")
 
 # Call editAppjs and creteRouter if the user inputs "run" in our check input, otherwise call exit.
