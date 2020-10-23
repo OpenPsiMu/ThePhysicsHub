@@ -74,7 +74,16 @@ const simulations = [{
   "jsfile": "waveThroughString",
   "image": "waveThroughString.png",
   "labels": ["mechanics",  "WIP"],
-}];
+}
+,{
+  "name": "Horizontal Circular Motion",
+  "description": "This is a simulation for parameters and agents in the simpliest form of circular motion.",
+  "urlName": "horizontalCircularMotion",
+  "jsfile": "horizontalCircularMotion",
+  "image": "horizontalCircularMotion.png",
+  "labels": ["mechanics",  "circular", "motion"],
+}
+];
 
 
 function getFile(filename) {
