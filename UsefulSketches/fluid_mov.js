@@ -35,8 +35,8 @@ function draw() {
 
   Xk[num - 1] += random(-range, range);
   Yk[num - 1] += random(-range, range);
-  Xk[num - 1] = constrain(ax[num - 1], 0, width);
-  Yk[num - 1] = constrain(ay[num - 1], 0, height);
+  Xk[num - 1] = constrain(Xk[num - 1], 0, width);
+  Yk[num - 1] = constrain(Yk[num - 1], 0, height);
 
   
   for ( let j = 1; j < num; j++ ) {
