@@ -1,6 +1,6 @@
 # Short Descriptive Title
 
-Please include the the issue here. If it is a bug, please write the steps to reproduce the bug. 
+Please include the issue here. If it is a bug, please write the steps to reproduce the bug. 
 
 ## Type of issue
 
