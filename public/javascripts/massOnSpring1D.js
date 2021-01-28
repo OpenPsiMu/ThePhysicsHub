@@ -7,9 +7,9 @@ if (document.getElementsByTagName("canvas").length>0){
   const canvas = document.createElement("canvas");
   document.getElementById("simwrapper").appendChild(canvas);
   canvas.id = "canvas";
-  canvas.style = "height: 300px;width: 500px;border: 1px solid black;background: black;display: block;";
-  canvas.width = 500;
-  canvas.height = 300;
+  canvas.style = "height: 400px;width: 650px;border: 1px solid black;background: black;display: block;";
+  canvas.width = 650;
+  canvas.height = 400;
 };
 
 const canvas = document.getElementById("canvas");
@@ -674,8 +674,8 @@ const explanationBox = document.createElement("div");
 canvas.parentElement.appendChild(explanationBox);
 explanationBox.parentElement = canvas.parentElement;
 explanationBox.style = `
-height: 300px;
-width: 500px;
+height: 400px;
+width: 650px;
 background-color: black;
 border: 2px solid white;
 position: absolute;
@@ -722,7 +722,7 @@ energyPlot.height = canvas.height;
 energyPlot.width = canvas.width;
 energyPlot.parentElement = canvas.parentElement;
 canvas.parentElement.appendChild(energyPlot);
-energyPlot.style = "height: 300px; width: 500px; border: 2px solid white; background: black; display: inline-block; transition-duration: .5s; position: absolute; z-index:-1; margin: 0;";
+energyPlot.style = "height: 400px; width: 650px; border: 2px solid white; background: black; display: inline-block; transition-duration: .5s; position: absolute; z-index:-1; margin: 0;";
 energyPlot.transformationParams = {
   y0: 0,
   y1: 100,
