@@ -16,6 +16,7 @@ const nBodyRouter = require('./routes/nBody');
 const coupledPendulum = require('./routes/coupledPendulum');
 const projectileMotion2D = require('./routes/projectileMotion2D');
 const waveThroughString = require('./routes/waveThroughString');
+const massOnSpring1DRouter = require('./routes/massOnSpring1D');
 const doublePendulum2D = require('./routes/doublePendulum2D');
 
 const app = express();
@@ -44,6 +45,7 @@ app.use('/simulations/nBody', nBodyRouter);
 app.use('/simulations/coupledPendulum', coupledPendulum);
 app.use('/simulations/projectileMotion2D', projectileMotion2D);
 app.use('/simulations/waveThroughString', waveThroughString);
+app.use('/simulations/massOnSpring1D', massOnSpring1DRouter);
 app.use('/simulations/doublePendulum2D', doublePendulum2D);
 
 // Stylesheets

@@ -74,6 +74,13 @@ const simulations = [{
   "jsfile": "waveThroughString",
   "image": "waveThroughString.png",
   "labels": ["mechanics",  "WIP"],
+},{
+  "name": "Mass on a spring in 1 dimension",
+  "description": "This simulation explores Hook's law of elasticity in one dimension.",
+  "urlName": "massOnSpring1D",
+  "jsfile": "massOnSpring1D",
+  "image": "massOnSpring1D.PNG",
+  "labels": ["mechanics",  "WIP"],
 }];
 
 
