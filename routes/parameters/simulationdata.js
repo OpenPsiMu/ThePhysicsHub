@@ -80,6 +80,7 @@ const simulations = [{
   "urlName": "massOnSpring1D",
   "jsfile": "massOnSpring1D",
   "image": "massOnSpring1D.PNG",
+  "explanation": getFile("explanationMassOnSpring1D.ejs"),
   "labels": ["mechanics",  "WIP"],
 }];
 

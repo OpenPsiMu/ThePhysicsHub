@@ -1,0 +1,270 @@
+<DOCTYPE! html>
+<head>
+  <style>
+    :root{
+        --scaling_factor1: 75;
+    }
+
+    svg{
+      margin: 1em;
+      width: 25rem;
+      height: 15rem;
+      background-color: #151515;
+      border-radius: .3rem;
+    }
+    .unit{
+      stroke: white;
+      stroke-width: .0005rem;
+      transition-duration: .5s;
+    }
+    .square{
+      fill: cornflowerblue;
+    }
+    .arrow{
+      fill: white;
+    }
+
+    #first.square{
+      transform: translate(50%, 50%) scale(var(--scaling_factor1), var(--scaling_factor1)) translate(0.5px, 0);
+      transition-delay: 0.5s;
+    }
+
+    #first.spring{
+      transform: translate(12.5%, 50%) scale(calc(var(--scaling_factor1)*2), var(--scaling_factor1)) translate(0.5px, 0);
+      transition-delay: 0.5s;
+    }
+
+    #first.wall{
+      transform: translate(12.5%, 50%) scale(calc(var(--scaling_factor1)*.2), calc(var(--scaling_factor1)*.3)) translate(-0.5px, 0);
+      stroke-width: 0.003rem;
+    }
+    .latex{
+      fill: white;
+    }
+    #first.arrow, #first.F{
+      transform: translate(42.5%, 50%) scale(calc(1.2*var(--scaling_factor1)), calc(-.9*var(--scaling_factor1))) translate(0.5px, 0);
+      opacity: 0;
+      transition-delay: 0.5s;
+      transition-duration: 0.5s;
+    }
+    #first.F{
+      transform: translate(52.5%, 40%) scale(calc(0.3*var(--scaling_factor1)), calc(-.3*var(--scaling_factor1))) translate(0.5px, 0);
+      stroke: black;
+      transition-delay: 0.5s;
+      transition-duration: 0.5s;
+    }
+
+    svg#first:hover>#first.spring{
+      transform: translate(12.5%, 50%) scale(calc(var(--scaling_factor1)*1.07), var(--scaling_factor1)) translate(0.5px, 0);
+      transition-delay: 0s;
+    }
+    svg#first:hover #first.square{
+      transform: translate(32.5%, 50%) scale(var(--scaling_factor1), var(--scaling_factor1)) translate(0.5px, 0);
+      transition-delay: 0s;
+    }
+    svg#first:hover #first.arrow, svg#first:hover #first.F{
+      opacity: 1;
+    }
+
+    #vec.arrow{
+      transform: translate(54.5%, 32%) scale(calc(0.2*var(--scaling_factor1)), calc(-.2*var(--scaling_factor1))) translate(0.5px, 0);
+      opacity: 0;
+      transition-delay: 0.5s;
+      transition-duration: 0.5s;
+    }
+    svg:hover>#vec.arrow{
+      opacity: 1;
+    }
+
+    #second.axis{
+      transform: translate(12.5%, 80%) scale(calc(var(--scaling_factor1)*4), calc(var(--scaling_factor1)*4)) translate(0.5px, 0);
+      fill: white;
+    }
+
+    #second.l{
+      transform: translate(32.5%, 90%) scale(calc(var(--scaling_factor1)*.3), calc(-1*var(--scaling_factor1)*.3));
+      opacity: 1;
+    }
+
+    #second.x{
+      transform: translate(92.5%, 90%) scale(calc(var(--scaling_factor1)*.3), calc(-1*var(--scaling_factor1)*.3));
+    }
+
+    #second.l_0{
+      transform: translate(50%, 90%) scale(calc(var(--scaling_factor1)*.3), calc(-1*var(--scaling_factor1)*.3));
+      opacity:1;
+    }
+    #expression.fancy_bracket{
+      transform: translate(32.5%, 25%) scale(calc(var(--scaling_factor1)),calc(var(--scaling_factor1))) translate(.5px, 0px) rotateZ(90deg);
+    }
+
+    #expression.k{
+      transform: translate(32.5%, 15%) scale(calc(var(--scaling_factor1)*0.2),calc(-.2*var(--scaling_factor1))) translate(.5px, 0px);
+    }
+    #expression.l{
+      transform: translate(37.5%, 15%) scale(calc(var(--scaling_factor1)*0.2),calc(-.2*var(--scaling_factor1))) translate(.5px, 0px);
+    }
+    #expression.l_0{
+      transform: translate(44.5%, 15%) scale(calc(var(--scaling_factor1)*0.2),calc(-.2*var(--scaling_factor1))) translate(.5px, 0px);
+    }
+    #expression.min{
+      transform: translate(41.0%, 15%) scale(calc(var(--scaling_factor1)*0.2),calc(-.2*var(--scaling_factor1))) translate(.5px, 0px);
+    }
+    #expression.min2{
+      transform: translate(29.0%, 15%) scale(calc(var(--scaling_factor1)*0.2),calc(-.2*var(--scaling_factor1))) translate(.5px, 0px);
+    }
+    #expression.eq{
+      transform: translate(23.5%, 15%) scale(calc(var(--scaling_factor1)*0.2),calc(-.2*var(--scaling_factor1))) translate(.5px, 0px);
+    }
+    #expression.brac_left{
+      transform: translate(35.5%, 15%) scale(calc(var(--scaling_factor1)*0.2),calc(-.2*var(--scaling_factor1))) translate(.5px, 0px);
+    }
+    #expression.brac_right{
+      transform: translate(50.5%, 15%) scale(calc(var(--scaling_factor1)*-0.2),calc(-.2*var(--scaling_factor1))) translate(.5px, 0px);
+    }
+    #expression.F{
+      transform: translate(18.5%, 15%) scale(calc(var(--scaling_factor1)*0.2),calc(-.2*var(--scaling_factor1))) translate(.5px, 0px);
+    }
+    #expression{
+      opacity: 0;
+      transition-delay: 0.5s;
+      transition-duration: 0.5s;
+    }
+    svg:hover>#expression{
+      opacity: 1;
+    }
+
+
+    #third.min3{
+      transform: translate(12.5%, 85%) scale(calc(var(--scaling_factor1)*4),calc(var(--scaling_factor1)*0.5)) translate(.5px, 0px);
+    }
+
+    #third.min4{
+      transform: translate(12.5%, 85%) scale(calc(var(--scaling_factor1)*.5),calc(var(--scaling_factor1)*2)) rotate(-90deg) translate(.5px, 0px);
+    }
+
+    #third.square{
+      transform: translate(50%, 30%) scale(var(--scaling_factor1), var(--scaling_factor1)) translate(0.5px, 0);
+      transition-delay: 0.5s;
+    }
+
+    #third.spring{
+      transform: translate(12.5%, 30%) scale(calc(var(--scaling_factor1)*2), var(--scaling_factor1)) translate(0.5px, 0);
+      transition-delay: 0.5s;
+      fill: none;
+    }
+
+
+    #third.spring2{
+      transform: translate(60%, 85%) scale(calc(var(--scaling_factor1)*2), calc(1.26*var(--scaling_factor1))) rotateZ(-90deg) translate(0.5px, 0);
+      transition-delay: 0.5s;
+      fill: none;
+    }
+
+    svg#first:hover>#third.spring{
+      transform: translate(12.5%, 50%) scale(calc(var(--scaling_factor1)*1.07), var(--scaling_factor1)) translate(0.5px, 0);
+      transition-delay: 0s;
+    }
+
+    svg#first:hover>#third.spring2{
+      transform: translate(42.5%, 85%) scale(calc(var(--scaling_factor1)*2), calc(.6*var(--scaling_factor1))) rotateZ(-90deg) translate(0.5px, 0);
+      transition-delay: 0s;
+    }
+
+    svg#first:hover #third.square{
+      transform: translate(32.5%, 50%) scale(var(--scaling_factor1), var(--scaling_factor1)) translate(0.5px, 0);
+      transition-delay: 0s;
+    }
+
+    .wheel, .wheel2{
+      fill: black;
+      stroke: white;
+      stroke-width: 0.3;
+      transition-duration: .5s;
+      transition-delay: .5s;
+    }
+    .wheel{
+      transform:translate(12.5%, 30%) scale(calc(.1*var(--scaling_factor1)), calc(.1*var(--scaling_factor1)));
+    }
+    .wheel2{
+      transform:translate(60%, 85%) scale(calc(.1*var(--scaling_factor1)), calc(.1*var(--scaling_factor1)));
+    }
+
+    svg#first:hover .wheel{
+      transform:translate(12.5%, 50%) scale(calc(.1*var(--scaling_factor1)), calc(.1*var(--scaling_factor1)));
+      transition-delay: 0s;
+    }
+
+    svg#first:hover .wheel2{
+      transform:translate(42.5%, 85%) scale(calc(.1*var(--scaling_factor1)), calc(.1*var(--scaling_factor1)));
+      transition-delay: 0s;
+    }
+    .sim_explanation{
+      text-align: justify;
+    }
+
+  </style>
+</head>
+<body>
+  <div class = "explanation">
+  <h1 class = "sim_explanation" style="font-size:35px;">Explanation</h1>
+  <p class="sim_explanation">This simulation demonstrates Hooke's law acts in 1 dimension.</p>
+  <p class="sim_explanation">Hooke's law is an empirical law first discovered by British Natural Philosopher (scientist) Robert Hooke. It states that the force that a spring applies is directly proportional to the negative of the displacement from the equilibrium length.</p>
+  <p class="sim_explanation">But before showing looking at the animation below, which demonstrates this effect. Try to relate what you have just read to personal experience. When you are not pulling or pushing on a spring, it has a fixed length and does not apply any force on your finger. If you push on it, it will become shorter than before, therefore the change in length will be negative. Yet, since the force is proportional to the negative of the change in length, it will push your finger in the opposite direction. The same logic works for when you pull on the spring. The force the spring will apply on your finger will be such that it tries to counter the deformation due to the force you are applying on the spring.</p>
+  <p class="sim_explanation">Place the mouse on top of the image below to see the animation.</p>
+  <div style = "display: flex; justify-content: center;">
+    <svg id="first">
+      <path class="unit spring" id="first" d="M -0.5 0 L -0.4 0 L -0.3 -0.2 L -0.2 0.2 L -0.1 -0.2 L 0 0.2 L 0.1 -0.2 L 0.2 0.2 L 0.3 -0.2 L 0.4 0 L 0.5 0"></path>
+      <path class="unit square" id="first" d="M -0.5 0.5 L -0.5 -0.5 L 0.5 -0.5 L 0.5 0.5 Z"></path>
+      <path class="unit latex F" id="first" d="M -0.491 -0.499 Q -0.515 -0.499 -0.515 -0.484 Q -0.515 -0.482 -0.511 -0.465 Q -0.505 -0.442 -0.5 -0.439 T -0.467 -0.435 Q -0.429 -0.435 -0.382 -0.431 Q -0.363 -0.427 -0.356 -0.414 Q -0.353 -0.407 -0.255 -0.017 T -0.157 0.378 Q -0.157 0.388 -0.162 0.388 Q -0.174 0.392 -0.237 0.395 H -0.281 Q -0.289 0.403 -0.289 0.406 T -0.286 0.43 Q -0.281 0.454 -0.272 0.46 H 0.488 Q 0.498 0.454 0.498 0.444 Q 0.498 0.437 0.48 0.286 T 0.46 0.131 Q 0.457 0.121 0.432 0.121 H 0.415 Q 0.405 0.128 0.405 0.139 Q 0.405 0.141 0.409 0.173 T 0.414 0.248 Q 0.414 0.29 0.404 0.317 T 0.377 0.361 T 0.325 0.384 T 0.253 0.393 T 0.151 0.395 H 0.119 Q 0.003 0.393 -0.004 0.391 Q -0.011 0.388 -0.014 0.379 Q -0.015 0.378 -0.062 0.194 L -0.107 0.012 H -0.03 Q -0.025 0.012 0.003 0.012 T 0.042 0.014 T 0.073 0.018 T 0.107 0.028 T 0.131 0.045 Q 0.15 0.062 0.162 0.091 T 0.181 0.145 T 0.188 0.17 Q 0.192 0.177 0.215 0.177 H 0.232 Q 0.241 0.17 0.241 0.163 Q 0.241 0.159 0.198 -0.022 T 0.15 -0.208 Q 0.147 -0.218 0.121 -0.218 H 0.105 Q 0.095 -0.209 0.095 -0.201 Q 0.095 -0.197 0.102 -0.17 T 0.109 -0.113 Q 0.109 -0.072 0.081 -0.062 T -0.045 -0.053 H -0.123 L -0.168 -0.232 Q -0.213 -0.407 -0.213 -0.415 Q -0.213 -0.435 -0.087 -0.435 H -0.052 Q -0.044 -0.444 -0.044 -0.445 T -0.046 -0.473 Q -0.052 -0.492 -0.061 -0.5 H -0.085 Q -0.142 -0.497 -0.298 -0.497 Q -0.389 -0.497 -0.437 -0.497 T -0.491 -0.499 Z"></path>
+      <path class="unit arrow" id="first" d="M -0.488 -0.014 T -0.488 0 T -0.473 0.022 H 0.368 Q 0.241 0.118 0.211 0.267 Q 0.211 0.268 0.211 0.271 T 0.21 0.274 Q 0.21 0.287 0.229 0.287 H 0.232 Q 0.242 0.287 0.245 0.286 T 0.252 0.282 T 0.255 0.272 T 0.259 0.254 T 0.267 0.227 Q 0.292 0.153 0.348 0.095 T 0.479 0.012 Q 0.488 0.009 0.488 0 Q 0.488 -0.007 0.483 -0.01 T 0.457 -0.021 T 0.415 -0.042 Q 0.37 -0.07 0.337 -0.108 T 0.287 -0.181 T 0.264 -0.237 T 0.255 -0.271 Q 0.253 -0.282 0.25 -0.284 T 0.232 -0.287 Q 0.21 -0.287 0.21 -0.275 Q 0.21 -0.267 0.216 -0.247 Q 0.251 -0.109 0.368 -0.022 H -0.473 Q -0.488 -0.014 -0.488 0 Z"></path>
+      <path class="unit wall" id="first" d="M 0.5 -2 L 0.5 2 M -0.5 1.5 L 0.5 2 M -0.5 1 L 0.5 1.5 M -0.5 0.5 L 0.5 1 M -0.5 0 L 0.5 0.5 M -0.5 -0.5 L 0.5 0 M -0.5 -1 L 0.5 -0.5 M -0.5 -1.5 L 0.5 -1 M -0.5 -2 L 0.5 -1.5 M -0.5 -2.5 L 0.5 -2"></path>
+    </svg>
+  </div>
+  <p class="sim_explanation">In that animation, a spring is initially in it's equilibrium position. Then a mass is attached to its end. Furthermore, irrespective of the way you push the mass, the spring will push back the opposite direction.</p>
+  <p class="sim_explanation">Now that you understand the physical event of the force of the spring being the result of it trying to remain in it's equilibrium position, you can start thinking about measurements. And after performing an experiement, your conclusion will be what has been described in the first paragraph. The magnetude of the force of the spring will be proportional to the displacement from the equilibrium position. As such we are now able to explain this in terms of mathematics:</p>
+  <p class="sim_explanation">The direct proportionality between the force produced by the spring can be described by the following equation: $$ F = -k\Delta l$$</p>
+  <p class="sim_explanation">Where \(k\) is a constant that accounts for the stiffness(how difficult it is to deform) of the spring and where \(\Delta l\) is the length of the spring relative to the length where it produces no net force. $$\Delta l = l-l_0 $$ Where \( l_0\) and \(l\) are the equilibrium and current lengths of the spring. $$ F = -k(l-l_0) $$</p>
+  <p class="sim_explanation">Now things are about to become more intetesting because we are about to see how to apply this concept numerically to a spring positioned in a cartesian coordinate system. First suppose that the spring is attached orthogonally to a wall near the floor and that we start measuring the length of the spring from the wall along the axis of the spring as depicted in the image below. Let that be the x-axis of our coordinate system.</p>
+  <p class="sim_explanation">Here, due to the fact that the length is the value where the tip of the spring lies along the \(x\) axis, the formula from above becomes: $$ F=-k(x - x_0)$$</p>
+  <div style = "display: flex; justify-content: center;">
+    <svg id="first">
+      <path class="unit spring" id="first" d="M -0.5 0 L -0.4 0 L -0.3 -0.2 L -0.2 0.2 L -0.1 -0.2 L 0 0.2 L 0.1 -0.2 L 0.2 0.2 L 0.3 -0.2 L 0.4 0 L 0.5 0"></path>
+      <path class="unit square" id="first" d="M -0.5 0.5 L -0.5 -0.5 L 0.5 -0.5 L 0.5 0.5 Z"></path>
+      <path class="unit latex F" id="first" d="M -0.491 -0.499 Q -0.515 -0.499 -0.515 -0.484 Q -0.515 -0.482 -0.511 -0.465 Q -0.505 -0.442 -0.5 -0.439 T -0.467 -0.435 Q -0.429 -0.435 -0.382 -0.431 Q -0.363 -0.427 -0.356 -0.414 Q -0.353 -0.407 -0.255 -0.017 T -0.157 0.378 Q -0.157 0.388 -0.162 0.388 Q -0.174 0.392 -0.237 0.395 H -0.281 Q -0.289 0.403 -0.289 0.406 T -0.286 0.43 Q -0.281 0.454 -0.272 0.46 H 0.488 Q 0.498 0.454 0.498 0.444 Q 0.498 0.437 0.48 0.286 T 0.46 0.131 Q 0.457 0.121 0.432 0.121 H 0.415 Q 0.405 0.128 0.405 0.139 Q 0.405 0.141 0.409 0.173 T 0.414 0.248 Q 0.414 0.29 0.404 0.317 T 0.377 0.361 T 0.325 0.384 T 0.253 0.393 T 0.151 0.395 H 0.119 Q 0.003 0.393 -0.004 0.391 Q -0.011 0.388 -0.014 0.379 Q -0.015 0.378 -0.062 0.194 L -0.107 0.012 H -0.03 Q -0.025 0.012 0.003 0.012 T 0.042 0.014 T 0.073 0.018 T 0.107 0.028 T 0.131 0.045 Q 0.15 0.062 0.162 0.091 T 0.181 0.145 T 0.188 0.17 Q 0.192 0.177 0.215 0.177 H 0.232 Q 0.241 0.17 0.241 0.163 Q 0.241 0.159 0.198 -0.022 T 0.15 -0.208 Q 0.147 -0.218 0.121 -0.218 H 0.105 Q 0.095 -0.209 0.095 -0.201 Q 0.095 -0.197 0.102 -0.17 T 0.109 -0.113 Q 0.109 -0.072 0.081 -0.062 T -0.045 -0.053 H -0.123 L -0.168 -0.232 Q -0.213 -0.407 -0.213 -0.415 Q -0.213 -0.435 -0.087 -0.435 H -0.052 Q -0.044 -0.444 -0.044 -0.445 T -0.046 -0.473 Q -0.052 -0.492 -0.061 -0.5 H -0.085 Q -0.142 -0.497 -0.298 -0.497 Q -0.389 -0.497 -0.437 -0.497 T -0.491 -0.499 Z"></path>
+      <path class="unit arrow" id="first" d="M -0.488 -0.014 T -0.488 0 T -0.473 0.022 H 0.368 Q 0.241 0.118 0.211 0.267 Q 0.211 0.268 0.211 0.271 T 0.21 0.274 Q 0.21 0.287 0.229 0.287 H 0.232 Q 0.242 0.287 0.245 0.286 T 0.252 0.282 T 0.255 0.272 T 0.259 0.254 T 0.267 0.227 Q 0.292 0.153 0.348 0.095 T 0.479 0.012 Q 0.488 0.009 0.488 0 Q 0.488 -0.007 0.483 -0.01 T 0.457 -0.021 T 0.415 -0.042 Q 0.37 -0.07 0.337 -0.108 T 0.287 -0.181 T 0.264 -0.237 T 0.255 -0.271 Q 0.253 -0.282 0.25 -0.284 T 0.232 -0.287 Q 0.21 -0.287 0.21 -0.275 Q 0.21 -0.267 0.216 -0.247 Q 0.251 -0.109 0.368 -0.022 H -0.473 Q -0.488 -0.014 -0.488 0 Z"></path>
+      <path class="unit arrow" id="vec" d="M -0.488 -0.014 T -0.488 0 T -0.473 0.022 H 0.368 Q 0.241 0.118 0.211 0.267 Q 0.211 0.268 0.211 0.271 T 0.21 0.274 Q 0.21 0.287 0.229 0.287 H 0.232 Q 0.242 0.287 0.245 0.286 T 0.252 0.282 T 0.255 0.272 T 0.259 0.254 T 0.267 0.227 Q 0.292 0.153 0.348 0.095 T 0.479 0.012 Q 0.488 0.009 0.488 0 Q 0.488 -0.007 0.483 -0.01 T 0.457 -0.021 T 0.415 -0.042 Q 0.37 -0.07 0.337 -0.108 T 0.287 -0.181 T 0.264 -0.237 T 0.255 -0.271 Q 0.253 -0.282 0.25 -0.284 T 0.232 -0.287 Q 0.21 -0.287 0.21 -0.275 Q 0.21 -0.267 0.216 -0.247 Q 0.251 -0.109 0.368 -0.022 H -0.473 Q -0.488 -0.014 -0.488 0 Z"></path>
+      <path class="unit wall" id="first" d="M 0.5 -2 L 0.5 2 M -0.5 1.5 L 0.5 2 M -0.5 1 L 0.5 1.5 M -0.5 0.5 L 0.5 1 M -0.5 0 L 0.5 0.5 M -0.5 -0.5 L 0.5 0 M -0.5 -1 L 0.5 -0.5 M -0.5 -1.5 L 0.5 -1 M -0.5 -2 L 0.5 -1.5 M -0.5 -2.5 L 0.5 -2"></path>
+      <path class="unit axis" id="second" d="M -0.5 0 L 0.5 0 M -0.3 -0.05 L -0.3 0.05 M -0.1 -0.05 L -0.1 0.05 M 0.1 -0.05 L 0.1 0.05 M 0.3 -0.05 L 0.3 0.05 M 0.5 -0.05 L 0.5 0.05 L 0.6 0 Z M -0.4 -0.025 L -0.4 0.025 M -0.2 -0.025 L -0.2 0.025 M 0 -0.025 L 0 0.025 M 0.2 -0.025 L 0.2 0.025 M 0.4 -0.025 L 0.4 0.025"></path>
+      <path class="unit latex l" id="second" d="M -0.03 -0.414 Q -0.03 -0.462 0.007 -0.462 Q 0.06 -0.462 0.098 -0.309 Q 0.107 -0.28 0.113 -0.279 Q 0.116 -0.277 0.127 -0.277 H 0.133 Q 0.146 -0.277 0.151 -0.277 T 0.158 -0.28 T 0.161 -0.29 Q 0.159 -0.299 0.157 -0.314 T 0.141 -0.369 T 0.111 -0.437 T 0.066 -0.491 T -0.001 -0.516 Q -0.053 -0.516 -0.098 -0.484 T -0.145 -0.376 Q -0.145 -0.359 -0.143 -0.352 L -0.049 0.024 Q 0.043 0.395 0.043 0.407 Q 0.043 0.411 0.042 0.414 T 0.036 0.42 T 0.028 0.423 T 0.017 0.424 T 0.005 0.426 T -0.008 0.427 T -0.022 0.427 Q -0.037 0.427 -0.041 0.427 T -0.053 0.428 T -0.062 0.433 T -0.063 0.442 Q -0.063 0.444 -0.06 0.462 Q -0.053 0.49 -0.044 0.493 T 0.06 0.501 Q 0.082 0.503 0.11 0.504 T 0.154 0.509 T 0.17 0.51 Q 0.187 0.51 0.187 0.498 Q 0.187 0.482 0.081 0.062 T -0.028 -0.379 Q -0.028 -0.382 -0.028 -0.391 T -0.03 -0.405 V -0.414 Z"></path>
+
+      <path class="unit latex l" id="expression" d="M -0.03 -0.414 Q -0.03 -0.462 0.007 -0.462 Q 0.06 -0.462 0.098 -0.309 Q 0.107 -0.28 0.113 -0.279 Q 0.116 -0.277 0.127 -0.277 H 0.133 Q 0.146 -0.277 0.151 -0.277 T 0.158 -0.28 T 0.161 -0.29 Q 0.159 -0.299 0.157 -0.314 T 0.141 -0.369 T 0.111 -0.437 T 0.066 -0.491 T -0.001 -0.516 Q -0.053 -0.516 -0.098 -0.484 T -0.145 -0.376 Q -0.145 -0.359 -0.143 -0.352 L -0.049 0.024 Q 0.043 0.395 0.043 0.407 Q 0.043 0.411 0.042 0.414 T 0.036 0.42 T 0.028 0.423 T 0.017 0.424 T 0.005 0.426 T -0.008 0.427 T -0.022 0.427 Q -0.037 0.427 -0.041 0.427 T -0.053 0.428 T -0.062 0.433 T -0.063 0.442 Q -0.063 0.444 -0.06 0.462 Q -0.053 0.49 -0.044 0.493 T 0.06 0.501 Q 0.082 0.503 0.11 0.504 T 0.154 0.509 T 0.17 0.51 Q 0.187 0.51 0.187 0.498 Q 0.187 0.482 0.081 0.062 T -0.028 -0.379 Q -0.028 -0.382 -0.028 -0.391 T -0.03 -0.405 V -0.414 Z"></path>
+      <path class="unit latex l l_0" id="expression" d="M -0.03 -0.414 Q -0.03 -0.462 0.007 -0.462 Q 0.06 -0.462 0.098 -0.309 Q 0.107 -0.28 0.113 -0.279 Q 0.116 -0.277 0.127 -0.277 H 0.133 Q 0.146 -0.277 0.151 -0.277 T 0.158 -0.28 T 0.161 -0.29 Q 0.159 -0.299 0.157 -0.314 T 0.141 -0.369 T 0.111 -0.437 T 0.066 -0.491 T -0.001 -0.516 Q -0.053 -0.516 -0.098 -0.484 T -0.145 -0.376 Q -0.145 -0.359 -0.143 -0.352 L -0.049 0.024 Q 0.043 0.395 0.043 0.407 Q 0.043 0.411 0.042 0.414 T 0.036 0.42 T 0.028 0.423 T 0.017 0.424 T 0.005 0.426 T -0.008 0.427 T -0.022 0.427 Q -0.037 0.427 -0.041 0.427 T -0.053 0.428 T -0.062 0.433 T -0.063 0.442 Q -0.063 0.444 -0.06 0.462 Q -0.053 0.49 -0.044 0.493 T 0.06 0.501 Q 0.082 0.503 0.11 0.504 T 0.154 0.509 T 0.17 0.51 Q 0.187 0.51 0.187 0.498 Q 0.187 0.482 0.081 0.062 T -0.028 -0.379 Q -0.028 -0.382 -0.028 -0.391 T -0.03 -0.405 V -0.414 Z M 0.279 -0.275 Q 0.296 -0.25 0.325 -0.25 Q 0.339 -0.25 0.353 -0.258 T 0.377 -0.286 Q 0.388 -0.31 0.388 -0.354 Q 0.388 -0.401 0.375 -0.425 Q 0.369 -0.438 0.359 -0.445 T 0.34 -0.455 T 0.325 -0.457 Q 0.317 -0.457 0.309 -0.455 T 0.291 -0.445 T 0.275 -0.425 Q 0.262 -0.401 0.262 -0.354 Q 0.262 -0.302 0.279 -0.275 Z M 0.346 -0.271 Q 0.337 -0.261 0.325 -0.261 Q 0.312 -0.261 0.303 -0.271 Q 0.296 -0.279 0.293 -0.292 T 0.291 -0.35 Q 0.291 -0.398 0.293 -0.412 T 0.304 -0.436 Q 0.313 -0.445 0.325 -0.445 Q 0.337 -0.445 0.345 -0.436 Q 0.354 -0.427 0.356 -0.411 T 0.359 -0.35 Q 0.359 -0.307 0.356 -0.293 T 0.346 -0.271 Z"></path>
+      <path class="unit latex k" id="expression" d="M -0.219 0.471 Q -0.219 0.486 -0.213 0.505 T -0.195 0.525 Q -0.193 0.525 -0.087 0.532 T 0.023 0.541 Q 0.041 0.541 0.041 0.529 Q 0.041 0.518 -0.034 0.216 Q -0.109 -0.081 -0.109 -0.092 Q -0.081 -0.077 -0.066 -0.063 Q -0.03 -0.036 0.038 0.031 T 0.143 0.123 Q 0.203 0.163 0.257 0.163 Q 0.302 0.163 0.328 0.135 T 0.354 0.053 Q 0.354 0.016 0.344 -0.009 T 0.316 -0.047 T 0.284 -0.063 T 0.257 -0.068 Q 0.227 -0.068 0.209 -0.051 T 0.191 -0.008 Q 0.191 0.03 0.215 0.053 T 0.263 0.085 L 0.287 0.09 Q 0.269 0.108 0.251 0.108 H 0.245 Q 0.197 0.103 0.15 0.07 T 0.041 -0.026 T -0.058 -0.117 Q -0.055 -0.119 -0.036 -0.122 T 0.001 -0.131 T 0.039 -0.143 T 0.08 -0.164 T 0.113 -0.191 T 0.138 -0.23 T 0.147 -0.28 Q 0.147 -0.305 0.14 -0.341 T 0.131 -0.401 Q 0.131 -0.461 0.171 -0.461 Q 0.243 -0.461 0.288 -0.283 Q 0.291 -0.27 0.319 -0.27 H 0.324 Q 0.348 -0.27 0.348 -0.284 Q 0.348 -0.291 0.344 -0.305 Q 0.282 -0.516 0.167 -0.516 Q 0.1 -0.516 0.057 -0.477 T 0.016 -0.365 Q 0.016 -0.338 0.02 -0.319 T 0.025 -0.283 Q 0.025 -0.249 0.004 -0.225 T -0.049 -0.191 T -0.1 -0.174 T -0.127 -0.17 H -0.13 Q -0.148 -0.233 -0.162 -0.291 T -0.183 -0.378 T -0.196 -0.434 T -0.207 -0.47 T -0.217 -0.489 T -0.234 -0.503 Q -0.253 -0.516 -0.276 -0.516 Q -0.301 -0.516 -0.315 -0.501 T -0.328 -0.476 Q -0.328 -0.461 -0.273 -0.236 T -0.163 0.207 L -0.108 0.424 Q -0.106 0.444 -0.118 0.448 T -0.177 0.456 H -0.184 Q -0.199 0.456 -0.204 0.456 T -0.214 0.46 T -0.219 0.471 Z"></path>
+      <path class="unit latex min" id="expression" d="M -0.493 -0.022 T -0.493 0 T -0.47 0.033 H 0.498 Q 0.523 0.02 0.523 0 T 0.498 -0.033 H -0.47 Q -0.493 -0.022 -0.493 0 Z"></path>
+      <path class="unit latex min2" id="expression" d="M -0.493 -0.022 T -0.493 0 T -0.47 0.033 H 0.498 Q 0.523 0.02 0.523 0 T 0.498 -0.033 H -0.47 Q -0.493 -0.022 -0.493 0 Z"></path>
+      <path class="unit latex eq" id="expression" d="M -0.469 0.15 Q -0.469 0.168 -0.449 0.178 H 0.468 Q 0.49 0.167 0.49 0.15 Q 0.49 0.134 0.47 0.122 L 0.012 0.121 H -0.446 Q -0.469 0.128 -0.469 0.15 Z M -0.469 -0.13 Q -0.469 -0.108 -0.446 -0.101 H 0.47 Q 0.49 -0.115 0.49 -0.13 Q 0.49 -0.148 0.468 -0.158 H -0.449 Q -0.469 -0.148 -0.469 -0.13 Z"></path>
+      <path class="unit latex brac_left" id="expression" d="M -0.106 0.03 Q -0.106 0.099 -0.096 0.161 T -0.073 0.268 T -0.036 0.356 T 0.002 0.423 T 0.044 0.475 T 0.077 0.509 T 0.102 0.53 H 0.115 H 0.119 Q 0.133 0.53 0.133 0.521 Q 0.133 0.518 0.116 0.5 T 0.075 0.447 T 0.026 0.361 T -0.016 0.223 T -0.033 0.03 T -0.016 -0.162 T 0.025 -0.301 T 0.074 -0.387 T 0.116 -0.44 T 0.133 -0.461 Q 0.133 -0.47 0.118 -0.47 H 0.115 H 0.102 L 0.074 -0.446 Q -0.02 -0.361 -0.063 -0.234 T -0.106 0.03 Z"></path>
+      <path class="unit latex brac_right" id="expression" d="M -0.106 0.03 Q -0.106 0.099 -0.096 0.161 T -0.073 0.268 T -0.036 0.356 T 0.002 0.423 T 0.044 0.475 T 0.077 0.509 T 0.102 0.53 H 0.115 H 0.119 Q 0.133 0.53 0.133 0.521 Q 0.133 0.518 0.116 0.5 T 0.075 0.447 T 0.026 0.361 T -0.016 0.223 T -0.033 0.03 T -0.016 -0.162 T 0.025 -0.301 T 0.074 -0.387 T 0.116 -0.44 T 0.133 -0.461 Q 0.133 -0.47 0.118 -0.47 H 0.115 H 0.102 L 0.074 -0.446 Q -0.02 -0.361 -0.063 -0.234 T -0.106 0.03 Z"></path>
+      <path class="unit latex F" id="expression" d="M -0.491 -0.499 Q -0.515 -0.499 -0.515 -0.484 Q -0.515 -0.482 -0.511 -0.465 Q -0.505 -0.442 -0.5 -0.439 T -0.467 -0.435 Q -0.429 -0.435 -0.382 -0.431 Q -0.363 -0.427 -0.356 -0.414 Q -0.353 -0.407 -0.255 -0.017 T -0.157 0.378 Q -0.157 0.388 -0.162 0.388 Q -0.174 0.392 -0.237 0.395 H -0.281 Q -0.289 0.403 -0.289 0.406 T -0.286 0.43 Q -0.281 0.454 -0.272 0.46 H 0.488 Q 0.498 0.454 0.498 0.444 Q 0.498 0.437 0.48 0.286 T 0.46 0.131 Q 0.457 0.121 0.432 0.121 H 0.415 Q 0.405 0.128 0.405 0.139 Q 0.405 0.141 0.409 0.173 T 0.414 0.248 Q 0.414 0.29 0.404 0.317 T 0.377 0.361 T 0.325 0.384 T 0.253 0.393 T 0.151 0.395 H 0.119 Q 0.003 0.393 -0.004 0.391 Q -0.011 0.388 -0.014 0.379 Q -0.015 0.378 -0.062 0.194 L -0.107 0.012 H -0.03 Q -0.025 0.012 0.003 0.012 T 0.042 0.014 T 0.073 0.018 T 0.107 0.028 T 0.131 0.045 Q 0.15 0.062 0.162 0.091 T 0.181 0.145 T 0.188 0.17 Q 0.192 0.177 0.215 0.177 H 0.232 Q 0.241 0.17 0.241 0.163 Q 0.241 0.159 0.198 -0.022 T 0.15 -0.208 Q 0.147 -0.218 0.121 -0.218 H 0.105 Q 0.095 -0.209 0.095 -0.201 Q 0.095 -0.197 0.102 -0.17 T 0.109 -0.113 Q 0.109 -0.072 0.081 -0.062 T -0.045 -0.053 H -0.123 L -0.168 -0.232 Q -0.213 -0.407 -0.213 -0.415 Q -0.213 -0.435 -0.087 -0.435 H -0.052 Q -0.044 -0.444 -0.044 -0.445 T -0.046 -0.473 Q -0.052 -0.492 -0.061 -0.5 H -0.085 Q -0.142 -0.497 -0.298 -0.497 Q -0.389 -0.497 -0.437 -0.497 T -0.491 -0.499 Z"></path>
+
+      <path class="unit latex x" id="second" d="M -0.446 0.178 Q -0.432 0.262 -0.338 0.372 T -0.106 0.484 Q -0.036 0.484 0.022 0.448 T 0.108 0.358 Q 0.192 0.484 0.31 0.484 Q 0.384 0.484 0.438 0.44 T 0.494 0.322 Q 0.494 0.264 0.466 0.228 T 0.412 0.184 T 0.366 0.176 Q 0.328 0.176 0.304 0.198 T 0.28 0.256 Q 0.28 0.348 0.38 0.382 Q 0.358 0.408 0.3 0.408 Q 0.274 0.408 0.262 0.404 Q 0.186 0.372 0.15 0.272 Q 0.03 -0.17 0.03 -0.244 Q 0.03 -0.3 0.062 -0.324 T 0.132 -0.348 Q 0.206 -0.348 0.278 -0.282 T 0.376 -0.12 Q 0.382 -0.1 0.388 -0.098 T 0.42 -0.094 H 0.428 Q 0.458 -0.094 0.458 -0.11 Q 0.458 -0.112 0.454 -0.132 Q 0.422 -0.246 0.33 -0.334 T 0.116 -0.422 Q -0.024 -0.422 -0.096 -0.296 Q -0.178 -0.42 -0.284 -0.42 H -0.296 Q -0.394 -0.42 -0.436 -0.368 T -0.48 -0.258 Q -0.48 -0.194 -0.442 -0.154 T -0.352 -0.114 Q -0.266 -0.114 -0.266 -0.198 Q -0.266 -0.238 -0.29 -0.268 T -0.336 -0.308 T -0.362 -0.318 L -0.368 -0.32 Q -0.368 -0.322 -0.356 -0.328 T -0.324 -0.342 T -0.286 -0.348 Q -0.214 -0.348 -0.162 -0.258 Q -0.144 -0.226 -0.116 -0.122 T -0.06 0.094 T -0.028 0.226 Q -0.018 0.28 -0.018 0.304 Q -0.018 0.36 -0.048 0.384 T -0.116 0.408 Q -0.196 0.408 -0.266 0.344 T -0.364 0.18 Q -0.368 0.162 -0.374 0.16 T -0.406 0.156 H -0.434 Q -0.446 0.168 -0.446 0.178 Z"></path>
+      <path class="unit latex l l_0" id="second" d="M -0.03 -0.414 Q -0.03 -0.462 0.007 -0.462 Q 0.06 -0.462 0.098 -0.309 Q 0.107 -0.28 0.113 -0.279 Q 0.116 -0.277 0.127 -0.277 H 0.133 Q 0.146 -0.277 0.151 -0.277 T 0.158 -0.28 T 0.161 -0.29 Q 0.159 -0.299 0.157 -0.314 T 0.141 -0.369 T 0.111 -0.437 T 0.066 -0.491 T -0.001 -0.516 Q -0.053 -0.516 -0.098 -0.484 T -0.145 -0.376 Q -0.145 -0.359 -0.143 -0.352 L -0.049 0.024 Q 0.043 0.395 0.043 0.407 Q 0.043 0.411 0.042 0.414 T 0.036 0.42 T 0.028 0.423 T 0.017 0.424 T 0.005 0.426 T -0.008 0.427 T -0.022 0.427 Q -0.037 0.427 -0.041 0.427 T -0.053 0.428 T -0.062 0.433 T -0.063 0.442 Q -0.063 0.444 -0.06 0.462 Q -0.053 0.49 -0.044 0.493 T 0.06 0.501 Q 0.082 0.503 0.11 0.504 T 0.154 0.509 T 0.17 0.51 Q 0.187 0.51 0.187 0.498 Q 0.187 0.482 0.081 0.062 T -0.028 -0.379 Q -0.028 -0.382 -0.028 -0.391 T -0.03 -0.405 V -0.414 Z M 0.279 -0.275 Q 0.296 -0.25 0.325 -0.25 Q 0.339 -0.25 0.353 -0.258 T 0.377 -0.286 Q 0.388 -0.31 0.388 -0.354 Q 0.388 -0.401 0.375 -0.425 Q 0.369 -0.438 0.359 -0.445 T 0.34 -0.455 T 0.325 -0.457 Q 0.317 -0.457 0.309 -0.455 T 0.291 -0.445 T 0.275 -0.425 Q 0.262 -0.401 0.262 -0.354 Q 0.262 -0.302 0.279 -0.275 Z M 0.346 -0.271 Q 0.337 -0.261 0.325 -0.261 Q 0.312 -0.261 0.303 -0.271 Q 0.296 -0.279 0.293 -0.292 T 0.291 -0.35 Q 0.291 -0.398 0.293 -0.412 T 0.304 -0.436 Q 0.313 -0.445 0.325 -0.445 Q 0.337 -0.445 0.345 -0.436 Q 0.354 -0.427 0.356 -0.411 T 0.359 -0.35 Q 0.359 -0.307 0.356 -0.293 T 0.346 -0.271 Z"></path>
+      <path class="unit latex fancy_bracket" id="expression" d="M 0.184 -0.481 Q 0.184 -0.494 0.178 -0.5 H 0.16 Q 0.031 -0.5 -0.02 -0.434 Q -0.025 -0.427 -0.028 -0.422 T -0.033 -0.411 T -0.037 -0.398 T -0.039 -0.383 T -0.04 -0.361 T -0.041 -0.334 T -0.041 -0.297 T -0.041 -0.25 Q -0.041 -0.229 -0.041 -0.197 Q -0.042 -0.108 -0.046 -0.097 Q -0.047 -0.096 -0.047 -0.095 Q -0.061 -0.059 -0.097 -0.039 T -0.168 -0.019 Q -0.179 -0.019 -0.182 -0.016 T -0.185 0 T -0.182 0.016 T -0.168 0.019 Q -0.134 0.019 -0.098 0.039 T -0.047 0.095 Q -0.042 0.106 -0.042 0.127 T -0.041 0.279 V 0.329 Q -0.041 0.384 -0.035 0.406 T -0.006 0.448 Q 0.02 0.474 0.074 0.49 Q 0.111 0.498 0.127 0.499 Q 0.129 0.499 0.14 0.499 T 0.158 0.5 H 0.178 Q 0.184 0.494 0.184 0.482 Q 0.184 0.469 0.181 0.466 Q 0.179 0.463 0.165 0.463 Q 0.112 0.46 0.082 0.439 T 0.046 0.397 Q 0.041 0.384 0.041 0.249 V 0.167 Q 0.041 0.12 0.038 0.103 T 0.021 0.064 Q -0.01 0.021 -0.066 0.005 L -0.08 0 L -0.066 -0.005 Q -0.048 -0.011 -0.03 -0.02 T 0.012 -0.054 T 0.04 -0.113 Q 0.041 -0.119 0.041 -0.249 Q 0.041 -0.384 0.046 -0.397 Q 0.056 -0.424 0.089 -0.442 T 0.165 -0.463 Q 0.179 -0.463 0.181 -0.466 Q 0.184 -0.469 0.184 -0.481 Z"></path>
+    </svg>
+  </div>
+  <p class="sim_explanation">Notes on good practice and on the simulation on the top of this page: </p>
+  <p class="sim_explanation">The note on good practice is that you should keep in mind that Hooke's law describes the relationship between the change in the <em>length</em> of the spring to the force it applies in response. Not to the change in position along some axis from equilibrium. In the coordinate system that I presented above, it just happens that the spring is parallel to the \(x\)-axis, but if that was not the case one would have to use trigonometry to obtain the lengths and the direction of the force produced by the spring.</p>
+  <p class="sim_explanation">The note on the simulation is that I presented it as a 1 dimensional simulation. Therefore trigonometry was not used to account for situations where the spring is not perpendicular to the dispacement. The spring presented in the simulation treats the displacements along the \(x\) and \(y\) axis completely independently. A more appropriate depiction of what has been modelled in the simulation can be found below and the proper treatment of hooke's law in more than one dimension can be in an upcoming simulation. </p>
+  <div style = "display: flex; justify-content: center;">
+    <svg id="first">
+      <path class="unit spring" id="third" d="M -0.5 0 L -0.4 0 L -0.3 -0.2 L -0.2 0.2 L -0.1 -0.2 L 0 0.2 L 0.1 -0.2 L 0.2 0.2 L 0.3 -0.2 L 0.4 0 L 0.5 0"></path>
+      <path class="unit square" id="third" d="M -0.5 0.5 L -0.5 -0.5 L 0.5 -0.5 L 0.5 0.5 Z"></path>
+      <path class="unit spring2" id="third" d="M -0.5 0 L -0.4 0 L -0.3 -0.2 L -0.2 0.2 L -0.1 -0.2 L 0 0.2 L 0.1 -0.2 L 0.2 0.2 L 0.3 -0.2 L 0.4 0 L 0.5 0"></path>
+      <path class="unit latex min3" id="third" d="M -0.493 -0.022 T -0.493 0 T -0.47 0.033 H 0.498 Q 0.523 0.02 0.523 0 T 0.498 -0.033 H -0.47 Q -0.493 -0.022 -0.493 0 Z"></path>
+      <path class="unit latex min4" id="third" d="M -0.493 -0.022 T -0.493 0 T -0.47 0.033 H 0.498 Q 0.523 0.02 0.523 0 T 0.498 -0.033 H -0.47 Q -0.493 -0.022 -0.493 0 Z"></path>
+      <circle class="wheel" cx="0" cy="0" r=".5"></circle>
+      <circle class="wheel2" cx="0" cy="0" r=".5"></circle>
+    </svg>
+  </div>
+</body>
